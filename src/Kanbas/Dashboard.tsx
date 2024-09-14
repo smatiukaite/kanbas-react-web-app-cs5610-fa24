@@ -7,7 +7,7 @@ export default function Dashboard() {
             <div id="wd-dashboard-courses">
                 {/* Course #1 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic1.jpg" width={200} />
+                    <img src="/images/pic1.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -21,7 +21,7 @@ export default function Dashboard() {
                 </div>
                 {/* Cour #2 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic2.jpg" width={200} />
+                    <img src="/images/pic2.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -34,7 +34,7 @@ export default function Dashboard() {
                     </div> </div>
                 {/* Course #3 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic3.jpg" width={200} />
+                    <img src="/images/pic3.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
                 {/* Course #4 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic4.jpg" width={200} />
+                    <img src="/images/pic4.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
                 {/* Course #5 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic5.jpg" width={200} />
+                    <img src="/images/pic5.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -79,7 +79,7 @@ export default function Dashboard() {
 
                 {/* Course #6 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic6.jpg" width={200} />
+                    <img src="/images/pic6.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -94,7 +94,7 @@ export default function Dashboard() {
 
                 {/* Course #7 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic7.jpg" width={200} />
+                    <img src="/images/pic7.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -109,7 +109,7 @@ export default function Dashboard() {
 
                 {/* Course #8 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic8.jpg" width={200} />
+                    <img src="/images/pic8.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
@@ -124,7 +124,7 @@ export default function Dashboard() {
 
                 {/* Course #9 */}
                 <div className="wd-dashboard-course">
-                    <img src="/images/pic9.jpg" width={200} />
+                    <img src="/images/pic9.jpg" alt="" width={200} />
                     <div>
                         <Link className="wd-dashboard-course-link"
                             to="/Kanbas/Courses/1234/Home">
