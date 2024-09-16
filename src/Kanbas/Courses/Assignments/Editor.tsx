@@ -19,7 +19,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-points">Points</label>
                     </td>
                     <td align="left">
-                        <input id="wd-points" value={100} />
+                        <input id="wd-points" value={100} type="number" />
                     </td>
                 </tr><br />
 
@@ -103,28 +103,36 @@ export default function AssignmentEditor() {
                             id="wd-due-date"
                             value="2024-05-13" /><br /><br />
 
-                        <td>
-                            <label htmlFor="wd-available-from">Available from </label>
-                            <label htmlFor="wd-available-until">Until</label>
-
-                            <td align="left"></td>
-                            <input type="date"
-                                id="wd-available-from"
-                                value="2024-05-06" />
-
-                            <input type="date"
-                                id="wd-vailable-until"
-                                value="2024-05-20" /><br />
-                        </td>
-
-                    </td>
+                        <table border={0} width="10%">
+                            <thead>
+                                <tr>
+                                    <td>Available from </td>
+                                    <td>Until</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="date"
+                                            id="wd-vailable-until"
+                                            value="2024-05-20" />
+                                    </td>
+                                    <td>
+                                        <input type="date"
+                                            id="wd-available-from"
+                                            value="2024-05-06" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td> 
                 </tr>
             </table>
-            <center>
 
+            <center>
                 <button>Cancel</button> <button>Save</button>
             </center>
-            
+
         </div>
     );
 }
