@@ -48,7 +48,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 3</div>
+          <div className="wd-title">Week 3, Lecture 3 - Styling User Interfaces with CSS, Assignment 2</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">SLIDES</span>
@@ -60,7 +60,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 4</div>
+          <div className="wd-title">Week 4, Lecture 4 - Implementing Responsive User Interfaces</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
@@ -72,7 +72,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 5</div>
+          <div className="wd-title">Week 5, Lecture 5 - Programming User Interfaces with JavaScript, Assignment 3</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
@@ -84,7 +84,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 6</div>
+          <div className="wd-title">Week 6, Lecture 6 - Implementing React.js User Interfaces</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
@@ -96,7 +96,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 7</div>
+          <div className="wd-title">Week 7, Lecture 7 - Implementing User Interface State with Hooks and Redux, Assignment 4</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
@@ -108,7 +108,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 8</div>
+          <div className="wd-title">Week 8 - Exam 1, Redux</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
@@ -120,7 +120,7 @@ export default function Modules() {
           </ul>
         </li>
         <li className="wd-module">
-          <div className="wd-title">Week 9</div>
+          <div className="wd-title">Week 9, Lecture 8 - Implementing Node Web Server APIs, Assignment 5</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>

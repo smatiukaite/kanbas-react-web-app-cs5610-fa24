@@ -93,9 +93,21 @@ export default function AssignmentEditor() {
                     <td>
                         <label htmlFor="wd-assign-to">Assign to</label>
                         <td>
+
                             <input type="text"
                                 placeholder="Everyone"
-                                id="wd-assign-to" /><br />
+                                id="wd-assign-to" /><br /><br></br>
+
+                            <select id="wd-assign-to" multiple>
+                                <option value="Everyone">Everyone</option>
+                                <option value="Amy Sanders">Amy Sanders</option>
+                                <option value="Hans Zimmer">Hans Zimmer</option>
+                                <option value="Joe Koleman">Joe Koleman</option>
+                                <option value="Katie Smith">Katie Smith</option>
+                                <option value="Rcule Poirot">Rcule Poirot</option>
+                                <option value="Ruth Johns">Ruth Johns</option>
+                            </select>
+
                         </td><br />
 
                         <label htmlFor="wd-due-date">Due</label><br />
@@ -125,7 +137,7 @@ export default function AssignmentEditor() {
                                 </tr>
                             </tbody>
                         </table>
-                    </td> 
+                    </td>
                 </tr>
             </table>
 
