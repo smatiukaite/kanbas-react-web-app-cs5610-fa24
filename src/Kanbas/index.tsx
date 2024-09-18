@@ -9,6 +9,7 @@ import Studio from "./Studio";
 import History from "./History";
 import Help from "./Help";
 
+
 export default function Kanbas() {
   return (
     <div id="wd-kanbas">
