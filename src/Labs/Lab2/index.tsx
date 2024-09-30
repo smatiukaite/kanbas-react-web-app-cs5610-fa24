@@ -8,6 +8,10 @@ import Margins from "./Margins";
 import Corners from "./Corners";
 import Dimentions from "./Dimetions";
 import Positions from "./Positions";
+import Zindex from "./Zindex";
+import Float from "./Float";
+import GridLayout from "./GridLayout";
+import Flex from "./Flex";
 
 export default function Lab2() {
   return (
@@ -118,11 +122,41 @@ export default function Lab2() {
         <Dimentions />
       </div>
 
-      {/* 3.1.13 */}
+      {/* 3.1.13 - 3.1.15*/}
       <div>
-        <h5>3.1.13</h5>
+        <h5>3.1.13 - 3.1.15</h5>
         <Positions />
       </div>
+
+      {/* 3.1.16 */}
+      <div>
+        <h5>3.1.16</h5>
+        <Zindex />
+      </div>
+
+      {/* 3.1.17 */}
+      <div>
+        <h5>3.1.17</h5>
+        <Float />
+      </div>
+
+      {/* 3.1.18 */}
+      <div>
+        <h5>3.1.18</h5>
+        <GridLayout />
+      </div>
+
+      {/* 3.1.19 */}
+      <div>
+        <h5>3.1.19</h5>
+        <Flex />
+      </div>
+
+
+
+
+
+
 
 
 
