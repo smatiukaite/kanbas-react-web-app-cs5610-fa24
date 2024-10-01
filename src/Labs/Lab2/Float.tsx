@@ -15,6 +15,5 @@ export default function Float() {
                 <div className="wd-float-done"></div>
             </div>
         </div>
-
     )
 }
