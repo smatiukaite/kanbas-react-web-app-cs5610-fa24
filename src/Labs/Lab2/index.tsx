@@ -12,6 +12,7 @@ import Zindex from "./Zindex";
 import Float from "./Float";
 import GridLayout from "./GridLayout";
 import Flex from "./Flex";
+import ReactIcons from "./ReactIcons";
 
 export default function Lab2() {
   return (
@@ -152,8 +153,11 @@ export default function Lab2() {
         <Flex />
       </div>
 
-
-
+      {/* 3.2 */}
+      <div>
+        <h5>3.2</h5>
+        <ReactIcons />
+      </div>
 
 
 
