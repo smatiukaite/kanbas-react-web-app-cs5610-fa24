@@ -7,16 +7,15 @@ import { BsClockHistory } from "react-icons/bs";
 import { PiMonitorPlay } from "react-icons/pi";
 import { MdOutlineHelpOutline } from "react-icons/md";
 import { FiInbox } from "react-icons/fi";
-import { CgPushLeft } from "react-icons/cg";
 
 export default function KanbasNavigation() {
   return (
     <div id="wd-kanbas-navigation" style={{ width: 105}}
       className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2">
-      <a id="wd-neu-link" target="_blank"
+      <a id="wd-neu-link" target="_blank" rel="noreferrer"
         href="https://www.northeastern.edu/"
         className="list-group-item bg-black border-0 text-center">
-        <img src="/images/NU_RGB_Notched-N_motto_RW.png" width="75px" /></a>
+        <img src="/images/NU_RGB_Notched-N_motto_RW.png" alt="NU logo" width="75px" /></a>
       
       <Link to="/Kanbas/Account" id="wd-account-link"
         className="list-group-item text-center border-0 bg-black text-white">
@@ -58,10 +57,6 @@ export default function KanbasNavigation() {
         <MdOutlineHelpOutline className="fs-3 text-danger" /><br />
       Help </Link>
       
-      {/* <Link to="" id=""
-        className="list-group-item text-white bg-black text-center border-0">
-        <CgPushLeft className="fs-1 text-danger" /><br />
-      </Link> */}
     </div>
   );
 }
