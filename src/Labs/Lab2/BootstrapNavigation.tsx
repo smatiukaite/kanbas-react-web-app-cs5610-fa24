@@ -23,7 +23,7 @@ export default function BootstrapNavigation() {
                 <div className="card"
                     style={{ width: "18rem" }}>
                     <img src="images/pic2.jpg"
-                        className="card-img-top" />
+                        className="card-img-top" alt="Autumn"/>
                     <div className="card-body">
                         <h5 className="card-title">
                             Stacking Starship
