@@ -4,15 +4,15 @@ export default function BootstrapNavigation() {
             <h2>Tabs</h2>
             <ul className="nav nav-tabs">
                 <li className="nav-item">
-                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link active" href="Active">Active</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Lab1</a>
+                    <a className="nav-link" href="Lab1">Lab1</a>
                 </li><li className="nav-item">
-                    <a className="nav-link" href="#">Lab3</a>
+                    <a className="nav-link" href="Lab3">Lab3</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link disabled" href="Disabled">Disabled</a>
                 </li>
             </ul>
 
@@ -31,7 +31,7 @@ export default function BootstrapNavigation() {
                         <p className="card-text">
                             Stacking the most powerful rocket in history. Mars or bust!
                         </p>
-                        <a href="#" className="btn btn-primary">
+                        <a href="bnt" className="btn btn-primary">
                             Boldly Go
                         </a>
                     </div>
