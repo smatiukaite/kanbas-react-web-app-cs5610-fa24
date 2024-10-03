@@ -1,0 +1,20 @@
+.wd-dimension-portrait {
+    width: 20px;
+    height: 10px;
+}
+
+.wd-dimension-landscape {
+    width: 20px;
+    height: 10px;
+}
+
+.wd-dimension-square {
+    width: 75px;
+    height: 10px;
+}
+
+.wd-rounded-corners-all-around {
+    border-radius: 1px;
+    width:fit-content;
+}
+
