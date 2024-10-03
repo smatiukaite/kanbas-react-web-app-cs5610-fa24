@@ -20,3 +20,79 @@ body * {
     background-color: white;
     border-left: 3px solid black !important;
 }
+
+/* Dashboard Navigation when active
+.wd-dashboard-link>.list-group-item.active {
+    background-color: white;
+    color: red;
+    text-align: center;
+    border-radius: 0;
+} */
+
+/*Module buttons grey */
+.wd-grey-buttons {
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #cdcfd0;
+    margin-bottom: 5px;
+    width: 240px;
+    text-align: left;
+}
+
+.wd-small-grey-buttons {
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #cdcfd0;
+    margin-bottom: 5px;
+    text-align: center;
+    margin-right: 5px;
+    width: 120px;
+}
+
+.wd-green-button {
+    background-color: #188752;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #188752;
+    margin-bottom: 5px;
+    color: white;
+    width: 120px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    font-family:
+        Arial, Helvetica,
+        sans-serif;
+}
+
+@media (min-width: 768px) {
+    #wd-kanbas .wd-main-content-offset {
+        padding-left: 140px !important;
+    }
+}
+
+.btn-secondary {
+    --bs-btn-color: #000 !important;
+    --bs-btn-bg: #c7cdd1 !important;
+    --bs-btn-border-color: #c7cdd1 !important;
+    --bs-btn-hover-color: #fff !important;
+}
+
+.bg-secondary {
+    --bs-secondary-rgb: 199, 205, 209;
+}
+
+.list-group-item {
+    --bs-list-group-border-color: gray;
+}
+
+.wd-lesson {
+    border-left: 3px solid green !important;
+}

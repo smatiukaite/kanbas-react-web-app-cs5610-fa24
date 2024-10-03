@@ -1,18 +1,11 @@
+import ModulesControls from "./ModulesControls";
+
 export default function Modules() {
   return (
     <div>
-      <button>Collapse All</button> <button>View Progress</button> {" "}
+      <ModulesControls />
 
-      <select id="wd-select-one-genre">
-        <option value="CHOICE 1">Choice 1</option>
-        <option value="CHOICE 2">Choice 2</option>
-        <option selected value="PUBLISH ALL">
-          Publish All</option>
-        <option value="CHOICE 3">Choice 3</option>
-      </select>
-      {" "}
-      <button>+ Module</button>
-      
+      <br></br>
       <ul id="wd-modules">
         <li className="wd-module">
           <div className="wd-title">Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda</div>
