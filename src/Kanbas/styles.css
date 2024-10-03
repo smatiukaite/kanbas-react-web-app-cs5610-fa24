@@ -1,3 +1,4 @@
+/* Kanbas Navigation */
 body {
     margin: 0;
     padding: 0;
@@ -11,4 +12,11 @@ body * {
     #wd-kanbas .wd-main-content-offset {
         padding-left: 140px !important;
     }
+}
+
+/* Courses Navigation */
+.list-group.wd>.list-group-item.active {
+    color: black;
+    background-color: white;
+    border-left: 3px solid black !important;
 }
