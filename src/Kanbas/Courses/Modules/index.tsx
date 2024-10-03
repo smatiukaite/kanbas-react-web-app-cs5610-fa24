@@ -3,10 +3,8 @@ import ModulesControls from "./ModulesControls";
 export default function Modules() {
   return (
     <div>
-      <ModulesControls />
-
-      <br></br>
-      <ul id="wd-modules">
+     <ModulesControls /><br /><br /><br /><br />
+      <ul id="wd-modules" className="list-group rounded-0">
         <li className="wd-module">
           <div className="wd-title">Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda</div>
           <ul className="wd-lessons">
