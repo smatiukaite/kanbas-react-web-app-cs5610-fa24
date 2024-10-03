@@ -1,11 +1,4 @@
 import { MdOutlineUnpublished, MdOutlinePublishedWithChanges } from "react-icons/md";
-import { FaFileImport } from "react-icons/fa6";
-import { BsBoxArrowInLeft } from "react-icons/bs";
-import { MdHome } from "react-icons/md";
-import { FaChartSimple } from "react-icons/fa6";
-import { TfiAnnouncement } from "react-icons/tfi";
-import { GrAnalytics } from "react-icons/gr";
-import { IoIosNotifications } from "react-icons/io";
 
 export default function CourseStatus() {
   return (
@@ -17,7 +10,7 @@ export default function CourseStatus() {
         <MdOutlinePublishedWithChanges /> Publish</button>
 
       <div>
-        <br></br>
+        {/* <br></br>
         <div>
           <button className="wd-grey-buttons">
             <FaFileImport /> Import Existing Content</button>
@@ -51,7 +44,7 @@ export default function CourseStatus() {
         <div>
           <button className="wd-grey-buttons">
             <IoIosNotifications /> View Course Notifications</button>
-        </div>
+        </div> */} 
 
       </div>
     </div>
