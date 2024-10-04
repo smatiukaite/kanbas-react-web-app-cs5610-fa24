@@ -15,6 +15,143 @@
 
 .wd-rounded-corners-all-around {
     border-radius: 1px;
-    width:fit-content;
+    width: fit-content;
 }
 
+/* Two boxes in the Editor */
+.wd-date-picker {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+}
+
+.wd-custom-box {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.wd-custom-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.wd-custom-button {
+    width: 6%;
+    margin-right: 5px;
+}
+
+.wd-bold-text {
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.wd-regular-text-padding {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+/* For two date tabs */
+.wd-custom-date-container {
+    display: flex;
+    gap: 20px;
+}
+
+.wd-two-custom-date-containers {
+    flex: 1;
+}
+
+.wd-container-margins {
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 2%;
+}
+
+.wd-between-elements-margins {
+    margin-bottom: 2%;
+}
+
+.wd-container-size {
+    width: 80%;
+}
+
+.wd-container-borders {
+    border-color: #ccc;
+    border-width: 1px;
+    border-style: solid;
+    padding-top: 1.5%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+}
+
+/* Assignments page css */
+.wd-float-left {
+    float: left;
+}
+
+.wd-float-right {
+    float: right;
+    height: 50px;
+}
+
+.wd-float-done {
+    clear: both;
+}
+
+.wd-bold-text2 {
+    font-weight: bold;
+    font-size: 19px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.wd-border-text {
+    border-radius: 50px;
+    border: 1px solid aliceblue;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.wd-padding {
+    padding-left: 1.5%;
+}
+
+.wd-title-texts {
+    font-size: 19px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.wd-bottom_padding {
+    bottom: 1px;
+}
+
+.wd-subtext {
+    font-size: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    color: red;
+}
+
+/* Search and the magnifier */
+.wd-pos-relative-nudge-up-right {
+    position: relative;
+    bottom: 16px;
+    left: 27px;
+}
+
+.wd-pos-relative-nudge-down-right {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.wd-pos-relative {
+    position: relative;
+}

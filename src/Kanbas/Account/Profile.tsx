@@ -23,7 +23,7 @@ export default function Profile() {
                 className="form-control mb-2" />
             <input id="wd-email"
                 type="email"
-                placeholder="email"
+                placeholder="email@example.com"
                 className="form-control mb-2" />
 
             <div id="wd-css-styling-dropdowns">
