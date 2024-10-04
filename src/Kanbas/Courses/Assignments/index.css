@@ -155,3 +155,7 @@
 .wd-pos-relative {
     position: relative;
 }
+
+.wd-course-status{
+    width: 300px;
+}
