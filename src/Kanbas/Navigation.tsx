@@ -23,7 +23,7 @@ export default function KanbasNavigation() {
   return (
     <div id="wd-kanbas-navigation" style={{ width: 105 }}
       className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2">
-      <a id="wd-neu-link" target="_blank" href="https://www.northeastern.edu/"
+      <a id="wd-neu-link" target="_blank" rel="noregerrer" href="https://www.northeastern.edu/"
         className="list-group-item bg-black border-0 text-center">
         <img src="/images/NU_RGB_Notched-N_motto_RW.png" alt="NU logo" width="75px" /></a>
         
