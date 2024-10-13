@@ -26,6 +26,7 @@ import TodoItem from "./todos/TodoItem";
 import TodoList from "./todos/TodoList";
 import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
+import Add from "./Add";
 
 export default function Lab3() {
     return (
@@ -59,6 +60,7 @@ export default function Lab3() {
             <DestructingImports />
             <Classes />
             <Styles />
+            <Add a={3} b={4} />
         </div>
     );
 }
