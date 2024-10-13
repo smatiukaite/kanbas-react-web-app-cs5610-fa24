@@ -1,4 +1,4 @@
-export default function () {
+export default function TernaryOperator() {
     let loggedIn = true;
     let true1 = false;
     return (
