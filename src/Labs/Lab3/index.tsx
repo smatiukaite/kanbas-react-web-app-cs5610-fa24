@@ -2,6 +2,7 @@ import AddingAndRemovingToFromArrays from "./AddingAndRemovingDataToFromArrays";
 import ArrayIndexAndLength from "./ArrayIndexAndLength";
 import ArrowFunctions from "./ArrowFunctions";
 import BooleanVariables from "./BooleanVariables";
+import Classes from "./Classes";
 import ConditionalOutputIfElse from "./ConditionalOutputIfElse";
 import Destructing from "./Destructing";
 import DestructingImports from "./DestructingImports";
@@ -18,6 +19,7 @@ import LegacyFunctions from "./LegacyFunctions";
 import MapFunction from "./MapFunctions";
 import SimpleArrays from "./SimpleArrays";
 import Spreading from "./Spreading";
+import Styles from "./Styles";
 import TemplateLiterals from "./TemplateLiterals";
 import TernaryOperator from "./TernaryOperator";
 import TodoItem from "./todos/TodoItem";
@@ -54,8 +56,9 @@ export default function Lab3() {
             <Spreading />
             <Destructing />
             <FunctionDestructing />
-            <DestructingImports/>
-
+            <DestructingImports />
+            <Classes />
+            <Styles />
         </div>
     );
 }
