@@ -1,2 +1,3 @@
 import courses from "./courses.json";
-export { courses };
+import modules from "../Courses/Modules/modules.json";
+export { courses, modules };
