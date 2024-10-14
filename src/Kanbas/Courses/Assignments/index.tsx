@@ -9,15 +9,6 @@ import { FaPlus } from "react-icons/fa6";
 export default function Assignments() {
   return (
     <div id="wd-assignments wd-container-margins">
-      <div>
-        {/* Search and the magnifier */}
-        <div className="wd-pos-relative-nudge-down-right">
-          <input id="wd-search-assignment" placeholder="     Search..." className="mb-2" />
-        </div>
-        <div className="wd-pos-relative-nudge-up-right">
-          <CiSearch />
-        </div>
-      </div>
 
       {/* Two buttons */}
       <button id="wd-add-assignment" className="btn btn-md btn-danger me-3 float-end">
@@ -27,11 +18,23 @@ export default function Assignments() {
         <FaPlus className="position-relative me-2 wd-bottom-padding" />
         Group</button>
 
-      {/* ASSIGNMENTS */}
-      <ul id="wd-modules" className="list-group rounded-0 ">
-        <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+      <div>
+        {/* Search and the magnifier */}
+        <div className="wd-flex-containe">
+          <div className="wd-search-container">
+            <CiSearch className="wd-search-icon" />
+            <input
+              id="wd-search-assignment"
+              placeholder="Search..."
+              className="wd-search-input" />
+          </div>
+        </div>
+      </div>
 
-          <div className="wd-title p-3 ps-2 bg-secondary">
+      {/* ASSIGNMENTS */}
+      <ul id="wd-modules" className="list-group rounded-0 mt-2">
+        <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+          <div className="wd-title p-2 ps-2 bg-secondary">
             <div>
               <div className="wd-float-left">
                 <BsGripVertical className="me-2 fs-3" />
@@ -255,27 +258,27 @@ export default function Assignments() {
               <GrNotes /> Quiz 1
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Quiz 2
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Quiz 3
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Quiz 3
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Quiz 3
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Quiz 3
               <LessonControlButtons />
@@ -285,8 +288,8 @@ export default function Assignments() {
       </ul>
 
       {/* EXAMS */}
-      <ul id="wd-modules" className="list-group rounded-0">
-        <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+      <ul id="wd-modules-exams" className="list-group rounded-0">
+        <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary">
             <BsGripVertical className="me-2 fs-3" />
             EXAMS
@@ -298,7 +301,7 @@ export default function Assignments() {
               <GrNotes /> Exam 1
               <LessonControlButtons />
             </li>
-            <li className="wd-content-item list-group-item p-3 ps-1">
+            <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
               <GrNotes /> Exam 2
               <LessonControlButtons />

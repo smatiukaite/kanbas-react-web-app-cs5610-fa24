@@ -110,11 +110,12 @@
     padding-bottom: 6px;
 }
 
+/* Circle around the text '40% of Total' */
 .wd-border-text {
     border-radius: 50px;
     border: 1px solid aliceblue;
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
 
 .wd-padding {
@@ -140,22 +141,30 @@
 }
 
 /* Search and the magnifier */
-.wd-pos-relative-nudge-up-right {
-    position: relative;
-    bottom: 16px;
-    left: 27px;
+/* buttons and search input */
+.wd-flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-.wd-pos-relative-nudge-down-right {
+/* search input and icon */
+.wd-search-container {
     position: relative;
-    top: 20px;
-    left: 20px;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
 }
 
-.wd-pos-relative {
-    position: relative;
+/* the search input */
+.wd-search-input {
+    padding-left: 30px;
 }
 
-.wd-course-status{
-    width: 300px;
+/* search icon */
+.wd-search-icon {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
 }
