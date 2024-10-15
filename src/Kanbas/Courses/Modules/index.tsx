@@ -17,18 +17,17 @@ export default function Modules() {
           .map((module: any) => (
             <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">
-                <BsGripVertical className="me-2 fs-3" /> {module.name}
-                 Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda
+                <BsGripVertical className="me-2 fs-3" />
+                {module.name}: {module.week}
                 <ModuleControlButtons />
               </div>
               {module.lessons && (
-
                 <ul className="wd-lessons list-group rounded-0">
                   {module.lessons.map((lesson: any) => (
 
                     <li className="wd-lesson list-group-item p-3 ps-1">
-                      <BsGripVertical className="me-2 fs-3" />{lesson.name}
-                      LEARNING OBJECTIVES
+                      <BsGripVertical className="me-2 fs-3" />
+                      {lesson.name}
                       <LessonControlButtons />
                     </li>
                   ))}
