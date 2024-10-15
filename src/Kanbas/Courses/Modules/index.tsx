@@ -18,7 +18,7 @@ export default function Modules() {
             <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">
                 <BsGripVertical className="me-2 fs-3" /> {module.name}
-                Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda
+                 Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda
                 <ModuleControlButtons />
               </div>
               {module.lessons && (

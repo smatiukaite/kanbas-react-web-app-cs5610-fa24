@@ -6,10 +6,12 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
+import * as db from "../../Database"
 
 export default function Assignments() {
   const { cid } = useParams();
-  //const course = courses.find((course) => course._id === cid);
+  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
+
   return (
     <div id="wd-assignments wd-container-margins">
 
@@ -59,189 +61,42 @@ export default function Assignments() {
           </div>
 
           {/* A1 */}
-          <ul className="wd-lessons list-group rounded-0">
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
+          {assignments.map((assignment) => (
+            <ul key={assignment._id} className="wd-lessons list-group rounded-0">
+              <li className="wd-lesson list-group-item p-3 ps-1">
                 <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
+                  <div>
+                    <div className="wd-float-left">
+                      <BsGripVertical className="me-2 fs-3" />
+                    </div>
 
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
+                    <div className="wd-float-left">
+                      <GrNotes />
+                    </div>
 
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> A1 - ENV + HTML
-                    </a>
-                    <p>
-                      <a className="wd-assignment-link wd-title-texts wd-subtext"
-                        href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
+                    <div className="wd-float-left wd-padding">
+                      <a className="wd-assignment-link wd-title-texts"
+                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                        {assignment.title}
                       </a>
-                      &nbsp;|&nbsp; <b>Not available until </b> May 6 at 12:00 am |<br></br>
-                      <b>Due</b> May 13 at 11:59 pm | 100 pts
-                    </p>
+                      <p>
+                        <a className="wd-assignment-link wd-title-texts wd-subtext"
+                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                          Multiple modules
+                        </a>
+                        &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
+                        <b>Due</b> {assignment.due} | {assignment.points}
+                      </p>
+                    </div>
+                    <div className="wd-float-right">
+                      <LessonControlButtons />
+                    </div>
+                    <div className="wd-float-done"></div>
                   </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
                 </div>
-              </div>
-            </li>
-
-
-            {/* A2 */}
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
-                <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts" href="#/Kanbas/Courses/CS5010/Assignments/123">
-                      A2 - CSS + BOOTSTRAP
-                    </a>
-                    <p><a className="wd-assignment-link wd-title-texts wd-subtext"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
-                    </a>
-                      &nbsp;|&nbsp;
-                      <b>Not available until </b> May 13 at 12:00 am |<br />
-                      <b>Due</b> May 20 at 11:59 pm | 100 pts
-                    </p>
-                  </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
-                </div>
-              </div>
-            </li>
-
-            {/* A3 */}
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
-                <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts" href="#/Kanbas/Courses/CS5010/Assignments/123">
-                      A3 - JAVASCRIPT + REACT
-                    </a>
-                    <p><a className="wd-assignment-link wd-title-texts wd-subtext"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
-                    </a>
-                      &nbsp;|&nbsp;
-                      <b>Not available until </b> May 20 at 12:00 am |<br />
-                      <b>Due</b> May 27 at 11:59 pm | 100 pts
-                    </p>
-                  </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
-                </div>
-              </div>
-            </li>
-
-            {/* A4 */}
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
-                <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts" href="#/Kanbas/Courses/CS5010/Assignments/123">
-                      A4 - GITHUB ACTIONS
-                    </a>
-                    <p><a className="wd-assignment-link wd-title-texts wd-subtext"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
-                    </a>
-                      &nbsp;|&nbsp;
-                      <b>Not available until </b> May 28 at 12:00 am |<br />
-                      <b>Due</b> June 06 at 11:59 pm | 100 pts
-                    </p>
-                  </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
-                </div>
-              </div>
-            </li>
-
-            {/* A5 */}
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
-                <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts" href="#/Kanbas/Courses/CS5010/Assignments/123">
-                      A5 - NETLIFY
-                    </a>
-                    <p><a className="wd-assignment-link wd-title-texts wd-subtext"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
-                    </a>
-                      &nbsp;|&nbsp;
-                      <b>Not available until </b> June 06 at 12:00 am |<br />
-                      <b>Due</b> June 12 at 11:59 pm | 100 pts
-                    </p>
-                  </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
-                </div>
-              </div>
-            </li>
-
-            {/* A6 */}
-            <li className="wd-lesson list-group-item p-3 ps-1">
-              <div>
-                <div>
-                  <div className="wd-float-left">
-                    <BsGripVertical className="me-2 fs-3" />
-                  </div>
-                  <div className="wd-float-left">
-                    <GrNotes />
-                  </div>
-                  <div className="wd-float-left wd-padding">
-                    <a className="wd-assignment-link wd-title-texts" href="#/Kanbas/Courses/CS5010/Assignments/123">
-                      A6 - NODE JS
-                    </a>
-                    <p><a className="wd-assignment-link wd-title-texts wd-subtext"
-                      href="#/Kanbas/Courses/CS5010/Assignments/123"> Multiple modules
-                    </a>
-                      &nbsp;|&nbsp;
-                      <b>Not available until </b> June 12 at 12:00 am |<br />
-                      <b>Due</b> June 16 at 11:59 pm | 100 pts
-                    </p>
-                  </div>
-                  <div className="wd-float-right">
-                    <LessonControlButtons />
-                  </div>
-                  <div className="wd-float-done"></div>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          ))}
         </li>
       </ul>
 
