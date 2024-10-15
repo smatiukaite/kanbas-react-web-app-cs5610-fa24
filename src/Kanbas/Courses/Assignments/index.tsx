@@ -5,8 +5,11 @@ import { GrNotes } from "react-icons/gr";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
+import { useParams } from "react-router";
 
 export default function Assignments() {
+  const { cid } = useParams();
+  //const course = courses.find((course) => course._id === cid);
   return (
     <div id="wd-assignments wd-container-margins">
 
