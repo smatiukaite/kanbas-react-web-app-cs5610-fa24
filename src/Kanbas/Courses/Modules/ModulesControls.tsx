@@ -1,12 +1,15 @@
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
+import ModuleEditor from "./ModuleEditor";
 
-export default function ModulesControls() {
+export default function ModulesControls(
+    { moduleName, setModuleName, addModule }:
+        { moduleName: string; setModuleName: (title: string) => void; addModule: () => void; }) {
     return (
         <div id="wd-modules-controls" className="d-flex justify-content-start align-items-center">
             <button id="wd-view-progress" className="btn btn-md btn-secondary ms-3 me-2"> View Progress</button>
             <button id="wd-collapse-all" className="btn btn-md btn-secondary me-2"> Collapse All </button>
-            
+
             <div className="dropdown d-inline me-2 float-end">
                 <button id="wd-publish-all-btn" className="btn btn-md btn-secondary dropdown-toggle"
                     type="button" data-bs-toggle="dropdown">
@@ -30,11 +33,16 @@ export default function ModulesControls() {
                     </li>
                 </ul>
             </div>
-            
-            <button id="wd-add-module-btn" className="btn btn-md btn-danger me-1 float-end">
-                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-                Module</button>
 
+            {/* RED +MODULE BUTTON */}
+            <button className="btn btn-lg btn-danger me-1 float-end" id="wd-add-module-btn"
+                data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog" >
+                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+                Module
+            </button>
+
+            <ModuleEditor dialogTitle="Add Module" moduleName={moduleName}
+                setModuleName={setModuleName} addModule={addModule} />
         </div>
     );
 }
