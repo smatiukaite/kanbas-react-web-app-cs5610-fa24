@@ -1,47 +1,26 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import * as db from "./Database";
 
-export default function Dashboard() {
-    const [courses, setCourses] = useState<any[]>(db.courses);
-    const [course, setCourse] = useState<any>({
-        _id: "0",
-        name: "New Course",
-        number: "New Number",
-        startDate: "2023-09-10",
-        endDate: "2023-12-15",
-        picture: "react1.jfif",
-        description: "New Description"
-    });
-    const updateCourse = () => {
-        setCourses(
-            courses.map((c) => {
-                if (c._id === course._id) {
-                    return course;
-                } else {
-                    return c;
-                }
-            })
-        );
-    };
-    const addNewCourse = () => {
-        const newCourse = {
-            ...course,
-            _id: new Date().getTime().toString()
-        };
-        setCourses([...courses, { ...course, ...newCourse }]);
-    };
-    const deleteCourse = (courseId: string) => {
-        setCourses(courses.filter((course) => course._id !== courseId));
-    };
-
+export default function Dashboard({
+    courses,
+    course,
+    setCourse,
+    addNewCourse,
+    deleteCourse,
+    updateCourse
+}: {
+    courses: any[];
+    course: any;
+    setCourse: (course: any) => void;
+    addNewCourse: () => void;
+    deleteCourse: (course: any) => void;
+    updateCourse: () => void;
+}) {
 
     return (
         <div id="wd-dashboard">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
 
             {/* NEW COURSE BUTTON */}
-
             <h5>New Course
                 <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
@@ -51,6 +30,7 @@ export default function Dashboard() {
                     Update
                 </button>
             </h5><hr /><br />
+
             {/* ADD NEW COURSE AND NEW DESCRIPTION FOR A COURSE */}
             <input defaultValue={course.name} className="form-control mb-2"
                 onChange={(e) => setCourse({ ...course, name: e.target.value })} />
