@@ -13,6 +13,17 @@ export default function Dashboard() {
         picture: "react1.jfif",
         description: "New Description"
     });
+    const updateCourse = () => {
+        setCourses(
+            courses.map((c) => {
+                if (c._id === course._id) {
+                    return course;
+                } else {
+                    return c;
+                }
+            })
+        );
+    };
     const addNewCourse = () => {
         const newCourse = {
             ...course,
@@ -24,15 +35,21 @@ export default function Dashboard() {
         setCourses(courses.filter((course) => course._id !== courseId));
     };
 
+
     return (
         <div id="wd-dashboard">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
 
             {/* NEW COURSE BUTTON */}
+
             <h5>New Course
                 <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
                     onClick={addNewCourse} > Add </button>
+                <button className="btn btn-warning float-end me-2"
+                    onClick={updateCourse} id="wd-update-course-click">
+                    Update
+                </button>
             </h5><hr /><br />
             {/* ADD NEW COURSE AND NEW DESCRIPTION FOR A COURSE */}
             <input defaultValue={course.name} className="form-control mb-2"
@@ -66,6 +83,16 @@ export default function Dashboard() {
                                         }} className="btn btn-danger float-end"
                                             id="wd-delete-course-click">
                                             Delete
+                                        </button>
+
+                                        {/* EDIT A COURSE */}
+                                        <button id="wd-edit-course-click"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                setCourse(course);
+                                            }}
+                                            className="btn btn-warning me-2 float-end" >
+                                            Edit
                                         </button>
                                     </div>
                                 </Link>
