@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 export default function ArrayStateVariable() {
     const [array, setArray] = useState([1, 2, 3, 4, 5]);
     const addElement = () => {
@@ -8,6 +9,8 @@ export default function ArrayStateVariable() {
         setArray(array.filter((item, i) => i !== index));
     };
     return (
+
+        //<div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
         <div id="wd-array-state-variables">
             <h2>Array State Variable</h2>
             <button onClick={addElement}>Add Element</button>

@@ -1,3 +1,4 @@
+import TodoList from "../Lab4/ReduxExamples/todos/TodoList";
 import ArrayStateVariable from "./ArrayStateVariable";
 import BooleanStateVariables from "./BooleanStateVariables";
 import ClickEvent from "./ClickEvent";
@@ -8,7 +9,6 @@ import ObjectStateVariable from "./ObjectStateVariable";
 import ParentStateComponent from "./ParentStateComponent";
 import PassingDataOnEvent from "./PassingDataOnEvent";
 import PassingFunctions from "./PassingFunctions";
-import HelloRedux from "./ReduxExamples";
 import ReduxExamples from "./ReduxExamples";
 import AddRedux from "./ReduxExamples/AddRedux";
 import CounterRedux from "./ReduxExamples/CounterRedux";
@@ -34,6 +34,8 @@ export default function Lab4() {
             <ReduxExamples/>
             <CounterRedux/>
             <AddRedux/>
+            <TodoList/>
+          
         </div>
     );
 }
