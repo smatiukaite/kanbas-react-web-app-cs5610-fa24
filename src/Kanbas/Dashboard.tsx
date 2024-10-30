@@ -5,12 +5,12 @@ import * as db from "./Database";
 export default function Dashboard() {
     const [courses, setCourses] = useState<any[]>(db.courses);
     const [course, setCourse] = useState<any>({
-        _id: "0", 
-        name: "New Course", 
+        _id: "0",
+        name: "New Course",
         number: "New Number",
-        startDate: "2023-09-10", 
+        startDate: "2023-09-10",
         endDate: "2023-12-15",
-        picture: "react1.jfif", 
+        picture: "react1.jfif",
         description: "New Description"
     });
     const addNewCourse = () => {
@@ -19,6 +19,9 @@ export default function Dashboard() {
             _id: new Date().getTime().toString()
         };
         setCourses([...courses, { ...course, ...newCourse }]);
+    };
+    const deleteCourse = (courseId: string) => {
+        setCourses(courses.filter((course) => course._id !== courseId));
     };
 
     return (
@@ -52,7 +55,18 @@ export default function Dashboard() {
                                             {course.name} </h5>
                                         <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                                             {course.description} </p>
+
+                                        {/* GO TO A COURSE */}
                                         <button className="btn btn-primary"> Go </button>
+
+                                        {/* DELETE A COURSE */}
+                                        <button onClick={(event) => {
+                                            event.preventDefault();
+                                            deleteCourse(course._id);
+                                        }} className="btn btn-danger float-end"
+                                            id="wd-delete-course-click">
+                                            Delete
+                                        </button>
                                     </div>
                                 </Link>
                             </div>
