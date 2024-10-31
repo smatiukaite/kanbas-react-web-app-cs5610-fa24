@@ -13,13 +13,19 @@ export default function ArrayStateVariable() {
         //<div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
         <div id="wd-array-state-variables">
             <h2>Array State Variable</h2>
-            <button onClick={addElement}>Add Element</button>
-            <ul>
+            <button onClick={addElement}
+                className="wd-add-element-click btn btn-success mb-3">
+                Add Element
+            </button>
+            
+            <ul className="list-group">
                 {array.map((item, index) => (
-                    <li key={index}>
+                    <li key={index}
+                        className="wd-list-of-items list-group-item p-2 col-sm-10">
                         {item}
+
                         <button onClick={() => deleteElement(index)}
-                            id="wd-delete-element-click">
+                            className="wd-delete-element-click btn btn-danger mt-1 float-end">
                             Delete</button>
                     </li>
                 ))}

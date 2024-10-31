@@ -35,7 +35,7 @@ export default function ModulesControls(
             </div>
 
             {/* RED +MODULE BUTTON */}
-            <button className="btn btn-lg btn-danger me-1 float-end" id="wd-add-module-btn"
+            <button className="btn btn-md btn-danger me-2 float-end" id="wd-add-module-btn"
                 data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog" >
                 <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                 Module

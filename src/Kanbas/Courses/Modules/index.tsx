@@ -22,7 +22,8 @@ export default function Modules() {
         }}
       />
 
-      <ul id="wd-modules" className="list-group rounded-0">
+      {/* Home module list */}
+      <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
         {modules
           .filter((module: any) => module.course === cid)
           .map((module: any) => (

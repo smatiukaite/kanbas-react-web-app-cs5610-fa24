@@ -112,10 +112,12 @@
 
 /* Circle around the text '40% of Total' */
 .wd-border-text {
-    border-radius: 50px;
+    border-radius: 10px;
     border: 1px solid aliceblue;
     font-size: 16px;
-    padding: 5px 5px;
+    padding: 7px 7px;
+    float: right;
+    height: 40px;
 }
 
 .wd-padding {

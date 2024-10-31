@@ -39,7 +39,7 @@ export default function Assignments() {
       {/* ASSIGNMENTS */}
       <ul id="wd-modules" className="list-group rounded-0 mt-2">
         <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
-          <div className="wd-title p-2 ps-2 bg-secondary">
+          <div className="wd-title p-2 ps-1 bg-secondary">
             <div>
               <div className="wd-float-left">
                 <BsGripVertical className="me-2 fs-3" />
@@ -48,13 +48,14 @@ export default function Assignments() {
                 ASSIGNMENTS
               </div>
               <div className="wd-float-right">
-                <IoEllipsisVertical className="fs-4 float-end" />
+                <IoEllipsisVertical className="fs-4 mt-2 me-2 float-end" />
               </div>
               <div className="wd-float-right">
-                <button id="wd-add-btn" className="btn btn-md btn-secondary me-1 float-end">
+                <button id="wd-add-btn" className="btn btn-md btn-secondary float-end">
                   <FaPlus className="position-relative me-2 wd-bottom-padding" /></button>
               </div>
-              <div className="wd-float-right wd-border-text" id="wd-assignments-title"> 40% of Total
+              <div className="wd-border-text" id="wd-assignments-title"> 
+                40% of Total
               </div>
               <div className="wd-float-done"></div>
             </div>
