@@ -1,12 +1,12 @@
 import { FaPlus } from "react-icons/fa6";
-import GreenCheckmark from "./GreenCheckmark";
 import ModuleEditor from "./ModuleEditor";
+import GreenCheckmark from "./GreenCheckmark";
 
 export default function ModulesControls(
     { moduleName, setModuleName, addModule }:
         { moduleName: string; setModuleName: (title: string) => void; addModule: () => void; }) {
     return (
-        <div id="wd-modules-controls" className="d-flex justify-content-start align-items-center">
+        <div id="wd-modules-controls" className="text-nowrap">
             <button id="wd-view-progress" className="btn btn-md btn-secondary ms-3 me-2"> View Progress</button>
             <button id="wd-collapse-all" className="btn btn-md btn-secondary me-2"> Collapse All </button>
 

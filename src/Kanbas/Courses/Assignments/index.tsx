@@ -107,7 +107,11 @@ export default function Assignments() {
           <div className="wd-title p-3 ps-2 bg-secondary">
             <BsGripVertical className="me-2 fs-3" />
             QUIZES
-            <ModuleControlButtons />
+            <ModuleControlButtons
+              moduleId="quiz-module-id" // replace with actual ID if available
+              deleteModule={(id) => console.log("Delete module with ID:", id)}
+              editModule={(id) => console.log("Edit module with ID:", id)}
+            />
           </div>
 
           <ul className="wd-lessons list-group rounded-0">
@@ -151,7 +155,11 @@ export default function Assignments() {
           <div className="wd-title p-3 ps-2 bg-secondary">
             <BsGripVertical className="me-2 fs-3" />
             EXAMS
-            <ModuleControlButtons />
+            <ModuleControlButtons
+              moduleId="exam-module-id" // replace with actual ID if available
+              deleteModule={(id) => console.log("Delete module with ID:", id)}
+              editModule={(id) => console.log("Edit module with ID:", id)}
+            />
           </div>
           <ul className="wd-lessons list-group rounded-0">
             <li className="wd-lesson list-group-item p-3 ps-1">
