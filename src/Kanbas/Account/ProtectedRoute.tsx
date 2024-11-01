@@ -1,3 +1,4 @@
+import { log } from "console";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -8,12 +9,5 @@ export default function ProtectedRoute({ children }: { children: any }) {
         return <Navigate to="/Kanbas/Account/Signin" />;
     }
 
-    if (currentUser) {
-        // if(currentUser === "FACULTY"){
-
-        // }
-
-
-        return children;
-    }
+    return children;
 }

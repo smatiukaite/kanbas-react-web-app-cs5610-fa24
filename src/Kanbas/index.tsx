@@ -15,6 +15,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import ProtectedRoute from "./Account/ProtectedRoute";
 
+
 export default function Kanbas() {
   const [courses, setCourses] = useState<any[]>(db.courses);
   const [course, setCourse] = useState<any>({
@@ -54,21 +55,21 @@ export default function Kanbas() {
             <Route path="/" element={<Navigate to="Dashboard" />} />
             <Route path="/Account/*" element={<Account />} />
 
-            <Route path="Dashboard" element={<ProtectedRoute><Dashboard
-              courses={courses}
-              course={course}
+            <Route path="Dashboard" element={<ProtectedRoute>
+              <Dashboard
+                courses={courses}
+                course={course}
+                setCourse={setCourse}
+                addNewCourse={addNewCourse}
+                deleteCourse={deleteCourse}
+                updateCourse={updateCourse}
+              /></ProtectedRoute>} />
 
-              
-              setCourse={setCourse}
-              addNewCourse={addNewCourse}
-              deleteCourse={deleteCourse}
-              updateCourse={updateCourse}
-            /></ProtectedRoute> } />
-            
-            <Route path="Courses/:cid/*" element={<ProtectedRoute><Courses 
-            courses={courses} 
-            /></ProtectedRoute>} />
-            
+            <Route path="Courses/:cid/*" element={<ProtectedRoute>
+              <Courses
+                courses={courses}
+              /></ProtectedRoute>} />
+
             <Route path="/Calendar" element={<Calendar />} />
             <Route path="/Inbox" element={<Inbox />} />
             <Route path="/Studio" element={<Studio />} />
