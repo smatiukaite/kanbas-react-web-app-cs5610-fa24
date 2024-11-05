@@ -7,23 +7,38 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
 import * as db from "../../Database"
-import { addAssignment, editAssignment, deleteAssignment, updateAssignment } from "./reducer";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
+import { addAssignment, editAssignment, deleteAssignment, updateAssignment } from "./reducer";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
-  // const [setAssignments] = useState<any[]>(db.assignments);
+
+  const [assignments, setAssignments] = useState<any[]>(
+    db.assignments.filter((assignment) => assignment.course === cid)
+  );
+
+  const [assignmentName, setAssignmentName] = useState("");
+  const addModule = () => {
+    setAssignments([...assignments, {
+      _id: new Date().getTime().toString(),
+      name: assignmentName, course: cid, lessons: []
+    }]);
+    setAssignmentName("");
+  };
+
+  const deleteAssignment = (assignmentId: string) => {
+    setAssignments(assignments.filter((a) => a._id !== assignmentId));
+  };
 
   if (userRole === "FACULTY") {
     return (
       <div id="wd-assignments wd-container-margins">
-
         {/* Two buttons */}
         <button
           id="wd-add-assignment"
@@ -105,6 +120,10 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-right">
                         <LessonControlButtons />
+                        <AssignmentControlButtons
+                          assignmentId={assignment._id}
+                          deleteAssignment={deleteAssignment} />
+
                       </div>
                       <div className="wd-float-done"></div>
                     </div>
@@ -270,7 +289,9 @@ export default function Assignments() {
                         </p>
                       </div>
                       <div className="wd-float-right">
+
                         <LessonControlButtons />
+
                       </div>
                       <div className="wd-float-done"></div>
                     </div>

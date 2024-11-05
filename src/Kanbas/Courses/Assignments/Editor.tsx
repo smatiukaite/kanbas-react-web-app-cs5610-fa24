@@ -3,6 +3,7 @@ import './index.css';
 import { useParams } from "react-router";
 import * as db from "../../Database";
 
+
 export default function AssignmentEditor() {
     const { aid } = useParams();
     const assignments = db.assignments.filter((assignment) => assignment._id === aid);
