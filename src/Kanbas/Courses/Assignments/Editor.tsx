@@ -6,53 +6,47 @@ import * as db from "../../Database";
 export default function AssignmentEditor() {
     const { aid } = useParams();
     const assignments = db.assignments.filter((assignment) => assignment._id === aid);
+
     return (
         // 1st part of the page
         <div id="wd-assignments-editor" className="wd-container-margins">
             {assignments.map((assignment) => (
                 <div className="wd-between-elements-margins" key={assignment._id}>
-                    <label htmlFor="wd-name" className="form-label">Assignment Name</label>
+                    <label htmlFor="wd-name" className="form-label">
+                        Assignment Name
+                    </label>
                     <input
                         type="text"
                         className="form-control"
                         id="wd-name"
-                        value={assignment.title} />
+                        placeholder={assignment.title} />
                 </div>
             ))}
 
             {assignments.map((assignment) => (
                 <div className="wd-between-elements-margins">
-                    {/* {assignment.description} */}
-                    <div className="description-text wd-container-borders wd-between-elements-margins" id="wd-description"> 
-                        <p>The assignment is
-                            <a href="https://docs.google.com/document/d/1vmoLm12fKv7W3y3H-2HdsPzy4GvNrdyTfic6BLoE5yA/edit" target="docs" rel="google docs">
-                                available online
-                            </a>
-                            .</p>
-                        <p>Submit a link to the landing page of your Web application running on Netlify.</p>
-                        <p>The landing page should include the following:</p>
-                        <ul>
-                            <li>Your full name and section</li>
-                            <li>Links to each of the lab assignments</li>
-                            <li>
-                                Link to the Kanbas application
-                            </li>
-                            <li>Links to all relevant source code repositories</li>
-                        </ul>
-                        <p>
-                            The Kanbas application should include a link to navigate back to the landing page.
-                        </p>
-                    </div>
+                    <label htmlFor="wd-assignment-description" className="form-label">
+                        Assignment Description
+                    </label>
+                    <textarea
+                        className="form-control"
+                        id="wd-assignment-description"
+                        placeholder={assignment.description}
+                    ></textarea>
 
                     {/* 2nd part of the page */}
                     <div id="wd-css-responsive-forms-1">
-                        <div className="row wd-between-elements-margins">
+                        <div className="row wd-between-elements-margins mt-3">
                             <label htmlFor="wd-points"
                                 className="col-sm-2 col-form-label text-end">
-                                Points </label>
+                                Points
+                            </label>
                             <div className="col-sm-10">
-                                <input type="text" className="form-control"
-                                    id="wd-points" placeholder={assignment.points} />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="wd-points"
+                                    placeholder={assignment.points} />
                             </div>
                         </div>
 
@@ -147,21 +141,21 @@ export default function AssignmentEditor() {
                                 {/* Two dates */}
                                 <div className="wd-between-elements-margins">
                                     <label htmlFor="wd-due-date" className="wd-regular-text-padding wd-bold-text ">Due</label>
-                                    <input id="wd-due-date"
-                                       
+                                    <input
+                                        id="wd-due-date"
                                         placeholder="date"
-                                        className="form-control mb-2" 
-                                        value={assignment.due}
-                                        />
+                                        defaultValue={assignment.due}
+                                        className="form-control mb-2" />
                                 </div>
 
                                 <div className="wd-custom-date-container">
                                     <div className="wd-two-custom-date-containers">
                                         <label htmlFor="wd-available-from" className="wd-regular-text-padding wd-bold-text">Available from</label>
-                                        <input id="wd-available-from"
-                                            className="form-control mb-2"
-                                            value={assignment.until}
-                                            />
+                                        <input
+                                            id="wd-available-from"
+                                            placeholder="date"
+                                            defaultValue={assignment.until}
+                                            className="form-control mb-2" />
                                     </div>
                                     <div className="wd-two-custom-date-containers">
                                         <label htmlFor="wd-available-until" className="wd-regular-text-padding wd-bold-text">Until</label>
@@ -169,6 +163,7 @@ export default function AssignmentEditor() {
                                             type="date"
                                             className="form-control mb-2" />
                                     </div>
+
                                 </div>
                             </div>
 

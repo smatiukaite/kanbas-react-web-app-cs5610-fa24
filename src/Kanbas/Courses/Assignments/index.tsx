@@ -10,6 +10,7 @@ import * as db from "../../Database"
 import { addAssignment, editAssignment, deleteAssignment, updateAssignment } from "./reducer";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -17,6 +18,7 @@ export default function Assignments() {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
+  // const [setAssignments] = useState<any[]>(db.assignments);
 
   if (userRole === "FACULTY") {
     return (
@@ -26,8 +28,7 @@ export default function Assignments() {
         <button
           id="wd-add-assignment"
           className="btn btn-md btn-danger me-3 float-end"
-        // onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/${assignments._id}`)}
-        >
+          onClick={() => navigate(`/Kanbas/Courses/one/Assignments/custom_id`)}>
           <FaPlus className="position-relative me-2 wd-bottom-padding" />
           Assignment
         </button>

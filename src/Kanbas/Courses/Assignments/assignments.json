@@ -659,5 +659,13 @@
     "until": "May 27 at 12:00 am",
     "due": "May 30 at 11:59 pm",
     "points": "100 pts"
+  },
+  {
+    "_id": "custom_id",
+    "title": "",
+    "course": "one",
+    "until": "",
+    "due": "",
+    "points": "100 pts"
   }
 ]
