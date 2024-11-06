@@ -8,7 +8,6 @@ import { TfiAnnouncement } from "react-icons/tfi";
 import { GrAnalytics } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 export default function CourseStatus() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);

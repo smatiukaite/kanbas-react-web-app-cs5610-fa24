@@ -275,19 +275,19 @@ export default function Assignments() {
                         <GrNotes />
                       </div>
 
-                      <div className="wd-float-left wd-padding">
-                        <a className="wd-assignment-link wd-title-texts">
-                          {assignment.title}
-                        </a>
-                        <p>
-                          <a className="wd-assignment-link wd-title-texts wd-subtext">
-                            Multiple modules
+                        <div className="wd-float-left wd-padding">
+                          <a href={`/assignments/${assignment.id}`} className="wd-assignment-link wd-title-texts">
+                            {assignment.title}
                           </a>
-                          &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
-                          <b>Due</b> {assignment.due} | {assignment.points}
-                        </p>
-                      </div>
-                      <div className="wd-float-right">
+                          <p>
+                            <a href={`/modules/${assignment.moduleId}`}  className="wd-assignment-link wd-title-texts wd-subtext">
+                              Multiple modules
+                            </a>
+                            &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
+                            <b>Due</b> {assignment.due} | {assignment.points}
+                          </p>
+                        </div>
+                        <div className="wd-float-right">
 
                         <LessonControlButtons />
 

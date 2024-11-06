@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import * as db from "./Database";
+// import * as db from "./Database";
 import { useState, useEffect } from "react";
 
 export default function Dashboard({
@@ -18,9 +18,8 @@ export default function Dashboard({
     deleteCourse: (course: any) => void;
     updateCourse: () => void;
 }) {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const { enrollments } = db;
     const userRole = currentUser?.role;
     const [showAllCourses, setShowAllCourses] = useState(false);
     const [enrolledCourses, setEnrolledCourses] = useState<string[]>([]);
