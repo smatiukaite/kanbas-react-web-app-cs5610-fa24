@@ -1,8 +1,7 @@
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link } from "react-router-dom"; // Import useNavigate
 import './index.css';
 import { useParams } from "react-router";
 import * as db from "../../Database";
-import { useState, useEffect } from "react";
 
 export default function AssignmentEditor() {
     const { aid } = useParams();

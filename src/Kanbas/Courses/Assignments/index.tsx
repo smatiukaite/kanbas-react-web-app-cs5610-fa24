@@ -10,7 +10,6 @@ import * as db from "../../Database"
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
-import { addAssignment, editAssignment, deleteAssignment, updateAssignment } from "./reducer";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments() {
@@ -23,14 +22,14 @@ export default function Assignments() {
     db.assignments.filter((assignment) => assignment.course === cid)
   );
 
-  const [assignmentName, setAssignmentName] = useState("");
-  const addModule = () => {
-    setAssignments([...assignments, {
-      _id: new Date().getTime().toString(),
-      name: assignmentName, course: cid, lessons: []
-    }]);
-    setAssignmentName("");
-  };
+  // const [assignmentName, setAssignmentName] = useState("");
+  // const addModule = () => {
+  //   setAssignments([...assignments, {
+  //     _id: new Date().getTime().toString(),
+  //     name: assignmentName, course: cid, lessons: []
+  //   }]);
+  //   setAssignmentName("");
+  // };
 
   const deleteAssignment = (assignmentId: string) => {
     setAssignments(assignments.filter((a) => a._id !== assignmentId));
