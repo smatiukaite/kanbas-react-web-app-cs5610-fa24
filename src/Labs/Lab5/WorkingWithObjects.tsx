@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
+
 export default function WorkingWithObjects() {
     const [assignment, setAssignment] = useState({
         id: 1,
@@ -33,6 +34,24 @@ export default function WorkingWithObjects() {
                 href={`${REMOTE_SERVER}/lab5/assignment/title`}>
                 Get Title
             </a><hr />
+            <a id="wd-update-assignment-score"
+                className="btn btn-primary float-end"
+                href={`${ASSIGNMENT_API_URL}/score/${assignment.score}`}>
+                Update Score
+            </a>
+            <input className="form-control w-75" id="wd-assignment-score"
+                defaultValue={assignment.score} onChange={(e) =>
+                    setAssignment({ ...assignment, score: Number(e.target.value)})} />
+            <hr />
+            <a id="wd-update-assignment-completed"
+                className="btn btn-primary float-end"
+                href={`${ASSIGNMENT_API_URL}/completed/${assignment.completed}`}>
+                Update completed properties
+            </a>
+            <input className="form-control w-75" id="wd-assignment-completed"
+                checked={assignment.completed} onChange={(e) =>
+                    setAssignment({ ...assignment, completed: (e.target.checked)})} />
+            <hr />
         </div>
     );
 }
