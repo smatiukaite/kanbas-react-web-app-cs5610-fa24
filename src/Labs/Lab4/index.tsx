@@ -17,24 +17,24 @@ import StringStateVariables from "./StringStateVariables";
 export default function Lab4() {
     function sayHello() {
         alert("Hello");
-      }    
+    }
     return (
         <div>
             <ClickEvent />
             <PassingDataOnEvent />
             <PassingFunctions theFunction={sayHello} />
             <EventObject />
-            <Counter/>
-            <BooleanStateVariables/>
-            <StringStateVariables/>
-            <DateStateVariable/>
-            <ObjectStateVariable/>
-            <ArrayStateVariable/>
-            <ParentStateComponent/>
-            <ReduxExamples/>
-            <CounterRedux/>
-            <AddRedux/>
-            <TodoList/>
+            <Counter />
+            <BooleanStateVariables />
+            <StringStateVariables />
+            <DateStateVariable />
+            <ObjectStateVariable />
+            <ArrayStateVariable />
+            <ParentStateComponent />
+            <ReduxExamples />
+            <CounterRedux />
+            <AddRedux />
+            <TodoList />
         </div>
     );
 }
