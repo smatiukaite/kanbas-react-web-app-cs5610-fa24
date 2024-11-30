@@ -16,7 +16,6 @@ export default function WorkingWithArraysAsynchronously() {
         }
     };
 
-
     const [todos, setTodos] = useState<any[]>([]);
     const createTodo = async () => {
         const todos = await client.createTodo();

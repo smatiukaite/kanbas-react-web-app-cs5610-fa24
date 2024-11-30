@@ -3,18 +3,19 @@ const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 
 export default function Module() {
     const [module, setModule] = useState({
-        "_id": "RS101",
-        "name": "Rocket Propulsion",
-        "number": "RS4550",
-        "startDate": "2023-01-10",
-        "endDate": "2023-05-15",
-        "department": "D123",
-        "credits": 4,
-        "picture": "pic19.jpg",
-        "description": "This course provides an in-depth study of the fundamentals of rocket propulsion, covering topics such as propulsion theory, engine types, fuel chemistry, and the practical applications of rocket technology. Designed for students with a strong background in physics and engineering, the course includes both theoretical instruction and hands-on laboratory work",
-        "score": 1
+        id: "RS101",
+        name: "Rocket Propulsion",
+        number: "RS4550",
+        startDate: "2023-01-10",
+        endDate: "2023-05-15",
+        department: "D123",
+        credits: 4,
+        picture: "pic19.jpg",
+        description: "This course provides an in-depth study of the fundamentals of rocket propulsion, covering topics such as propulsion theory, engine types, fuel chemistry, and the practical applications of rocket technology. Designed for students with a strong background in physics and engineering, the course includes both theoretical instruction and hands-on laboratory work",
+        score: 1
     });
     const MODULE_API_URL = `${REMOTE_SERVER}/lab5/module`
+
     return (
         <div id="wd-module">
             <h3>Module</h3>
