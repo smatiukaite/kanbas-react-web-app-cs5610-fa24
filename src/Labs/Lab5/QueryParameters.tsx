@@ -19,15 +19,18 @@ export default function PathParameters() {
                 href={`${REMOTE_SERVER}/lab5/calculator?operation=add&a=${a}&b=${b}`}>
                 Add {a} + {b}
             </a>
-
+            {/* Add space between elements */}
+            &nbsp;
             <a id="wd-query-parameter-subtract"
                 href={`${REMOTE_SERVER}/lab5/calculator?operation=subtract&a=${a}&b=${b}`}>
                 Substract {a} - {b}
             </a>
+            &nbsp;
             <a id="wd-query-parameter-multiply"
                 href={`${REMOTE_SERVER}/lab5/calculator?operation=multiply&a=${a}&b=${b}`}>
                 Multiply {a} * {b}
             </a>
+            &nbsp;
             <a id="wd-query-parameter-divide"
                 href={`${REMOTE_SERVER}/lab5/calculator?operation=divide&a=${a}&b=${b}`}>
                 Divide {a} / {b}
