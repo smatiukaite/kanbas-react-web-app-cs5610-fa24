@@ -72,7 +72,7 @@ export default function Dashboard({
                 <div id="wd-dashboard-courses" className="row">
                     <div className="row row-cols-1 row-cols-md-5 g-4">
                         {courses.map((course) => (
-                            <div className="wd-dashboard-course col" style={{ width: "300px" }} key={course._id}>
+                            <div className="wd-dashboard-course-faculty col" style={{ width: "300px" }} key={`${course._id}_${course.name}`}>
                                 <div className="card rounded-3 overflow-hidden">
                                     <Link to={`/Kanbas/Courses/${course._id}/Home`} className="wd-dashboard-course-link text-decoration-none text-dark">
                                         <img src={`/images/${course.picture}`} alt={course.name} width="100%" height={160} />
@@ -82,26 +82,26 @@ export default function Dashboard({
                                         </div>
                                     </Link>
                                     {userRole === "FACULTY" ? (<>
-                                            {/* Only Faculty can delete courses */}
-                                            {/* DELETE A COURSE */}
-                                            <button onClick={(event) => {
-                                                event.preventDefault();
-                                                deleteCourse(course._id);
-                                            }}
-                                                className="btn btn-danger small-button float-end me-1" id="wd-delete-course-click">
-                                                Delete
-                                            </button>
+                                        {/* Only Faculty can delete courses */}
+                                        {/* DELETE A COURSE */}
+                                        <button onClick={(event) => {
+                                            event.preventDefault();
+                                            deleteCourse(course._id);
+                                        }}
+                                            className="btn btn-danger small-button float-end me-1" id="wd-delete-course-click">
+                                            Delete
+                                        </button>
 
-                                            {/* EDIT A COURSE */}
-                                            <button id="wd-edit-course-click"
-                                                onClick={(event) => {
-                                                    event.preventDefault();
-                                                    setCourse(course);
-                                                }}
-                                                className="btn btn-warning small-button float-end me-2" >
-                                                Edit
-                                            </button>
-                                        </>
+                                        {/* EDIT A COURSE */}
+                                        <button id="wd-edit-course-click"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                setCourse(course);
+                                            }}
+                                            className="btn btn-warning small-button float-end me-2" >
+                                            Edit
+                                        </button>
+                                    </>
                                     ) : (
                                         // Student Enrollment Buttons
                                         <>
@@ -149,9 +149,8 @@ export default function Dashboard({
                     <div className="row row-cols-1 row-cols-md-5 g-4">
                         {(showAllCourses ? courses : courses.filter(course => enrolledCourses.includes(course._id))).map((course) => {
                             const isEnrolled = enrolledCourses.includes(course._id);
-
                             return (
-                                <div className="wd-dashboard-course col" style={{ width: "300px" }} key={course._id}>
+                                <div className="wd-dashboard-course-non-faculty col" style={{ width: "300px" }} key={`${course._id}_${course.name}`}>
                                     <div className="card rounded-3 overflow-hidden">
                                         <Link to={`/Kanbas/Courses/${course._id}/Home`}
                                             className="wd-dashboard-course-link text-decoration-none text-dark">
