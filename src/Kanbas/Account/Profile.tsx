@@ -28,7 +28,7 @@ export default function Profile() {
     //Get information from the database about the user (in the Profile)
     useEffect(() => {
         fetchProfile();
-    }, []);
+    }, [fetchProfile]);
 
     return (
         <div className="wd-profile-screen">

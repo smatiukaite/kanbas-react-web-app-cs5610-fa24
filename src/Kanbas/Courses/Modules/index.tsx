@@ -39,7 +39,7 @@ export default function Modules() {
   
   useEffect(() => {
     fetchModules();
-  }, []);
+  }, [fetchModules]);
 
   if (userRole === "FACULTY") {
     return (

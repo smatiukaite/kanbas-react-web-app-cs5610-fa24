@@ -10,7 +10,6 @@ import * as db from "../../Database"
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
-import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -31,9 +30,9 @@ export default function Assignments() {
   //   setAssignmentName("");
   // };
 
-  const deleteAssignment = (assignmentId: string) => {
-    setAssignments(assignments.filter((a) => a._id !== assignmentId));
-  };
+  // const deleteAssignment = (assignmentId: string) => {
+  //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
+  // };
 
   if (userRole === "FACULTY") {
     return (
