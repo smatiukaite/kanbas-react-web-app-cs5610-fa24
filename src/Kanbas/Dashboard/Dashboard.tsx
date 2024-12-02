@@ -18,7 +18,7 @@ export default function Dashboard({
     deleteCourse: (course: any) => void;
     updateCourse: () => void;
 }) {
-    // const dispatch = useDispatch();
+
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const userRole = currentUser?.role;
     const [showAllCourses, setShowAllCourses] = useState(false);
@@ -48,7 +48,6 @@ export default function Dashboard({
             <div id="wd-dashboard">
                 <h1 id="wd-dashboard-title">Dashboard</h1>
                 <hr />
-
                 {/* New Course Button (Only visible to faculty) */}
                 {userRole === "FACULTY" && (
                     <>
@@ -67,12 +66,20 @@ export default function Dashboard({
                     </>
                 )}
 
+                {/* SHOW ALL THE COURSES */}
+                {/* <button
+                    className="wd-enrollments-btn btn btn-primary float-end"
+                    onClick={() => setShowAllCourses(!showAllCourses)}
+                    id="wd-enrollments-click">
+                    {showAllCourses ? "Show My Courses" : "Show All Courses"}
+                </button> */}
+
                 <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
                 <hr />
                 <div id="wd-dashboard-courses" className="row">
                     <div className="row row-cols-1 row-cols-md-5 g-4">
                         {courses.map((course) => (
-                            <div className="wd-dashboard-course-faculty col" style={{ width: "300px" }} key={`${course._id}_${course.name}`}>
+                            <div className="wd-dashboard-course-faculty col" style={{ width: "300px" }} key={course._id}>
                                 <div className="card rounded-3 overflow-hidden">
                                     <Link to={`/Kanbas/Courses/${course._id}/Home`} className="wd-dashboard-course-link text-decoration-none text-dark">
                                         <img src={`/images/${course.picture}`} alt={course.name} width="100%" height={160} />
@@ -149,8 +156,9 @@ export default function Dashboard({
                     <div className="row row-cols-1 row-cols-md-5 g-4">
                         {(showAllCourses ? courses : courses.filter(course => enrolledCourses.includes(course._id))).map((course) => {
                             const isEnrolled = enrolledCourses.includes(course._id);
+
                             return (
-                                <div className="wd-dashboard-course-non-faculty col" style={{ width: "300px" }} key={`${course._id}_${course.name}`}>
+                                <div className="wd-dashboard-course-non-faculty col" style={{ width: "300px" }} key={course._id}>
                                     <div className="card rounded-3 overflow-hidden">
                                         <Link to={`/Kanbas/Courses/${course._id}/Home`}
                                             className="wd-dashboard-course-link text-decoration-none text-dark">

@@ -119,9 +119,9 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-right">
                         <LessonControlButtons />
-                        <AssignmentControlButtons
+                        {/* <AssignmentControlButtons
                           assignmentId={assignment._id}
-                          deleteAssignment={deleteAssignment} />
+                          deleteAssignment={deleteAssignment} /> */}
 
                       </div>
                       <div className="wd-float-done"></div>

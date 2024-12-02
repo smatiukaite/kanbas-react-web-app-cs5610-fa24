@@ -36,6 +36,7 @@ export default function Modules() {
     const modules = await coursesClient.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
   };
+  
   useEffect(() => {
     fetchModules();
   }, []);
