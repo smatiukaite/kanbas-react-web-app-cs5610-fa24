@@ -39,7 +39,8 @@ export default function Modules() {
   
   useEffect(() => {
     fetchModules();
-  }, [fetchModules]);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (userRole === "FACULTY") {
     return (

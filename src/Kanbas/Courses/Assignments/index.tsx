@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 import * as db from "../../Database"
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -17,7 +17,7 @@ export default function Assignments() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
 
-  const [assignments, setAssignments] = useState<any[]>(
+  const [assignments] = useState<any[]>(
     db.assignments.filter((assignment) => assignment.course === cid)
   );
 
