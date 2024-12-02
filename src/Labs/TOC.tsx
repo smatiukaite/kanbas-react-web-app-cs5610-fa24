@@ -54,6 +54,12 @@ export default function TOC() {
                     My GitHub
                 </a>
             </li>
+
+            <li className="nav-item">
+                <a id="wd-github" href="https://github.com/smatiukaite" className="nav-link">
+                    My Render
+                </a>
+            </li>
         </ul>
     );
 }
