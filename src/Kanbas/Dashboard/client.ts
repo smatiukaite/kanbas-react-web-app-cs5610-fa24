@@ -1,29 +1,34 @@
 import axios from "axios";
-const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
-const ENROLLMENTS_API = `${REMOTE_SERVER}/api/dashboard`;
 
-// Enroll a user in a course
-export const enrollUserInCourse = async (userId: string, courseId: string) => {
-    const response = await axios.post(ENROLLMENTS_API, { userId, courseId });
-    return response.data;
+export const enrollInCourse = async (userId: string, courseId: string) => {
+    try {
+        const response = await axios.post('/api/enrollments', {
+            userId,
+            courseId,
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Failed to enroll in course", error);
+        throw error;
+    }
 };
 
-// Unenroll a user from a course
-export const unenrollUserFromCourse = async (userId: string, courseId: string) => {
-    const response = await axios.delete(ENROLLMENTS_API, {
-        data: { userId, courseId },
-    });
-    return response.data;
+export const unenrollFromCourse = async (userId: string, courseId: string) => {
+    try {
+        const response = await axios.delete(`/api/enrollments/${userId}/${courseId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Failed to unenroll from course", error);
+        throw error;
+    }
 };
 
-
-// const ASSIGNMENT_API = `${REMOTE_SERVER}/lab5/assignment`;
-// export const fetchAssignment = async () => {
-//   const response = await axios.get(`${ASSIGNMENT_API}`);
-//   return response.data;
-// };
-
-// export const updateTitle = async (title: string) => {
-//   const response = await axios.get(`${ASSIGNMENT_API}/title/${title}`);
-//   return response.data;
-// };
+export const getUserEnrollments = async (userId: string) => {
+    try {
+        const response = await axios.get(`/api/enrollments/user/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Failed to get user enrollments", error);
+        throw error;
+    }
+};

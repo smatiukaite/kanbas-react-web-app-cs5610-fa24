@@ -67,12 +67,12 @@ export default function Dashboard({
                 )}
 
                 {/* SHOW ALL THE COURSES */}
-                {/* <button
+                <button
                     className="wd-enrollments-btn btn btn-primary float-end"
                     onClick={() => setShowAllCourses(!showAllCourses)}
                     id="wd-enrollments-click">
                     {showAllCourses ? "Show My Courses" : "Show All Courses"}
-                </button> */}
+                </button>
 
                 <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
                 <hr />
