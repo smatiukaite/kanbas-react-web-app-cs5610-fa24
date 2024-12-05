@@ -4,33 +4,39 @@ import Signup from "./Signup";
 import { Routes, Route, Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Users from "./Users";
+import AccountNavigation from "./Navigation";
 
 export default function Account() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+
   return (
-
-    <table>
-      <tr>
-        <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
-          <Link to="/Kanbas/Account/SignIn" id="wd-account-signin-link"
-            className="list-group-item active border border-0"> Sign In </Link>
-
-          <Link to="/Kanbas/Account/SignUp" id="wd-account-signup-link"
-            className="list-group-item text-danger border border-0"> Sign Up </Link>
-
-          <Link to="/Kanbas/Account/Profile" id="wd-account-profile-link"
-            className="list-group-item text-danger border border-0"> Profile </Link>
-        </div>
-
-        <td valign="top">
-          <Routes>
-            <Route path="/" element={<Navigate to={currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin"} />} />
-            <Route path="/Signin" element={<Signin />} />
-            <Route path="/Signup" element={<Signup />} />
-            <Route path="/Profile" element={<Profile />} />
-          </Routes>
-        </td>
-      </tr>
-    </table>
+    <div id="wd-account-screen">
+      <table>
+        <tbody>
+          <tr>
+            <td valign="top">
+              <AccountNavigation />
+            </td>
+            <td valign="top">
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Navigate
+                      to={currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin"}
+                    />
+                  }
+                />
+                <Route path="/Signin" element={<Signin />} />
+                <Route path="/Signup" element={<Signup />} />
+                <Route path="/Profile" element={<Profile />} />
+                <Route path="/Users" element={<Users />} />
+              </Routes>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }

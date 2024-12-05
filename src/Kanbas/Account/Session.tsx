@@ -2,6 +2,7 @@ import * as client from "./client";
 import { useEffect, useState } from "react";
 import { setCurrentUser } from "./reducer";
 import { useDispatch } from "react-redux";
+
 export default function Session({ children }: { children: any }) {
     const [pending, setPending] = useState(true);
     const dispatch = useDispatch();
@@ -17,9 +18,8 @@ export default function Session({ children }: { children: any }) {
 
     useEffect(() => {
         fetchProfile();
-         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
+
     if (!pending) {
         return children;
     }

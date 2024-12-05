@@ -9,10 +9,19 @@ export default function Signin() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const signin = async () => {
-        const user = await client.signin(credentials);
-        if (!user) return;
-        dispatch(setCurrentUser(user));
-        navigate("/Kanbas/Dashboard");
+        try {
+            const user = await client.signin(credentials);
+            if (!user) return;
+            dispatch(setCurrentUser(user));
+            navigate("/Kanbas/Dashboard");
+        } catch (error: any) {
+            if (error.response && error.response.status === 401) {
+                alert("Username or password is invalid. Please enter correct username or password.");
+            } else {
+                console.error("An unexpected error occurred:", error);
+                alert("Something went wrong. Try again later.");
+            }
+        }
     };
 
     return (
