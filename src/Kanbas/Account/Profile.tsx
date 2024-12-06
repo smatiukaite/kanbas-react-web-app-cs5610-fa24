@@ -28,7 +28,8 @@ export default function Profile() {
 
     useEffect(() => {
         fetchProfile();
-    }, [fetchProfile]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="wd-profile-screen ms-3">

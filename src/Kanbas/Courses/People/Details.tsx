@@ -3,7 +3,7 @@ import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import * as client from "../../Account/client";
 
 export default function PeopleDetails() {
@@ -41,8 +41,6 @@ export default function PeopleDetails() {
 
     const navigate = useNavigate();
 
-
-
     const deleteUser = async (uid: string) => {
         await client.deleteUser(uid);
         navigate(-1);
@@ -56,6 +54,7 @@ export default function PeopleDetails() {
 
     useEffect(() => {
         if (uid) fetchUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uid]);
 
     if (!uid) return null;
@@ -120,7 +119,7 @@ export default function PeopleDetails() {
                     />
                 )}
             </div>
-            
+
             <div className="mt-3">
                 <b>Role: </b>
                 {!editingRole && (<>

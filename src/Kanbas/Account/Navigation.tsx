@@ -13,8 +13,7 @@ export default function AccountNavigation() {
         <Link
           key={link}
           to={`/Kanbas/Account/${link}`}
-          className={`list-group-item ${pathname.includes(link) ? "active" : ""} border border-0`}
-        >
+          className={`list-group-item ${pathname.includes(link) ? "active" : ""} border border-0`}>
           {link}
         </Link>
       ))}
