@@ -68,4 +68,9 @@ export const findUsersByPartialName = async (name: string) => {
   return response.data;
 };
 
+export const createUser = async (user: any) => {
+  const response = await axios.post(`${USERS_API}`, user);
+  return response.data;
+};
+
 

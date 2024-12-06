@@ -24,7 +24,9 @@ export default function Account() {
                   path="/"
                   element={
                     <Navigate
-                      to={currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin"}
+                      to={currentUser
+                        ? "/Kanbas/Account/Profile"
+                        : "/Kanbas/Account/Signin"}
                     />
                   }
                 />
@@ -32,6 +34,7 @@ export default function Account() {
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/Profile" element={<Profile />} />
                 <Route path="/Users" element={<Users />} />
+                <Route path="/Users/:uid" element={<Users />} />
               </Routes>
             </td>
           </tr>

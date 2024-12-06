@@ -35,22 +35,22 @@ export default function Profile() {
                 <div>
                     User Name:
                     <input defaultValue={profile.username} id="wd-username" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, username: e.target.value })} />
+                        onChange={(e) => setProfile({ ...profile, username: e.target.value })} placeholder="username" />
                     Password:
                     <input defaultValue={profile.password} id="wd-password" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, password: e.target.value })} />
+                        onChange={(e) => setProfile({ ...profile, password: e.target.value })} placeholder="password"/>
                     First name:
                     <input defaultValue={profile.firstName} id="wd-firstname" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
+                        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} placeholder="first name"/>
                     Last name:
                     <input defaultValue={profile.lastName} id="wd-lastname" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
+                        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} placeholder="last name" />
                     Birthday:
                     <input defaultValue={profile.dob} id="wd-dob" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date" />
+                        onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date" placeholder="birthday"/>
                     Email:
                     <input defaultValue={profile.email} id="wd-email" className="form-control mb-2"
-                        onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+                        onChange={(e) => setProfile({ ...profile, email: e.target.value })} placeholder="email"/>
                     Role:
                     <select
                         value={profile.role}
