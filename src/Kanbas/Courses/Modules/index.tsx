@@ -36,25 +36,27 @@ export default function Modules() {
     const modules = await coursesClient.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
   };
-  
+
   useEffect(() => {
     fetchModules();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (userRole === "FACULTY") {
     return (
-      <div className="wd-modules">
-        <ModulesControls
-          moduleName={moduleName}
-          setModuleName={setModuleName}
-          addModule={createModuleForCourse}
-        // addModule={() => {
-        //   dispatch(addModule({ name: moduleName, course: cid }));
-        //   setModuleName("");
-        // }}
-        />
-
+      <div className="wd-modules d-flex flex-column align-items-stretch w-100">
+        {/* <div className="d-flex flex-column align-items-stretch w-100"> */}
+        <div className="d-flex justify-content-end mb-4">
+          <ModulesControls
+            moduleName={moduleName}
+            setModuleName={setModuleName}
+            addModule={createModuleForCourse}
+          // addModule={() => {
+          //   dispatch(addModule({ name: moduleName, course: cid }));
+          //   setModuleName("");
+          // }}
+          />
+        </div>
         {/* Home module list */}
         <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
           {modules

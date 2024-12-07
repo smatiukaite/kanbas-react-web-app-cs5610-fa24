@@ -131,83 +131,6 @@ export default function Assignments() {
             ))}
           </li>
         </ul>
-
-
-        {/* QUIZES */}
-        <ul id="wd-modules" className="list-group rounded-0">
-          <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
-            <div className="wd-title p-3 ps-2 bg-secondary">
-              <BsGripVertical className="me-2 fs-3" />
-              QUIZES
-              <ModuleControlButtons
-                moduleId="quiz-module-id" // replace with actual ID if available
-                deleteModule={(id) => console.log("Delete module with ID:", id)}
-                editModule={(id) => console.log("Edit module with ID:", id)}
-              />
-            </div>
-
-            <ul className="wd-lessons list-group rounded-0">
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 1
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 2
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-            </ul>
-          </li>
-        </ul>
-
-        {/* EXAMS */}
-        <ul id="wd-modules-exams" className="list-group rounded-0">
-          <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
-            <div className="wd-title p-3 ps-2 bg-secondary">
-              <BsGripVertical className="me-2 fs-3" />
-              EXAMS
-              <ModuleControlButtons
-                moduleId="exam-module-id" // replace with actual ID if available
-                deleteModule={(id) => console.log("Delete module with ID:", id)}
-                editModule={(id) => console.log("Edit module with ID:", id)}
-              />
-            </div>
-            <ul className="wd-lessons list-group rounded-0">
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Exam 1
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Exam 2
-                <LessonControlButtons />
-              </li>
-            </ul>
-          </li>
-        </ul>
-
       </div>
     );
   }
@@ -217,7 +140,7 @@ export default function Assignments() {
     return (
       <div id="wd-assignments wd-container-margins">
 
-        {/* Two buttons */}
+        {/* Button and search */}
         <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
           <FaPlus className="position-relative me-2 wd-bottom-padding" />
           Group</button>
@@ -287,9 +210,7 @@ export default function Assignments() {
                           </p>
                         </div>
                         <div className="wd-float-right">
-
                         <LessonControlButtons />
-
                       </div>
                       <div className="wd-float-done"></div>
                     </div>
@@ -297,50 +218,6 @@ export default function Assignments() {
                 </li>
               </ul>
             ))}
-          </li>
-        </ul>
-
-
-        {/* QUIZES */}
-        <ul id="wd-modules" className="list-group rounded-0">
-          <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
-            <div className="wd-title p-3 ps-2 bg-secondary">
-              <BsGripVertical className="me-2 fs-3" />
-              QUIZES
-            </div>
-
-            <ul className="wd-lessons list-group rounded-0">
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 1
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 2
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Quiz 3
-                <LessonControlButtons />
-              </li>
-            </ul>
           </li>
         </ul>
 
