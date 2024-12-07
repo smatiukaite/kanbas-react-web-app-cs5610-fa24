@@ -34,7 +34,7 @@ export default function Assignments() {
   //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
   // };
 
-  if (userRole === "FACULTY") {
+  if (userRole === "FACULTY" || userRole === "ADMIN") {
     return (
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
