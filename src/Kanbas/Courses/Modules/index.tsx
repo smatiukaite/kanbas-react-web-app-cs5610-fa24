@@ -107,33 +107,42 @@ export default function Modules() {
         // }}
         />
 
-        {/* Home module list */}
-        <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
-          {modules
-            .map((module: any) => (
-              <li key={module._id} className="wd-module list-group-item p-0 mb-3 fs-5 border-gray">
-                <div className="wd-title p-3 ps-2 bg-secondary">
-                  <BsGripVertical className="me-2 fs-3" />
-                  {!module.editing && module.name}
-                  {module.editing && (
-                    <input
-                      className="form-control w-50 d-inline-block"
-                      onChange={(e) =>
-                        dispatch(updateModule({ ...module, name: e.target.value }))
-                      }
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          // dispatch(updateModule({ ...module, editing: false }));
-                          saveModule({ ...module, editing: false });
-                        }
-                      }}
-                      defaultValue={module.name}
-                    />
-                  )}
+        <ul id="wd-modules-exams" className="list-group rounded-0">
+          <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" />
+              MODULES
+            </div>
 
-                </div>
-              </li>
-            ))}
+            {/* Home module list */}
+            <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
+              {modules
+                .map((module: any) => (
+                  <li key={module._id} className="wd-module list-group-item p-0 mb-3 fs-5 border-gray">
+                    <div className="wd-title p-3 ps-2 bg-secondary">
+                      <BsGripVertical className="me-2 fs-3" />
+                      {!module.editing && module.name}
+                      {module.editing && (
+                        <input
+                          className="form-control w-50 d-inline-block"
+                          onChange={(e) =>
+                            dispatch(updateModule({ ...module, name: e.target.value }))
+                          }
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              // dispatch(updateModule({ ...module, editing: false }));
+                              saveModule({ ...module, editing: false });
+                            }
+                          }}
+                          defaultValue={module.name}
+                        />
+                      )}
+
+                    </div>
+                  </li>
+                ))}
+            </ul>
+          </li>
         </ul>
       </div>
     );
