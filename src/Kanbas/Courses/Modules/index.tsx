@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 import * as coursesClient from "../client";
 import * as modulesClient from "./client";
 import { BsGripVertical } from "react-icons/bs";
-import { IoEllipsisVertical } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa6";
-import { VscFileSubmodule } from "react-icons/vsc";
+// import { IoEllipsisVertical } from "react-icons/io5";
+// import { FaPlus } from "react-icons/fa6";
+// import { VscFileSubmodule } from "react-icons/vsc";
 
 export default function Modules() {
   const { cid } = useParams<{ cid: string }>();
