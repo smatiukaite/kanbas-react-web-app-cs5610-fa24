@@ -6,6 +6,10 @@ import ModuleControlButtons from "./ModuleControlButtons";
 import { useState, useEffect } from "react";
 import * as coursesClient from "../client";
 import * as modulesClient from "./client";
+import { BsGripVertical } from "react-icons/bs";
+import { IoEllipsisVertical } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa6";
+import { VscFileSubmodule } from "react-icons/vsc";
 
 export default function Modules() {
   const { cid } = useParams<{ cid: string }>();
@@ -45,8 +49,7 @@ export default function Modules() {
   if (userRole === "FACULTY") {
     return (
       <div className="wd-modules d-flex flex-column align-items-stretch w-100">
-        {/* <div className="d-flex flex-column align-items-stretch w-100"> */}
-        <div className="d-flex justify-content-end mb-4">
+        <div className="d-flex justify-content-end mb-0">
           <ModulesControls
             moduleName={moduleName}
             setModuleName={setModuleName}
@@ -57,36 +60,49 @@ export default function Modules() {
           // }}
           />
         </div>
-        {/* Home module list */}
-        <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
-          {modules
-            .map((module: any) => (
-              <li key={module._id} className="list-group-item">
 
-                {!module.editing && module.name}
-                {module.editing && (
-                  <input
-                    className="form-control w-50 d-inline-block"
-                    onChange={(e) =>
-                      dispatch(updateModule({ ...module, name: e.target.value }))
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        // dispatch(updateModule({ ...module, editing: false }));
-                        saveModule({ ...module, editing: false });
-                      }
-                    }}
-                    defaultValue={module.name}
-                  />
-                )}
+        <ul id="wd-modules-exams" className="list-group rounded-0">
+          <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" />
+              MODULES
+            </div>
 
-                <ModuleControlButtons
-                  moduleId={module._id}
-                  deleteModule={(moduleId) => removeModule(moduleId)}
-                  editModule={() => dispatch(editModule(module._id))}
-                />
-              </li>
-            ))}
+            {/* Home module list */}
+            <ul id="wd-modules" className="list-group rounded-0 border-gray">
+              {modules
+                .map((module: any) => (
+                  <li key={module._id} className="list-group-item">
+
+                    {!module.editing && module.name}
+                    {module.editing && (
+                      <input
+                        className="form-control w-50 d-inline-block"
+                        onChange={(e) =>
+                          dispatch(updateModule({ ...module, name: e.target.value }))
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            // dispatch(updateModule({ ...module, editing: false }));
+                            saveModule({ ...module, editing: false });
+                          }
+                        }}
+                        defaultValue={module.name}
+                      />
+                    )}
+
+                    <ModuleControlButtons
+                      moduleId={module._id}
+                      deleteModule={(moduleId) => removeModule(moduleId)}
+                      editModule={() => dispatch(editModule(module._id))}
+                    />
+                  </li>
+                ))}
+            </ul>
+
+
+
+          </li>
         </ul>
       </div>
     );
@@ -106,30 +122,40 @@ export default function Modules() {
         // }}
         />
 
-        {/* Home module list */}
-        <ul id="wd-modules" className="list-group rounded-0 p-0 mb-3 fs-5 m-3 border-gray">
-          {modules
-            .map((module: any) => (
-              <li key={module._id} className="list-group-item">
+        <ul id="wd-modules-exams" className="list-group rounded-0">
+          <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" />
+              MODULES
+            </div>
 
-                {!module.editing && module.name}
-                {module.editing && (
-                  <input
-                    className="form-control w-50 d-inline-block"
-                    onChange={(e) =>
-                      dispatch(updateModule({ ...module, name: e.target.value }))
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        // dispatch(updateModule({ ...module, editing: false }));
-                        saveModule({ ...module, editing: false });
-                      }
-                    }}
-                    defaultValue={module.name}
-                  />
-                )}
-              </li>
-            ))}
+            {/* Home module list */}
+            <ul id="wd-modules" className="list-group rounded-0 border-gray">
+              {modules
+                .map((module: any) => (
+
+                  <li key={module._id} className="list-group-item">
+
+                    {!module.editing && module.name}
+                    {module.editing && (
+                      <input
+                        className="form-control w-50 d-inline-block"
+                        onChange={(e) =>
+                          dispatch(updateModule({ ...module, name: e.target.value }))
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            // dispatch(updateModule({ ...module, editing: false }));
+                            saveModule({ ...module, editing: false });
+                          }
+                        }}
+                        defaultValue={module.name}
+                      />
+                    )}
+                  </li>
+                ))}
+            </ul>
+          </li>
         </ul>
       </div>
     );
