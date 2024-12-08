@@ -26,7 +26,7 @@ export default function Dashboard({
 
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const userRole = currentUser?.role;
-    const [showAllCourses, setShowAllCourses] = useState(false);
+    const [showAllCourses, ] = useState(false);
     const [enrolledCourses, setEnrolledCourses] = useState<string[]>([]);
 
     useEffect(() => {
@@ -38,17 +38,17 @@ export default function Dashboard({
         }
     }, [currentUser]);
 
-    const enrollInCourse = (courseId: string) => {
-        setEnrolledCourses((prev) => {
-            const updatedEnrollments = prev.includes(courseId)
-                ? prev.filter(id => id !== courseId) // Unenroll if already enrolled
-                : [...prev, courseId]; // Enroll if not already enrolled
+    // const enrollInCourse = (courseId: string) => {
+    //     setEnrolledCourses((prev) => {
+    //         const updatedEnrollments = prev.includes(courseId)
+    //             ? prev.filter(id => id !== courseId) // Unenroll if already enrolled
+    //             : [...prev, courseId]; // Enroll if not already enrolled
 
-            // Store updated enrollments in local storage
-            localStorage.setItem(`enrollments_${currentUser._id}`, JSON.stringify(updatedEnrollments));
-            return updatedEnrollments;
-        });
-    };
+    //         // Store updated enrollments in local storage
+    //         localStorage.setItem(`enrollments_${currentUser._id}`, JSON.stringify(updatedEnrollments));
+    //         return updatedEnrollments;
+    //     });
+    // };
 
     // IF A USER IS FACULTY OR ADMIN CHANGE VISIBILITY OF THE COURSES
     if (userRole === "FACULTY" || userRole === "ADMIN") {
