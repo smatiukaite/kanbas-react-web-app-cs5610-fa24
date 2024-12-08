@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import * as courseClient from "./Courses/client";
 import Account from "./Account";
 import * as userClient from "./Account/client";
+import { useCallback } from "react";
 
 export default function Kanbas() {
   const [courses, setCourses] = useState<any[]>([]);
@@ -41,14 +42,23 @@ export default function Kanbas() {
   };
 
   const [enrolling, setEnrolling] = useState<boolean>(false);
-  const findCoursesForUser = async () => {
+  // const findCoursesForUser = async () => {
+  //   try {
+  //     const courses = await userClient.findCoursesForUser(currentUser._id);
+  //     setCourses(courses);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const findCoursesForUser = useCallback(async () => {
     try {
       const courses = await userClient.findCoursesForUser(currentUser._id);
       setCourses(courses);
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [currentUser._id]);
 
   const addNewCourse = async () => {
     // const newCourse = await userClient.createCourse(course);
@@ -78,7 +88,25 @@ export default function Kanbas() {
     );
   };
 
-  const fetchCourses = async () => {
+  // const fetchCourses = async () => {
+  //   try {
+  //     const allCourses = await courseClient.fetchAllCourses();
+  //     const enrolledCourses = await userClient.findCoursesForUser(
+  //       currentUser._id
+  //     );
+  //     const courses = allCourses.map((course: any) => {
+  //       if (enrolledCourses.find((c: any) => c._id === course._id)) {
+  //         return { ...course, enrolled: true };
+  //       } else {
+  //         return course;
+  //       }
+  //     });
+  //     setCourses(courses);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  const fetchCourses = useCallback(async () => {
     try {
       const allCourses = await courseClient.fetchAllCourses();
       const enrolledCourses = await userClient.findCoursesForUser(
@@ -95,7 +123,7 @@ export default function Kanbas() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [currentUser._id]);
 
   useEffect(() => {
     if (enrolling) {
@@ -103,7 +131,7 @@ export default function Kanbas() {
     } else {
       findCoursesForUser();
     }
-  }, [currentUser, enrolling]);
+  }, [currentUser, enrolling, fetchCourses, findCoursesForUser]);
 
   return (
     // <Provider store={store}>
