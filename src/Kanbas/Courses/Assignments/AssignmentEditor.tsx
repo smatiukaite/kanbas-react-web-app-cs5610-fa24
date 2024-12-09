@@ -2,28 +2,38 @@ import { Link } from "react-router-dom"; // Import useNavigate
 import './index.css';
 import { useParams } from "react-router";
 import * as db from "../../Database";
+import { addAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
+    dialogTitle,
+        assignmentName,
+        setAssignmentName,
+        addAssignmet,
+
+}: {
+    dialogTitle: string;
+    assignmentName: string;
+    setAssignmentName: (name: string) => void;
+    addAssignment: () => void;
+}) {
     const { aid } = useParams();
     const assignments = db.assignments.filter((assignment) => assignment._id === aid);
 
     return (
         // 1st part of the page
         <div id="wd-assignments-editor" className="wd-container-margins">
-            {assignments.map((assignment) => (
+            {assignments.map((assignment: any) => (
                 <div className="wd-between-elements-margins" key={assignment._id}>
                     <label htmlFor="wd-name" className="form-label">
                         Assignment Name
                     </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="wd-name"
-                        placeholder={assignment.title} />
+                    <input className="form-control" type="text" defaultValue={assignmentName} placeholder="Title"
+                        onChange={(e) => setAssignmentName(e.target.value)}
+                    />
                 </div>
             ))}
 
-            {assignments.map((assignment) => (
+            {assignments.map((assignment: any) => (
                 <div className="wd-between-elements-margins">
                     <label htmlFor="wd-assignment-description" className="form-label">
                         Assignment Description
@@ -169,15 +179,11 @@ export default function AssignmentEditor() {
 
                             {/* Two buttons */}
                         </div>
-                        <div className="wd-custom-button-container">
-                            <Link id="wd-cancel-btn"
-                                to={`/Kanbas/Courses/${assignment.course}/Assignments`}
-                                className="btn btn-secondary wd-custom-button">
-                                Cancel </Link>
-                            <Link id="wd-save-btn"
-                                to={`/Kanbas/Courses/${assignment.course}/Assignments`}
-                                className="btn btn-danger wd-custom-button">
-                                Save </Link>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                Cancel </button>
+                            <button onClick={addAssignment} type="button" data-bs-dismiss="modal" className="btn btn-danger">
+                                Save </button>
                         </div>
                     </div>
 

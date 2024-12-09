@@ -7,21 +7,29 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
 import * as db from "../../Database"
-
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
+// import AssignmentControls from "./AssignmentControls";
+import AssignmentControlButtons from "./AssignmentControlButtons";
+import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
 
-  const [assignments] = useState<any[]>(
-    db.assignments.filter((assignment) => assignment.course === cid)
+  const [assignments, setAssignments] = useState<any[]>(
+    db.assignments.filter((assignment: any) => assignment.course === cid)
   );
 
+  const [assignmentName, setAssignmentName] = useState("");
+  const addAssignment = () => {
+    setAssignments([...assignments, {
+      _id: new Date().getTime().toString(),
+      name: assignmentName, course: cid, lessons: []
+    }]);
+    setAssignmentName("");
+  };
   // const [assignmentName, setAssignmentName] = useState("");
   // const addModule = () => {
   //   setAssignments([...assignments, {
@@ -39,31 +47,8 @@ export default function Assignments() {
     return (
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
-        <button
-          id="wd-add-assignment"
-          className="btn btn-md btn-danger me-3 float-end"
-          onClick={() => navigate(`/Kanbas/Courses/one/Assignments/custom_id`)}>
-          <FaPlus className="position-relative me-2 wd-bottom-padding" />
-          Assignment
-        </button>
 
-        <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
-          <FaPlus className="position-relative me-2 wd-bottom-padding" />
-          Group</button>
-
-        <div>
-          {/* Search and the magnifier */}
-          <div className="wd-flex-containe">
-            <div className="wd-search-container">
-              <CiSearch className="wd-search-icon" />
-              <input
-                id="wd-search-assignment"
-                placeholder="Search..."
-                className="wd-search-input" />
-            </div>
-          </div>
-        </div>
-
+        {/* <AssignmentControls setAssignmentName={setAssignmentName} assignmentName={assignmentName} addAssignment={addAssignment} /> */}
         {/* ASSIGNMENTS */}
         <ul id="wd-modules" className="list-group rounded-0 mt-2">
           <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
@@ -82,15 +67,15 @@ export default function Assignments() {
                   <button id="wd-add-btn" className="btn btn-md btn-secondary float-end">
                     <FaPlus className="position-relative me-2 wd-bottom-padding" /></button>
                 </div>
-                <div className="wd-border-text" id="wd-assignments-title">
+                {/* <div className="wd-border-text" id="wd-assignments-title">
                   40% of Total
-                </div>
+                </div> */}
                 <div className="wd-float-done"></div>
               </div>
             </div>
 
             {/* A1 */}
-            {assignments.map((assignment) => (
+            {assignments.map((assignment: any) => (
               <ul key={assignment._id} className="wd-lessons list-group rounded-0">
                 <li className="wd-lesson list-group-item p-3 ps-1">
                   <div>
@@ -119,9 +104,9 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-right">
                         <LessonControlButtons />
-                        {/* <AssignmentControlButtons
+                        <AssignmentControlButtons
                           assignmentId={assignment._id}
-                          deleteAssignment={deleteAssignment} /> */}
+                          deleteAssignment={deleteAssignment} />
 
                       </div>
                       <div className="wd-float-done"></div>
@@ -177,15 +162,15 @@ export default function Assignments() {
                   <button id="wd-add-btn" className="btn btn-md btn-secondary float-end">
                     <FaPlus className="position-relative me-2 wd-bottom-padding" /></button>
                 </div>
-                <div className="wd-border-text" id="wd-assignments-title">
+                {/* <div className="wd-border-text" id="wd-assignments-title">
                   40% of Total
-                </div>
+                </div> */}
                 <div className="wd-float-done"></div>
               </div>
             </div>
 
             {/* A1 */}
-            {assignments.map((assignment) => (
+            {assignments.map((assignment: any) => (
               <ul key={assignment._id} className="wd-lessons list-group rounded-0">
                 <li className="wd-lesson list-group-item p-3 ps-1">
                   <div>
@@ -198,19 +183,19 @@ export default function Assignments() {
                         <GrNotes />
                       </div>
 
-                        <div className="wd-float-left wd-padding">
-                          <a href={`/assignments/${assignment.id}`} className="wd-assignment-link wd-title-texts">
-                            {assignment.title}
+                      <div className="wd-float-left wd-padding">
+                        <a href={`/assignments/${assignment.id}`} className="wd-assignment-link wd-title-texts">
+                          {assignment.title}
+                        </a>
+                        <p>
+                          <a href={`/modules/${assignment.moduleId}`} className="wd-assignment-link wd-title-texts wd-subtext">
+                            Multiple modules
                           </a>
-                          <p>
-                            <a href={`/modules/${assignment.moduleId}`}  className="wd-assignment-link wd-title-texts wd-subtext">
-                              Multiple modules
-                            </a>
-                            &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
-                            <b>Due</b> {assignment.due} | {assignment.points}
-                          </p>
-                        </div>
-                        <div className="wd-float-right">
+                          &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
+                          <b>Due</b> {assignment.due} | {assignment.points}
+                        </p>
+                      </div>
+                      <div className="wd-float-right">
                         <LessonControlButtons />
                       </div>
                       <div className="wd-float-done"></div>
@@ -219,28 +204,6 @@ export default function Assignments() {
                 </li>
               </ul>
             ))}
-          </li>
-        </ul>
-
-        {/* EXAMS */}
-        <ul id="wd-modules-exams" className="list-group rounded-0">
-          <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
-            <div className="wd-title p-3 ps-2 bg-secondary">
-              <BsGripVertical className="me-2 fs-3" />
-              EXAMS
-            </div>
-            <ul className="wd-lessons list-group rounded-0">
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Exam 1
-                <LessonControlButtons />
-              </li>
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <GrNotes /> Exam 2
-                <LessonControlButtons />
-              </li>
-            </ul>
           </li>
         </ul>
 

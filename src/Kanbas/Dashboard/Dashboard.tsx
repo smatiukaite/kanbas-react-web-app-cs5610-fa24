@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
 export default function Dashboard({
+// 
     courses,
     course,
     setCourse,
@@ -11,6 +12,7 @@ export default function Dashboard({
     deleteCourse,
     updateCourse
 }: {
+    // Declare the types
     courses: any[];
     course: any;
     setCourse: (course: any) => void;
@@ -60,8 +62,8 @@ export default function Dashboard({
                             </button>
                         </h5>
                         <hr />
-                        <input defaultValue={course.name} className="form-control mb-2" onChange={(e) => setCourse({ ...course, name: e.target.value })} />
-                        <textarea defaultValue={course.description} className="form-control" onChange={(e) => setCourse({ ...course, description: e.target.value })} />
+                        <input value={course.name} className="form-control mb-2" onChange={(e) => setCourse({ ...course, name: e.target.value })} />
+                        <textarea value={course.description} className="form-control" onChange={(e) => setCourse({ ...course, description: e.target.value })} />
                         <br />
                     </>
                 )}
@@ -78,6 +80,7 @@ export default function Dashboard({
                 <hr />
                 <div id="wd-dashboard-courses" className="row">
                     <div className="row row-cols-1 row-cols-md-5 g-4">
+                        {/* Iterate through the courses */}
                         {courses.map((course) => (
                             <div className="wd-dashboard-course-faculty col" style={{ width: "300px" }} key={course._id}>
                                 <div className="card rounded-3 overflow-hidden">

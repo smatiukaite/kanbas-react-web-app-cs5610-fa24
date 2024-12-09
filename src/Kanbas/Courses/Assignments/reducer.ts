@@ -11,14 +11,19 @@ const assignmentSlice = createSlice({
             const newAssignment: any = {
                 _id: new Date().getTime().toString(),
                 title: assignment.title,
+                course: assignment.course,
                 description: assignment.description,
                 courseId: assignment.courseId,
+                points: assignment.points,
+                due: assignment.due,
+                available: assignment.available,
+                until: assignment.until,
             };
             state.assignments = [...state.assignments, newAssignment] as any;
         },
         deleteAssignment: (state, { payload: assignmentId }) => {
-            state.assignments = state.assignments.filter(
-                (a: any) => a._id !== assignmentId);
+            state.assignments = state.assignments.filter((a: any) => 
+                a._id !== assignmentId);
         },
         updateAssignment: (state, { payload: assignment }) => {
             state.assignments = state.assignments.map((a: any) =>
