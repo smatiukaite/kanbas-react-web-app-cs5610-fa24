@@ -7,20 +7,19 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
 import * as db from "../../Database"
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector ,useDispatch} from "react-redux";
+import { useState,useEffect } from "react";
 // import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { addAssignment, editAssignment, updateAssignment, deleteAssignment,setAssignments } from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
-
-  const [assignments, setAssignments] = useState<any[]>(
-    db.assignments.filter((assignment: any) => assignment.course === cid)
-  );
+  const dispatch = useDispatch();
+  
+  const assignments = useSelector((state: any) => state.assignmentReducer.assignments);
 
   const [assignmentName, setAssignmentName] = useState("");
   const addAssignment = () => {
@@ -42,6 +41,16 @@ export default function Assignments() {
   // const deleteAssignment = (assignmentId: string) => {
   //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
   // };
+
+  const fetchAssignments = async () => {
+    const dbAssignments = db.assignments.filter((assignment: any) => assignment.course === cid)
+    dispatch(setAssignments(dbAssignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (userRole === "FACULTY") {
     return (
@@ -104,9 +113,10 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-right">
                         <LessonControlButtons />
+                        
                         <AssignmentControlButtons
                           assignmentId={assignment._id}
-                          deleteAssignment={deleteAssignment} />
+                          deleteAssignment={(assignmentId) =>dispatch(deleteAssignment(assignmentId))} />
 
                       </div>
                       <div className="wd-float-done"></div>

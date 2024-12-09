@@ -4,12 +4,11 @@ import { useParams } from "react-router";
 import * as db from "../../Database";
 import { addAssignment } from "./reducer";
 
-export default function AssignmentEditor() {
+export default function AssignmentEditor( {
     dialogTitle,
         assignmentName,
         setAssignmentName,
-        addAssignmet,
-
+        addAssignment
 }: {
     dialogTitle: string;
     assignmentName: string;
