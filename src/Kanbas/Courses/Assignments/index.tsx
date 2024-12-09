@@ -48,11 +48,12 @@ export default function Assignments() {
 
         <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
           <FaPlus className="position-relative me-2 wd-bottom-padding" />
-          Group</button>
+          Group
+        </button>
 
         <div>
           {/* Search and the magnifier */}
-          <div className="wd-flex-containe">
+          <div className="wd-container">
             <div className="wd-search-container">
               <CiSearch className="wd-search-icon" />
               <input
@@ -274,19 +275,19 @@ export default function Assignments() {
                         <GrNotes />
                       </div>
 
-                        <div className="wd-float-left wd-padding">
-                          <a href={`/assignments/${assignment.id}`} className="wd-assignment-link wd-title-texts">
-                            {assignment.title}
+                      <div className="wd-float-left wd-padding">
+                        <a href={`/assignments/${assignment.id}`} className="wd-assignment-link wd-title-texts">
+                          {assignment.title}
+                        </a>
+                        <p>
+                          <a href={`/modules/${assignment.moduleId}`} className="wd-assignment-link wd-title-texts wd-subtext">
+                            Multiple modules
                           </a>
-                          <p>
-                            <a href={`/modules/${assignment.moduleId}`}  className="wd-assignment-link wd-title-texts wd-subtext">
-                              Multiple modules
-                            </a>
-                            &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
-                            <b>Due</b> {assignment.due} | {assignment.points}
-                          </p>
-                        </div>
-                        <div className="wd-float-right">
+                          &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
+                          <b>Due</b> {assignment.due} | {assignment.points}
+                        </p>
+                      </div>
+                      <div className="wd-float-right">
 
                         <LessonControlButtons />
 
