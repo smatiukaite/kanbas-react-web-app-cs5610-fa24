@@ -73,7 +73,7 @@ export default function Assignments() {
           assignmentId={getNextId()}
           setAssignmentName={setAssignmentName}
           assignmentName={assignmentName}
-          addAssignment={addAssignment} /> */}
+          createAssignment={createAssignment} /> */}
 
         {/* ASSIGNMENTS */}
         <ul id="wd-modules" className="list-group rounded-0 mt-2">

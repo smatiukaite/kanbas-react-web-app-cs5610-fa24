@@ -2,18 +2,18 @@ import { Link } from "react-router-dom"; // Import useNavigate
 import './index.css';
 import { useParams } from "react-router";
 import * as db from "../../Database";
-import { addAssignment } from "./reducer";
+import { createAssignment } from "./reducer";
 
 export default function AssignmentEditor( {
     dialogTitle,
         assignmentName,
         setAssignmentName,
-        addAssignment
+        createAssignment
 }: {
     dialogTitle: string;
     assignmentName: string;
     setAssignmentName: (name: string) => void;
-    addAssignment: () => void;
+    createAssignment: () => void;
 }) {
     const { aid } = useParams();
     const assignments = db.assignments.filter((assignment) => assignment._id === aid);
@@ -181,7 +181,7 @@ export default function AssignmentEditor( {
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel </button>
-                            <button onClick={addAssignment} type="button" data-bs-dismiss="modal" className="btn btn-danger">
+                            <button onClick={createAssignment} type="button" data-bs-dismiss="modal" className="btn btn-danger">
                                 Save </button>
                         </div>
                     </div>

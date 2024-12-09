@@ -7,11 +7,11 @@ export default function AssignmentControls(
     {
         assignmentName,
         setAssignmentName,
-        addAssignment
+        createAssignment
     }: {
         assignmentName: string;
         setAssignmentName: (title: string) => void;
-        addAssignment: () => void;
+        createAssignment: () => void;
     }) {
 
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -22,7 +22,7 @@ export default function AssignmentControls(
         return (
             <div id="wd-assignment-controls" className="text-nowrap">
                 <button
-                    id="wd-add-assignment"
+                    id="wd-create-assignment"
                     className="btn btn-md btn-danger me-3 float-end"
                 // onClick={() => navigate(`/Kanbas/Courses/one/Assignments/custom_id`)}>
                 >
@@ -30,15 +30,15 @@ export default function AssignmentControls(
                     Assignment
                 </button>
 
-                <button className="btn btn-lg btn-danger me-1 float-end" id="wd-add-module-btn"
-                    data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog" >
+                <button className="btn btn-lg btn-danger me-1 float-end" id="wd-create-module-btn"
+                    data-bs-toggle="modal" data-bs-target="#wd-create-module-dialog" >
                     <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                     Assignment
                 </button>
                 <AssignmentEditor
                     dialogTitle="Add Assignmnet"
                     assignmentName={assignmentName}
-                    setAssignmentName={setAssignmentName} addAssignment={addAssignment} />
+                    setAssignmentName={setAssignmentName} createAssignment={createAssignment} />
 
                 <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
                     <FaPlus className="position-relative me-2 wd-bottom-padding" />
