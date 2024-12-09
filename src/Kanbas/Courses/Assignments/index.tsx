@@ -7,40 +7,52 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
 import * as db from "../../Database"
-import { useSelector ,useDispatch} from "react-redux";
-import { useState,useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 // import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment,setAssignments } from "./reducer";
+import { createAssignment, editAssignment, updateAssignment, deleteAssignment, setAssignments } from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
+
   const dispatch = useDispatch();
-  
   const assignments = useSelector((state: any) => state.assignmentReducer.assignments);
 
   const [assignmentName, setAssignmentName] = useState("");
-  const addAssignment = () => {
+  const createAssignment = () => {
+
     setAssignments([...assignments, {
       _id: new Date().getTime().toString(),
       name: assignmentName, course: cid, lessons: []
     }]);
+
+    console.log("New assignment added:", {
+      id: getNextId(),
+      title: assignmentName,
+    });
     setAssignmentName("");
   };
-  // const [assignmentName, setAssignmentName] = useState("");
-  // const addModule = () => {
-  //   setAssignments([...assignments, {
-  //     _id: new Date().getTime().toString(),
-  //     name: assignmentName, course: cid, lessons: []
-  //   }]);
-  //   setAssignmentName("");
+
+  // const createModuleForCourse = async () => {
+  //   if (!cid) return;
+  //   const newModule = { name: moduleName, course: cid };
+  //   const module = await coursesClient.createModuleForCourse(cid, newModule);
+  //   dispatch(addModule(module));
   // };
 
   // const deleteAssignment = (assignmentId: string) => {
   //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
   // };
+
+  // Find the highest ID and calculate the new ID
+  const getNextId = () => {
+    if (assignments.length === 0) return 1; // Default to 1 if no assignments
+    const maxId = Math.max(...assignments.map((assignment: any) => Number(assignment._id || 0)));
+    return maxId + 1;
+  };
 
   const fetchAssignments = async () => {
     const dbAssignments = db.assignments.filter((assignment: any) => assignment.course === cid)
@@ -57,7 +69,12 @@ export default function Assignments() {
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
 
-        {/* <AssignmentControls setAssignmentName={setAssignmentName} assignmentName={assignmentName} addAssignment={addAssignment} /> */}
+        {/* <AssignmentControls
+          assignmentId={getNextId()}
+          setAssignmentName={setAssignmentName}
+          assignmentName={assignmentName}
+          addAssignment={addAssignment} /> */}
+
         {/* ASSIGNMENTS */}
         <ul id="wd-modules" className="list-group rounded-0 mt-2">
           <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
@@ -113,10 +130,10 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-right">
                         <LessonControlButtons />
-                        
+
                         <AssignmentControlButtons
                           assignmentId={assignment._id}
-                          deleteAssignment={(assignmentId) =>dispatch(deleteAssignment(assignmentId))} />
+                          deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />
 
                       </div>
                       <div className="wd-float-done"></div>

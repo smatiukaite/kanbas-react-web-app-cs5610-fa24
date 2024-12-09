@@ -36,6 +36,7 @@ export default function Modules() {
 
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
+
   const fetchModules = async () => {
     const modules = await coursesClient.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
