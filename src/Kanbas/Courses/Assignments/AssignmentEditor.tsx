@@ -4,15 +4,38 @@ import { useParams } from "react-router";
 import * as db from "../../Database";
 import { createAssignment } from "./reducer";
 
-export default function AssignmentEditor( {
-    dialogTitle,
-        assignmentName,
-        setAssignmentName,
-        createAssignment
+export default function AssignmentEditor({
+    assignmentName,
+    setAssignmentName,
+    
+    // assignmentCourse,
+    // assignmentDescription,
+    // setAssignmentDescription,
+    // assignmentCourseId,
+    // assignmentPoints,
+    // setAssignmentPoints,
+    // assignmentDue,
+    // setAssignmentDue,
+    // assignmentAvailable,
+    // setAssignmentAvailable,
+    // assignmentUntil,
+    // setAssignmnetUntil,
+    createAssignment,
 }: {
-    dialogTitle: string;
     assignmentName: string;
     setAssignmentName: (name: string) => void;
+    // assignmentCourse: string;
+    // assignmentDescription: string;
+    // setAssignmentDescription: (description: string) => void;
+    // assignmentCourseId: string,
+    // assignmentPoints: DoubleRange;
+    // setAssignmentPoints: (points: DoubleRange) => void;
+    // assignmentDue: string,
+    // setAssignmentDue,
+    // assignmentAvailable: string,
+    // setAssignmentAvailable,
+    // assignmentUntil: string,
+    // setAssignmnetUntil,
     createAssignment: () => void;
 }) {
     const { aid } = useParams();
@@ -26,7 +49,9 @@ export default function AssignmentEditor( {
                     <label htmlFor="wd-name" className="form-label">
                         Assignment Name
                     </label>
-                    <input className="form-control" type="text" defaultValue={assignmentName} placeholder="Title"
+                    <input className="form-control" type="text"
+                        defaultValue={assignmentName}
+                        placeholder="Title"
                         onChange={(e) => setAssignmentName(e.target.value)}
                     />
                 </div>

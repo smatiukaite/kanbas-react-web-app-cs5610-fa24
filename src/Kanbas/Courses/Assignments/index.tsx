@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 import * as db from "../../Database"
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-// import AssignmentControls from "./AssignmentControls";
+import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { createAssignment, editAssignment, updateAssignment, deleteAssignment, setAssignments } from "./reducer";
 
@@ -23,7 +23,6 @@ export default function Assignments() {
 
   const [assignmentName, setAssignmentName] = useState("");
   const createAssignment = () => {
-
     setAssignments([...assignments, {
       _id: new Date().getTime().toString(),
       name: assignmentName, course: cid, lessons: []
@@ -69,11 +68,7 @@ export default function Assignments() {
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
 
-        {/* <AssignmentControls
-          assignmentId={getNextId()}
-          setAssignmentName={setAssignmentName}
-          assignmentName={assignmentName}
-          createAssignment={createAssignment} /> */}
+        <AssignmentControls cid={cid!} />
 
         {/* ASSIGNMENTS */}
         <ul id="wd-modules" className="list-group rounded-0 mt-2">
@@ -101,7 +96,7 @@ export default function Assignments() {
             </div>
 
             {/* A1 */}
-            {assignments.map((assignment: any) => (
+            {assignments && assignments.map((assignment: any) => (
               <ul key={assignment._id} className="wd-lessons list-group rounded-0">
                 <li className="wd-lesson list-group-item p-3 ps-1">
                   <div>
@@ -116,6 +111,7 @@ export default function Assignments() {
 
                       <div className="wd-float-left wd-padding">
                         <a className="wd-assignment-link wd-title-texts"
+                          // THE ASSIGNMENT TITLE AND THE INFORMATION ABOUT IT. REDIRECTS TO THE ASSIGNMENT EDITOR SCREEN
                           href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                           {assignment.title}
                         </a>
@@ -131,6 +127,7 @@ export default function Assignments() {
                       <div className="wd-float-right">
                         <LessonControlButtons />
 
+                        {/* DELETE AN ASSIGNMENT */}
                         <AssignmentControlButtons
                           assignmentId={assignment._id}
                           deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />

@@ -1,44 +1,24 @@
 import { FaPlus } from "react-icons/fa6";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 import { useSelector } from "react-redux";
 import AssignmentEditor from "./AssignmentEditor";
-export default function AssignmentControls(
-    {
-        assignmentName,
-        setAssignmentName,
-        createAssignment
-    }: {
-        assignmentName: string;
-        setAssignmentName: (title: string) => void;
-        createAssignment: () => void;
-    }) {
-
-    const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const userRole = currentUser?.role;
+import { assignments } from "../../Database";
+export default function AssignmentControls({ cid }: { cid: string }) {
     const navigate = useNavigate();
+    const getNextId = () => {
+        if (assignments.length === 0) return 1; // Default to 1 if no assignments
+        const maxId = Math.max(...assignments.map((assignment: any) => Number(assignment._id || 0)));
+        return maxId + 1;
+      };
 
-    if (userRole === "FACULTY") {
         return (
             <div id="wd-assignment-controls" className="text-nowrap">
-                <button
-                    id="wd-create-assignment"
-                    className="btn btn-md btn-danger me-3 float-end"
-                // onClick={() => navigate(`/Kanbas/Courses/one/Assignments/custom_id`)}>
-                >
-                    <FaPlus className="position-relative me-2 wd-bottom-padding" />
-                    Assignment
-                </button>
-
-                <button className="btn btn-lg btn-danger me-1 float-end" id="wd-create-module-btn"
-                    data-bs-toggle="modal" data-bs-target="#wd-create-module-dialog" >
+                <Link id="wd-add-assignment-btn" to={`/Kanbas/Courses/${cid}/Assignments/AssignmentEditor`}
+                    className="btn btn-md btn-danger me-3 float-end">
                     <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                     Assignment
-                </button>
-                <AssignmentEditor
-                    dialogTitle="Add Assignmnet"
-                    assignmentName={assignmentName}
-                    setAssignmentName={setAssignmentName} createAssignment={createAssignment} />
+                </Link>
 
                 <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
                     <FaPlus className="position-relative me-2 wd-bottom-padding" />
@@ -58,5 +38,4 @@ export default function AssignmentControls(
                 </div>
             </div>
         );
-    }
 }
