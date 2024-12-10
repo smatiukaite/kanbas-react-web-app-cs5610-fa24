@@ -3,44 +3,69 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router";
-// import * as db from "../../Database"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-// import { useState } from "react";
 import { RxRocket } from "react-icons/rx";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { RiProhibited2Line } from "react-icons/ri";
+import { setQuizzes, deleteQuiz } from "./reducer";
+import { useEffect, useState } from "react";
+import * as db from "../../Database"
+import QuizControls from "./QuizControls";
 
 export default function ListScreen() {
-    const { cid } = useParams<{ cid: string }>();
-    const navigate = useNavigate();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const userRole = currentUser?.role;
+    const { cid } = useParams<{ cid: string }>();
+    const navigate = useNavigate();
+    const { quizzes, isInitialized } = useSelector((state: any) => state.quizReducer);
+    const dispatch = useDispatch();
+    const [quizName, setQuizName] = useState("");
+    const [quiz, setQuiz] = useState(db.quizzes);
+
+    const createQuiz = () => {
+        setQuizzes([...quizzes, {
+            _id: new Date().getTime().toString(),
+            name: quizName, course: cid, lesson: []
+        }]);
+    };
 
     //   const [assignments] = useState<any[]>(
     //     db.assignments.filter((assignment) => assignment.course === cid)
     //   );
 
-    if (userRole === "FACULTY" || userRole === "ADMIN") {
+    const fetchQuizzes = async () => {
+        const dbQuizzes = db.quizzes.filter((quizzes: any) => quizzes.course === cid)
+        dispatch(setQuizzes(dbQuizzes));
+    };
+
+    useEffect(() => {
+        if (!isInitialized) {
+            fetchQuizzes();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (userRole === "FACULTY") {
         return (
             <div id="wd-quiz wd-container-margins">
-
+                <QuizControls cid={cid!} />
                 {/* TOP BUTTONS AND THE SEARCH */}
                 {/* Two buttons */}
-                <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
+                {/* <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
                     <IoEllipsisVertical />
                 </button>
 
-                <button id="wd-add-quiz"
+                {/* <button id="wd-add-quiz"
                     className="btn btn-md btn-danger me-2 float-end"
                     onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizEditor`)}>
                     <FaPlus className="position-relative me-2 wd-bottom-padding" />
                     Quiz
-                </button>
+                </button> */}
 
-                <div>
-                    {/* Search and the magnifier */}
-                    <div className="wd-container">
+                {/* <div> */}
+                {/* Search and the magnifier */}
+                {/* <div className="wd-container">
                         <div className="wd-search-container">
                             <CiSearch className="wd-search-icon" />
                             <input
@@ -49,7 +74,7 @@ export default function ListScreen() {
                                 className="wd-search-input" />
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <hr />
 
@@ -65,66 +90,76 @@ export default function ListScreen() {
                 editModule={(id) => console.log("Edit module with ID:", id)}
               /> */}
                         </div>
+                        {quizzes.map((quiz: any) => (
+                            <ul key={quiz._id} className="wd-lessons list-group rounded-0">
+                                <li className="wd-lesson list-group-item p-3 ps-1">
+                                    {/* // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizDetails`)} */}
 
-                        {/* <ul className="wd-lessons list-group rounded-0">
-              <li className="wd-lesson list-group-item p-3 ps-1">
-                <BsGripVertical className="me-2 fs-3" />
-                <RxRocket color="green" /> */}
-                        <ul className="wd-lessons list-group rounded-0">
-                            <li
-                                className="wd-lesson list-group-item p-3 ps-1"
-                                onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizDetails`)}
-                                style={{ cursor: "pointer" }}
-                            >
-                                &nbsp;
-                                Quiz 1
 
-                                {/* <div className="wd-float-left wd-padding">
-                        <a className="wd-assignment-link wd-title-texts"
-                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
-                          {assignment.title}
-                        </a>
-                        <p>
-                          <a className="wd-assignment-link wd-title-texts wd-subtext"
-                            href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
-                            Multiple modules
-                          </a>
-                          &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
-                          <b>Due</b> {assignment.due} | {assignment.points}
-                        </p>
-                      </div>
-                      <div className="wd-float-right"> */}
-
-                                {/* GREEN AND RED ICONS */}
-                                <div className="float-end">
-                                    <GreenCheckmark />
-                                    <RiProhibited2Line color="red" size={23} />
-
-                                    {/* DROPDOWN MENU FOR EDITING A QUIZ */}
-                                    <div className="dropdown float-end">
-                                        <IoEllipsisVertical
-                                            className="fs-4 dropdown-toggle"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                            onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the parent `li`
-                                        />
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a className="dropdown-item" href="#Edit">Edit</a></li>
-                                            <li><a className="dropdown-item" href="#Delete">Delete</a></li>
-                                            <li><a className="dropdown-item" href="#Publish">Publish</a></li>
-                                            <li><a className="dropdown-item" href="#Copy">Copy</a></li>
-                                            <li><a className="dropdown-item" href="#Sort">Sort</a></li>
-                                        </ul>
+                                    <div className="wd-float-left">
+                                        <BsGripVertical className="me-2 fs-3" />
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                    <div>
+                                        <RxRocket color="green" />
+                                    </div>
+                                    <div className="wd-float-left wd-padding">
 
-            </div>
+                                        {/* <a className="wd-aquiz-link wd-title-texts"
+                                            href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
+                                            {quiz.title} */}
+                                        {/* style={{ cursor: "pointer" }} */}
+                                        {/* </a> */}
+                                        &nbsp;
+                                    </div>
+                                    <div className="wd-float-left wd-padding">
+                                        <a className="wd-assignment-link wd-title-texts"
+                                            href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
+                                            {quiz.title}
+                                        </a>
+                                        <p>
+                                            <a className="wd-quiz-link wd-title-texts wd-subtext"
+                                                href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
+                                                Multiple modules
+                                            </a>
+                                            &nbsp;|&nbsp; <b>Not available until </b> {quiz.until} |<br></br>
+                                            <b>Due</b> {quiz.due} | {quiz.points}
+                                        </p>
+                                    </div>
+                                    <div className="wd-float-right">
+
+                                        {/* GREEN AND RED ICONS */}
+                                        <div className="float-end">
+                                            <GreenCheckmark />
+                                            <RiProhibited2Line color="red" size={23} />
+
+                                            {/* DROPDOWN MENU FOR EDITING A QUIZ */}
+                                            <div className="dropdown float-end">
+                                                <IoEllipsisVertical
+                                                    className="fs-4 dropdown-toggle"
+                                                    type="button"
+                                                    id="dropdownMenuButton"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the parent `li`
+                                                />
+                                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <li><a className="dropdown-item" href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>Edit</a></li>
+                                                    <li><a className="dropdown-item" onClick={() => dispatch(deleteQuiz(quiz._id))}
+                                                        id="wd-delete-todo-click">Delete</a></li>
+                                                    <li><a className="dropdown-item" href="#Publish">Publish</a></li>
+                                                    <li><a className="dropdown-item" href="#Copy">Copy</a></li>
+                                                    <li><a className="dropdown-item" href="#Sort">Sort</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        ))}
+                    </li>
+                </ul >
+            </div >
         );
     }
 
@@ -164,9 +199,8 @@ export default function ListScreen() {
                         <ul className="wd-lessons list-group rounded-0">
                             <li
                                 className="wd-lesson list-group-item p-3 ps-1"
-                                onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/quizDetails`)}
-
-                                style={{ cursor: "pointer" }}
+                            // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/quizDetails`)}
+                            // style={{ cursor: "pointer" }}
                             >
                                 <BsGripVertical className="me-2 fs-3" />
                                 <RxRocket color="green" />

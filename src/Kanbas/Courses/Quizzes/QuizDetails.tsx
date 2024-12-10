@@ -11,7 +11,7 @@ export default function QuizDetails() {
         title: "",
         quizType: "Graded Quiz",
         points: 0,
-        assignmentGroup: "Quizzes",
+        quizGroup: "Quizzes",
         shuffleAnswers: true,
         timeLimit: 20,
         multipleAttempts: false,
@@ -34,8 +34,8 @@ export default function QuizDetails() {
                 <button
                     id="wd-preview-quiz"
                     className="btn btn-md btn-secondary me-0"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizPreview`)}>
-
+                    // onClick={() => navigate(`#/Kanbas/Courses/${cid}/Quizzes/Preview/${quiz._id}`)}
+                    >
                     Preview
                 </button>
 
