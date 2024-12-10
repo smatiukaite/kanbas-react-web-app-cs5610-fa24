@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function QuizDetails() {
     const [timeLimit, setTimeLimit] = useState<number>(20);
     const navigate = useNavigate();
-    const { cid } = useParams<{ cid: string }>();
+    const { cid, qid } = useParams<{ cid: string, qid: string }>();
+
 
     const [quizDetails, setQuizDetails] = useState({
         title: "",
@@ -34,14 +35,16 @@ export default function QuizDetails() {
                 <button
                     id="wd-preview-quiz"
                     className="btn btn-md btn-secondary me-0"
-                    // onClick={() => navigate(`#/Kanbas/Courses/${cid}/Quizzes/Preview/${quiz._id}`)}
-                    >
+                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
+                >
                     Preview
                 </button>
 
                 <button
                     id="wd-edit-quiz"
-                    className="btn btn-md btn-secondary me-2">
+                    className="btn btn-md btn-secondary me-2"
+                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
+                >
                     <TiPencil className="position-relative me-2 wd-bottom-padding" />
                     Edit
                 </button>

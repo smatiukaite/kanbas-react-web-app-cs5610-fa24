@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function QuizEditor() {
-    const { cid } = useParams<{ cid: string }>();
+    const { cid, qid } = useParams<{ cid: string, qid: string }>();
     const navigate = useNavigate();
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
     const quiz = { ...quizzes.find((it: any) => it._id === cid) };
