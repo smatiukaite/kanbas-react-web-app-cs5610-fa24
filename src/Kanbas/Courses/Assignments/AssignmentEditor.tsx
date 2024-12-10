@@ -1,218 +1,39 @@
-import { Link } from "react-router-dom"; // Import useNavigate
+//import { Link } from "react-router-dom"; // Import useNavigate
 import './index.css';
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import * as db from "../../Database";
-import { createAssignment } from "./reducer";
+//import * as db from "../../Database";
+import { updateAssignment } from "./reducer";
 
-export default function AssignmentEditor({
-    assignmentName,
-    setAssignmentName,
-    
-    // assignmentCourse,
-    // assignmentDescription,
-    // setAssignmentDescription,
-    // assignmentCourseId,
-    // assignmentPoints,
-    // setAssignmentPoints,
-    // assignmentDue,
-    // setAssignmentDue,
-    // assignmentAvailable,
-    // setAssignmentAvailable,
-    // assignmentUntil,
-    // setAssignmnetUntil,
-    createAssignment,
-}: {
-    assignmentName: string;
-    setAssignmentName: (name: string) => void;
-    // assignmentCourse: string;
-    // assignmentDescription: string;
-    // setAssignmentDescription: (description: string) => void;
-    // assignmentCourseId: string,
-    // assignmentPoints: DoubleRange;
-    // setAssignmentPoints: (points: DoubleRange) => void;
-    // assignmentDue: string,
-    // setAssignmentDue,
-    // assignmentAvailable: string,
-    // setAssignmentAvailable,
-    // assignmentUntil: string,
-    // setAssignmnetUntil,
-    createAssignment: () => void;
-}) {
+export default function AssignmentEditor() {
     const { aid } = useParams();
-    const assignments = db.assignments.filter((assignment) => assignment._id === aid);
-
+    const assignments = useSelector((state: any) => state.assignmentReducer.assignments);
+    const assignment = {...assignments.find((it: any) => it._id === aid)};
+    
+    const dispatch = useDispatch();
     return (
         // 1st part of the page
         <div id="wd-assignments-editor" className="wd-container-margins">
-            {assignments.map((assignment: any) => (
-                <div className="wd-between-elements-margins" key={assignment._id}>
-                    <label htmlFor="wd-name" className="form-label">
-                        Assignment Name
-                    </label>
-                    <input className="form-control" type="text"
-                        defaultValue={assignmentName}
-                        placeholder="Title"
-                        onChange={(e) => setAssignmentName(e.target.value)}
-                    />
-                </div>
-            ))}
+            <div className="wd-between-elements-margins" key={assignment._id}>
+                <label htmlFor="wd-name" className="form-label">
+                    Assignment Name
+                </label>
+                <input className="form-control" type="text"
+                    defaultValue={assignment.title}
+                    placeholder="Title"
+                    onChange={(e) => {assignment.title = e.target.value}}
+                />
+            </div>
 
-            {assignments.map((assignment: any) => (
-                <div className="wd-between-elements-margins">
-                    <label htmlFor="wd-assignment-description" className="form-label">
-                        Assignment Description
-                    </label>
-                    <textarea
-                        className="form-control"
-                        id="wd-assignment-description"
-                        placeholder={assignment.description}
-                    ></textarea>
 
-                    {/* 2nd part of the page */}
-                    <div id="wd-css-responsive-forms-1">
-                        <div className="row wd-between-elements-margins mt-3">
-                            <label htmlFor="wd-points"
-                                className="col-sm-2 col-form-label text-end">
-                                Points
-                            </label>
-                            <div className="col-sm-10">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="wd-points"
-                                    placeholder={assignment.points} />
-                            </div>
-                        </div>
 
-                        <div className="row wd-between-elements-margins">
-                            <label htmlFor="assignmentgroup"
-                                className="col-sm-2 col-form-label text-end">
-                                Assignment Group </label>
-                            <div className="col-sm-10">
-                                <select id="wd-group" className="form-select">
-                                    <option selected>Select type</option>
-                                    <option value="ASSIGNMENTS">Assignment</option>
-                                    <option value="EXAMS">Exams</option>
-                                    <option value="PROJECT">Project</option>
-                                    <option value="QUIZ">Quiz</option>
-                                </select>
-                            </div></div>
 
-                        <div className="row wd-between-elements-margins">
-                            <label htmlFor="grade"
-                                className="col-sm-2 col-form-label text-end">
-                                Display Grade as </label>
-                            <div className="col-sm-10">
-                                <select id="wd-display-grade-as" className="form-select">
-                                    <option selected>Select type</option>
-                                    <option value="NUMBER">Number</option>
-                                    <option value="PERCENTAGE">Percentage</option>
-                                </select>
-                            </div></div>
-
-                        <div className="row wd-between-elements-margins">
-                            <label htmlFor="submissiontype"
-                                className="col-sm-2 col-form-label text-end">
-                                Submission Type</label>
-                            <div className="col-sm-10 wd-custom-box">
-                                <div>
-                                    <select id="wd-submission-type" className="form-select wd-between-elements-margins">
-                                        <option selected>Select type</option>
-                                        <option value="INPERSON">In person</option>
-                                        <option value="ONLINE">Online</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <div className="col-sm-5 offset-sm-0">
-                                        <label htmlFor="wd-text-entry" className="wd-bold-text">Online Entry Options</label>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="wd-text-entry" />
-                                            <label className="form-check-label wd-regular-text-padding" htmlFor="wd-text-entry">
-                                                Text entry </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="wd-website-url" />
-                                            <label className="form-check-label wd-regular-text-padding" htmlFor="wd-website-url">
-                                                Website URL </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="wd-media-recordings" />
-                                            <label className="form-check-label wd-regular-text-padding" htmlFor="wd-media-recordings">
-                                                Media Recordings </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="wd-student-annotation" />
-                                            <label className="form-check-label wd-regular-text-padding" htmlFor="wd-student-annotation">
-                                                Student Annotation </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="wd-file-upload" />
-                                            <label className="form-check-label wd-regular-text-padding" htmlFor="wd-file-upload">
-                                                File Uploads </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mb-3 row">
-                            <label htmlFor="assign"
-                                className="col-sm-2 col-form-label text-end">
-                                Assign</label>
-                            <div className="col-sm-10 wd-custom-box wd-between-elements-margins">
-                                <label htmlFor="wd-assign-to" className="wd-bold-text">Assign to</label>
-                                <div className="wd-between-elements-margins">
-                                    <select id="wd-assign-to" className="form-select">
-                                        <option selected>Select type</option>
-                                        <option value="EVERYONE">Everyone</option>
-                                        <option value="PAULNUNEZ">Paul Nunez</option>
-                                        <option value="LINDSEYCLARK">Lindsey Clark</option>
-                                        <option value="SERGSMITH">Serg Smith</option>
-                                        <option value="MONICAROLLS">Monika Rolls</option>
-                                    </select>
-                                </div>
-
-                                {/* Two dates */}
-                                <div className="wd-between-elements-margins">
-                                    <label htmlFor="wd-due-date" className="wd-regular-text-padding wd-bold-text ">Due</label>
-                                    <input
-                                        id="wd-due-date"
-                                        placeholder="date"
-                                        defaultValue={assignment.due}
-                                        className="form-control mb-2" />
-                                </div>
-
-                                <div className="wd-custom-date-container">
-                                    <div className="wd-two-custom-date-containers">
-                                        <label htmlFor="wd-available-from" className="wd-regular-text-padding wd-bold-text">Available from</label>
-                                        <input
-                                            id="wd-available-from"
-                                            placeholder="date"
-                                            defaultValue={assignment.until}
-                                            className="form-control mb-2" />
-                                    </div>
-                                    <div className="wd-two-custom-date-containers">
-                                        <label htmlFor="wd-available-until" className="wd-regular-text-padding wd-bold-text">Until</label>
-                                        <input id="wd-available-until"
-                                            type="date"
-                                            className="form-control mb-2" />
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            {/* Two buttons */}
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                Cancel </button>
-                            <button onClick={createAssignment} type="button" data-bs-dismiss="modal" className="btn btn-danger">
-                                Save </button>
-                        </div>
-                    </div>
-
-                </div>
-            ))}
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary">
+                    Cancel </button>
+                <button onClick={()=>dispatch(updateAssignment(assignment))} type="button" className="btn btn-danger">
+                    Save </button>
+            </div>
         </div>
     );
 }

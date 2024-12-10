@@ -5,23 +5,23 @@ import { GrNotes } from "react-icons/gr";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
-import { useParams } from "react-router";
+import { useParams, Route, Routes } from "react-router";
 import * as db from "../../Database"
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { createAssignment, editAssignment, updateAssignment, deleteAssignment, setAssignments } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
 
 export default function Assignments() {
-  const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const userRole = currentUser?.role;
-
-  const dispatch = useDispatch();
-  const assignments = useSelector((state: any) => state.assignmentReducer.assignments);
-
+  const { assignments, isInitialized } = useSelector((state: any) => state.assignmentReducer);
   const [assignmentName, setAssignmentName] = useState("");
+  const [assignment, setAssignment] = useState(db.assignments);
+  const { cid } = useParams();
+  const dispatch = useDispatch();
+
   const createAssignment = () => {
     setAssignments([...assignments, {
       _id: new Date().getTime().toString(),
@@ -34,17 +34,6 @@ export default function Assignments() {
     });
     setAssignmentName("");
   };
-
-  // const createModuleForCourse = async () => {
-  //   if (!cid) return;
-  //   const newModule = { name: moduleName, course: cid };
-  //   const module = await coursesClient.createModuleForCourse(cid, newModule);
-  //   dispatch(addModule(module));
-  // };
-
-  // const deleteAssignment = (assignmentId: string) => {
-  //   setAssignments(assignments.filter((a) => a._id !== assignmentId));
-  // };
 
   // Find the highest ID and calculate the new ID
   const getNextId = () => {
@@ -59,7 +48,9 @@ export default function Assignments() {
   };
 
   useEffect(() => {
-    fetchAssignments();
+    if (!isInitialized) {
+      fetchAssignments();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,7 +58,6 @@ export default function Assignments() {
     return (
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
-
         <AssignmentControls cid={cid!} />
 
         {/* ASSIGNMENTS */}
@@ -96,7 +86,7 @@ export default function Assignments() {
             </div>
 
             {/* A1 */}
-            {assignments && assignments.map((assignment: any) => (
+            {assignments.map((assignment: any) => (
               <ul key={assignment._id} className="wd-lessons list-group rounded-0">
                 <li className="wd-lesson list-group-item p-3 ps-1">
                   <div>
@@ -112,12 +102,12 @@ export default function Assignments() {
                       <div className="wd-float-left wd-padding">
                         <a className="wd-assignment-link wd-title-texts"
                           // THE ASSIGNMENT TITLE AND THE INFORMATION ABOUT IT. REDIRECTS TO THE ASSIGNMENT EDITOR SCREEN
-                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                          href={`#/Kanbas/Courses/${cid}/Assignments/Detail/${assignment._id}`}>
                           {assignment.title}
                         </a>
                         <p>
                           <a className="wd-assignment-link wd-title-texts wd-subtext"
-                            href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                            href={`#/Kanbas/Courses/${cid}/Assignments/Detail/${assignment._id}`}>
                             Multiple modules
                           </a>
                           &nbsp;|&nbsp; <b>Not available until </b> {assignment.until} |<br></br>
