@@ -66,7 +66,9 @@
     "course": "RS103",
     "until": "May 6, 2024 at 12:00 am",
     "due": "May 13, 2024 at 11:59 pm",
-    "points": "100 pts"
+    "points": "100 pts",
+    "availability": "Available",
+    "visibility": "Published"
   },
   {
     "_id": "A302",
@@ -74,7 +76,9 @@
     "course": "RS103",
     "until": "May 13, 2024 at 12:00 am",
     "due": "May 23, 2024 at 11:59 pm",
-    "points": "100 pts"
+    "points": "100 pts",
+    "availability": "Closed",
+    "visibility": "Unpublished"
   },
   {
     "_id": "A303",
@@ -82,7 +86,9 @@
     "course": "RS103",
     "until": "May, 2024 26 at 12:00 am",
     "due": "May 29, 2024 at 11:59 pm",
-    "points": "100 pts"
+    "points": "90 pts",
+    "availability": "Not available until",
+    "visibility": "Published"
   },
   {
     "_id": "A401",

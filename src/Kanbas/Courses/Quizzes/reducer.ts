@@ -20,28 +20,32 @@ const quizSlice = createSlice({
                 courseId: quiz.courseId,
                 points: quiz.points,
                 due: quiz.due,
-                available: quiz.available,
+                availablility: quiz.available,
                 until: quiz.until,
+                visibility: quiz.visibility,
             };
             state.quizzes = [...state.quizzes, newQuiz] as any;
         },
+
         deleteQuiz: (state, { payload: quizId }) => {
             state.quizzes = state.quizzes.filter((a: any) =>
                 a._id !== quizId);
         },
+
         updateQuiz: (state, { payload: quiz }) => {
             state.quizzes = state.quizzes.map((a: any) =>
                 a._id === quiz._id ? quiz : a
             ) as any;
         },
+
         editQuiz: (state, { payload: quizId }) => {
             state.quizzes = state.quizzes.map((a: any) =>
                 a._id === quizId ? { ...a, editing: true } : a
             ) as any;
-        }
+        },
     },
 
-    });
+});
 
 export const { createQuiz, deleteQuiz, updateQuiz, editQuiz, setQuizzes } =
     quizSlice.actions;
