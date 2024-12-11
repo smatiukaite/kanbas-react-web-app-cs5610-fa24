@@ -206,7 +206,6 @@ export default function ListScreen() {
                 {/* Two buttons */}
                 <button id="wd-add-quizzes-group"
                     className="btn btn-md btn-secondary me-2 float-end">
-
                     <FaPlus className="position-relative me-2 wd-bottom-padding" />
                     Group
                 </button>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
-import { TiPencil } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
@@ -10,21 +9,28 @@ export default function QuizEditor() {
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
     const quiz = { ...quizzes.find((it: any) => it._id === cid) };
     const dispatch = useDispatch();
-    const [timeLimit, setTimeLimit] = useState<number>(20);
+    const [activeTab, setActiveTab] = useState('Details'); // State to track the active tab
 
     const [quizDetails, setQuizDetails] = useState({
         title: "",
         description: "",
         quizType: "Graded Quiz",
-        quizGroup: "Quizzes",
+        assignmentGroup: "Quizzes",
         shuffleAnswers: true,
+        isTimeLimit: true,
         timeLimit: 20,
         multipleAttempts: false,
+        oneQuestionAtATime: true,
+        showAnswers: false,
+        webcam: false,
+        lockQuestions: false,
         assignTo: "Everyone",
+        accessCode: "",
         dueDate: "",
         availableFrom: "",
         untilDate: "",
         points: 0,
+        visibility: "Not published",
         questionData: [],
     });
 
@@ -32,7 +38,8 @@ export default function QuizEditor() {
         <div id="wd-quiz wd-container-margins">
 
             <div className='wd-top-panel float-end'>
-                <h3>Points {quiz.points} </h3>
+                <h3>Points {quizDetails.points}  &nbsp; &nbsp;
+                    <span style={{ color: 'gray' }}>{quizDetails.visibility}</span></h3>
             </div>
 
             {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
@@ -41,256 +48,343 @@ export default function QuizEditor() {
 
             <ul className="nav nav-tabs">
                 <li className="nav-item">
-                    <a className="nav-link active" href="Details">
-                        Details</a>
+                    <button
+                        className={`nav-link ${activeTab === 'Details' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('Details')}
+                    >
+                        Details
+                    </button>
                 </li>
                 <li className="nav-item">
-                    <Link to="Questions" className="nav-link">
-                        <span className="wd-fg-color-red"> Questions </span>
-                    </Link>
+                    <button
+                        className={`nav-link ${activeTab === 'Questions' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('Questions')}
+                    >
+                        <span className="wd-fg-color-red">Questions</span>
+                    </button>
                 </li>
             </ul>
 
-
-            {/* SELECTIONS */}
-            <div>
-                <div id="wd-css-responsive-forms-1">
-                    <div className="row wd-between-elements-margins mt-4 text-center">
-                        <label htmlFor="wd-points"
-                            className="col-sm-2 col-form-label text-end">
-                            Quiz Type
-                        </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-quiz-type-as" className="form-select">
-                                <option selected>Graded Quiz</option>
-                                <option value="PRACTICE QUIZE">Practice quiz</option>
-                                <option value="GRADED SURVEY">Graded Survey</option>
-                                <option value="UNGRADED SURVEY">Ungraded Survey</option>
-                            </select>
+            <div className="tab-content">
+                {activeTab === 'Details' && (
+                    <div id="details-tab">
+                        <div className="wd-between-elements-margins" key={quiz._id}>
+                            <label htmlFor="wd-name" className="form-label">
+                            </label>
+                            <input className="form-control" type="text"
+                                placeholder='Unnamed Quiz'
+                                value={quizDetails.title}
+                                onChange={(e) =>
+                                    setQuizDetails({ ...quizDetails, title: e.target.value })
+                                } />
                         </div>
-                    </div>
 
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="assignmentgroup"
-                            className="col-sm-2 col-form-label text-end">
-                            Points </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="text"
+                        {/* {quiz.map((quiz: any) => ( */}
+                        <div className="wd-between-elements-margins">
+                            <label htmlFor="wd-quiz-instructions" className="form-label">
+                                Quiz Instructions:
+                            </label>
+                            <textarea
+                                value={quizDetails.description}
                                 className="form-control"
-                                id="wd-points"
-                                placeholder="100" />
-                        </div></div>
+                                id="wd-quiz-instructions"
+                                onChange={(e) => setQuizDetails({ ...quizDetails, description: e.target.value })
+                                }>
+                            </textarea>
 
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Assignment Group </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Quizzes</option>
-                                <option value="EXAMS">Exams</option>
-                                <option value="ASSIGNMENTS">Assignments</option>
-                                <option value="PROJECT">Project</option>
-                            </select>
+                            {/* 2nd part of the page */}
+                            <div id="wd-css-responsive-forms-1">
+                                <div className="row wd-between-elements-margins mt-3">
+                                    <label htmlFor="wd-points"
+                                        className="col-sm-2 col-form-label text-end">
+                                        Quiz Type
+                                    </label>
+                                    <div className="col-sm-10">
+                                        <select id="wd-display-quiz-type-as" className="form-select"
+                                            value={quizDetails.quizType}
+                                            onChange={(e) =>
+                                                setQuizDetails({ ...quizDetails, quizType: e.target.value })
+                                            }>
+                                            <option value="GRADED QUIZE">Graded Quiz</option>
+                                            <option value="PRACTICE QUIZE">Practice Quiz</option>
+                                            <option value="GRADED SURVEY">Graded Survey</option>
+                                            <option value="UNGRADED SURVEY">Ungraded Survey</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="row wd-between-elements-margins">
+                                    <label htmlFor="assignmentgroup"
+                                        className="col-sm-2 col-form-label text-end">
+                                        Assignment Group </label>
+                                    <div className="col-sm-10">
+                                        <select id="wd-display-grade-as" className="form-select"
+                                            value={quizDetails.assignmentGroup}
+                                            onChange={(e) =>
+                                                setQuizDetails({ ...quizDetails, assignmentGroup: e.target.value })}>
+                                            <option value="QUIZZES">Quizes</option>
+                                            <option value="EXAMS">Exams</option>
+                                            <option value="ASSIGNMENTS">Assignments</option>
+                                            <option value="PROJECT">Project</option>
+                                        </select>
+                                    </div></div>
+
+                                <div className="row wd-between-elements-margins">
+                                    <label htmlFor="submissiontype"
+                                        className="col-sm-2 col-form-label text-end">
+                                    </label>
+                                    <div className="col-sm-10 wd-quiz-custom-box">
+                                        <div>
+                                            <div className="col-sm-5 offset-sm-0">
+                                                <label htmlFor="wd-text-entry" className="wd-bold-text">
+                                                    Options
+                                                </label>
+                                                <div className="form-check">
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id="wd-text-entry"
+                                                        checked={quizDetails.shuffleAnswers}
+                                                        onChange={(e) =>
+                                                            setQuizDetails({ ...quizDetails, shuffleAnswers: e.target.checked })}
+                                                    />
+                                                    <label className="form-check-label wd-regular-text-padding" htmlFor="wd-shuffle-answers">
+                                                        Shuffle Answers </label>
+                                                </div>
+
+                                                <div className="form-check d-flex align-items-center gap-3">
+                                                    <div>
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-website-url"
+                                                            checked={quizDetails.isTimeLimit}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, isTimeLimit: e.target.checked })
+                                                            } />
+                                                        <label className="form-check-label wd-regular-text-padding" htmlFor="wd-time-limit">
+                                                            Time Limit
+                                                        </label>
+                                                    </div>
+                                                    &nbsp; &nbsp;
+                                                    <div>
+                                                        <input
+                                                            className="form-control"
+                                                            type="number"
+                                                            id="wd-number-input"
+                                                            value={quizDetails.timeLimit}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, timeLimit: Number(e.target.value) })}
+                                                            min="5"
+                                                            max="180"
+                                                            disabled={!quizDetails.isTimeLimit}
+                                                        />
+                                                    </div>
+                                                    <span>Minutes</span>
+                                                </div>
+
+                                                <div className="form-check wd-quiz-custom-border">
+                                                    <div className="col-sm-10">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-file-upload"
+                                                            checked={quizDetails.multipleAttempts}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, multipleAttempts: e.target.checked })
+                                                            } />
+                                                        <label className="form-check-label wd-regular-text-padding" htmlFor="wd-file-upload">
+                                                            Allow Multiple Attempts
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row wd-between-elements-margins">
+                                                    <div className="col-sm-10">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-website-url"
+                                                            checked={quizDetails.showAnswers}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, showAnswers: e.target.checked })}
+                                                        />&nbsp;
+                                                        <span> Show Correct Answers </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row wd-between-elements-margins">
+                                    <label htmlFor="submissiontype"
+                                        className="col-sm-2 col-form-label text-end">
+                                    </label>
+                                    <div className="col-sm-10 wd-quiz-custom-box">
+                                        <div>
+                                            <div className="col-sm-5 offset-sm-0">
+                                                <label htmlFor="wd-text-entry" className="wd-bold-text">
+                                                    Quiz Restrictions
+                                                </label>
+                                                <div className="row wd-between-elements-margins">
+                                                    <div className="col-sm-10">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-website-url"
+                                                            checked={quizDetails.oneQuestionAtATime}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, oneQuestionAtATime: e.target.checked })}
+                                                        />&nbsp;&nbsp;
+                                                        <label htmlFor="grade">
+                                                            Show one Question at a Time </label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row wd-between-elements-margins">
+                                                    <div className="col-sm-10">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-website-url"
+                                                            checked={quizDetails.webcam}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, webcam: e.target.checked })} />
+                                                        &nbsp;&nbsp;
+                                                        <label htmlFor="grade">
+                                                            Webcam Required </label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row wd-between-elements-margins">
+                                                    <div className="col-sm-10">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="wd-website-url"
+                                                            checked={quizDetails.lockQuestions}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, lockQuestions: e.target.checked })} />
+                                                        &nbsp;&nbsp;
+                                                        <label htmlFor="grade">
+                                                            Lock Questions After Answering </label>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row wd-between-elements-margins">
+                                                    <div className="col-sm-10">
+                                                        <input className="form-control" type="text"
+                                                            placeholder="Access Code"
+                                                            value={quizDetails.accessCode}
+                                                            onChange={(e) =>
+                                                                setQuizDetails({ ...quizDetails, accessCode: e.target.value })
+                                                            } />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mb-3 row">
+                                    <label htmlFor="assign"
+                                        className="col-sm-2 col-form-label text-end">
+                                        Assign</label>
+                                    <div className="col-sm-10 wd-custom-box wd-between-elements-margins">
+                                        <label htmlFor="wd-assign-to" className="wd-bold-text">Assign to</label>
+                                        <div className="wd-between-elements-margins">
+                                            <select id="wd-assign-to" className="form-select">
+                                                <option selected>Everyone</option>
+                                                {/* <option value="EVERYONE">Everyone</option> */}
+                                                <option value="PAULNUNEZ">Paul Nunez</option>
+                                                <option value="LINDSEYCLARK">Lindsey Clark</option>
+                                                <option value="SERGSMITH">Serg Smith</option>
+                                                <option value="MONICAROLLS">Monika Rolls</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Two dates */}
+                                        <div className="wd-between-elements-margins">
+                                            <label htmlFor="wd-due-date" className="wd-regular-text-padding wd-bold-text ">Due</label>
+                                            <input
+                                                id="wd-due-date"
+                                                type="date"
+                                                placeholder="date"
+                                                defaultValue={quiz.due}
+                                                className="form-control mb-2" />
+                                        </div>
+
+                                        <div className="wd-custom-date-container">
+                                            <div className="wd-two-custom-date-containers">
+                                                <label htmlFor="wd-available-from" className="wd-regular-text-padding wd-bold-text">Available from</label>
+                                                <input
+                                                    id="wd-available-from"
+                                                    type='date'
+                                                    placeholder="date"
+                                                    defaultValue={quiz.until}
+                                                    className="form-control mb-2" />
+                                            </div>
+                                            <div className="wd-two-custom-date-containers">
+                                                <label htmlFor="wd-available-until" className="wd-regular-text-padding wd-bold-text">Until</label>
+                                                <input id="wd-available-until"
+                                                    type="date"
+                                                    className="form-control mb-2" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Shuffle Answers </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Yes</option>
-                                <option value="NO">No</option>
-                            </select>
-                        </div>
+                )}
+                {activeTab === 'Questions' && (
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
+
+                        <button
+                            id="wd-cancel-new-quiz"
+                            className="btn btn-md btn-secondary m-5"
+                            onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}>
+                            <FaPlus className="position-relative me-2 wd-bottom-padding" />
+                            New Question
+                        </button>
                     </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Time Limit </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="number"
-                                id="timeLimit"
-                                className="form-control"
-                                min={20}
-                                max={100}
-                                value={timeLimit}
-                                onChange={(e) => setTimeLimit(Number(e.target.value))} /><br />
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Multiple Attempts </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-attempts-as" className="form-select">
-                                <option selected>No</option>
-                                <option value="YES">Yes</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            How Many Attempts </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-attempts" className="form-select">
-                                <option selected>1</option>
-                                <option value="YES">Yes</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            View Responses </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Show Correct Answers </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            One Question at a Time </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Require Respondus Lockdown </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Browser </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Required to View Quiz Results </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Webcam Required </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Lock Questions After Answering </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                </div>
+                )}
             </div>
-            <div id="wd-css-responsive-tables">
-                <div className="table-responsive">
-                    <table className="table">
-                        <thead>
-                            <tr><th>Due</th><th>For</th><th>Available From</th><th>of</th><th>Until</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Date</td><td>Everyone</td><td>Date</td><td>of</td><td>Date</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
+            {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
+            <br></br>
+            <hr></hr>
 
-
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
+            {/* Three buttons */}
+            <div style={{ display: "flex", justifyContent: "right", alignItems: "center", gap: "10px" }}>
                 <button
-                    id="wd-preview-quiz"
+                    id="wd-cancel-new-quiz"
                     className="btn btn-md btn-secondary me-0"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
-                >
+                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes`)}>
                     Cancel
                 </button>
 
                 <button
-                    id="wd-edit-quiz"
-                    className="btn btn-md btn-danger me-2"
+                    id="wd-save-quiz"
+                    className="btn btn-md btn-danger me-0"
                 // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
                 >
                     Save
                 </button>
+
+                <button
+                    id="wd-save-and-publish-quiz"
+                    className="btn btn-md btn-success me-0"
+                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
+                >
+                    Save & Publish
+                </button>
             </div>
+
         </div>
     )
 }

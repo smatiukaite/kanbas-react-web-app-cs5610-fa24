@@ -2,8 +2,6 @@ import { FaPlus } from "react-icons/fa6";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
-import QuizEditor from "./QuizEditor";
-// import { quizzes } from "../../Database";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { createQuiz } from "./reducer";
 
