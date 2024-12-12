@@ -35,7 +35,7 @@
 .tag {
     display: flex;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #ffddd4;
     padding: 5px 10px;
     margin-right: 5px;
     border-radius: 3px;
@@ -50,4 +50,18 @@
 
 .close-btn:hover {
     color: #000;
+}
+
+.borders{
+    background-color: rgb(255, 209, 193);
+    color: red;
+
+}
+
+.wd-border-fat {
+    border-width: 20px 30px 20px 30px;
+}
+
+.wd-border-solid {
+    border-style: solid;
 }

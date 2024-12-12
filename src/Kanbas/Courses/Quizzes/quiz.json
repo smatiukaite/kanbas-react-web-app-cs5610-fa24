@@ -68,7 +68,8 @@
     "due": "May 13, 2024 at 11:59 pm",
     "points": "100 pts",
     "availability": "Available",
-    "visibility": "Published"
+    "visibility": "Unpublished",
+    "accessCode": "123"
   },
   {
     "_id": "A302",

@@ -1,28 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
-    quizzes: [],
+    quizzes: [{ id: 1, title: "Hi" }],
     isInitialized: false
 };
 const quizSlice = createSlice({
     name: "quizzes",
-    initialState,
+    initialState: {
+        quizzes: [],
+        isInitialized: false,
+    },
     reducers: {
         setQuizzes: (state, action) => {
             state.quizzes = action.payload;
             state.isInitialized = true;
         },
+
         createQuiz: (state, { payload: quiz }) => {
             const newQuiz: any = {
                 _id: new Date().getTime().toString(),
                 title: quiz.title,
-                course: quiz.course,
                 description: quiz.description,
+                quizType: quiz.type,
+                course: quiz.course,
                 courseId: quiz.courseId,
+                assignmentGroup: quiz.assignmentGroup,
                 points: quiz.points,
-                due: quiz.due,
+                shuffleAnswers: quiz.shuffleAnswers,
+                isTimeLimit: quiz.isTimeLimit,
+                timeLimit: quiz.timeLimit,
+                multipleAttempts: quiz.multipleAttempts,
+                oneQuestionAtATime: quiz.oneQuestionAtATime,
+                showAnswers: quiz.showAnswers,
+                webcam: quiz.webcam,
+                lockQuestions: quiz.lockQuestions,
+                assignTo: quiz.assignTo,
+                accessCode: quiz.accessCode,
+                viewResponses: quiz.viewResponses,
+                respondusLockDown: quiz.respondusLockDown,
+                requiredViewResults: quiz.requiredViewResults,
+                dueDate: quiz.due,
+                availableFrom: quiz.availableFrom,
                 availablility: quiz.available,
                 until: quiz.until,
                 visibility: quiz.visibility,
+                questionData: [],
             };
             state.quizzes = [...state.quizzes, newQuiz] as any;
         },
@@ -43,10 +64,15 @@ const quizSlice = createSlice({
                 a._id === quizId ? { ...a, editing: true } : a
             ) as any;
         },
+
+        addQuestion: (state, { payload: quizId }) => {
+
+        }
+
     },
 
 });
 
-export const { createQuiz, deleteQuiz, updateQuiz, editQuiz, setQuizzes } =
-    quizSlice.actions;
+export const {
+    addQuestion, createQuiz, deleteQuiz, updateQuiz, editQuiz, setQuizzes, } = quizSlice.actions;
 export default quizSlice.reducer;

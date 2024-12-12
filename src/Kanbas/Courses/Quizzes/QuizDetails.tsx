@@ -1,276 +1,533 @@
 import { TiPencil } from "react-icons/ti";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// import { quizzes } from "../../Database";
+import { useSelector } from "react-redux";
+// import { quizzes } from "../../Database";
 
 export default function QuizDetails() {
-    const [timeLimit, setTimeLimit] = useState<number>(20);
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const userRole = currentUser?.role;
     const navigate = useNavigate();
     const { cid, qid } = useParams<{ cid: string, qid: string }>();
+    // Access quizzes from the Redux store
+    const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
 
+    // Find the specific quiz using the `qid`
+    const quiz = quizzes.find((q: any) => q._id === qid);
 
+    // DEFAULT VALUES IF REDUX DOESN'T HAVE IT
     const [quizDetails, setQuizDetails] = useState({
         title: "",
+        description: "",
         quizType: "Graded Quiz",
-        points: 0,
-        quizGroup: "Quizzes",
+        assignmentGroup: "Quizzes",
         shuffleAnswers: true,
+        isTimeLimit: true,
         timeLimit: 20,
         multipleAttempts: false,
-        attemptsAllowed: 1,
-        showCorrectAnswers: "",
-        accessCode: "",
         oneQuestionAtATime: true,
-        webcamRequired: false,
-        lockQuestionsAfterAnswering: false,
+        showAnswers: false,
+        webcam: false,
+        lockQuestions: false,
+        assignTo: "Everyone",
+        accessCode: "",
         dueDate: "",
         availableFrom: "",
-        untilDate: "",
+        until: "",
+        points: 0,
+        visibility: "Unpublished",
+        viewResponses: "Always",
+        respondusLockDown: false,
+        requiredViewResults: false,
         questionData: [],
     });
 
-    return (
-        <div id="wd-quiz wd-container-margins">
+    // Populate quiz details from Redux when the component mounts or `quiz` changes
+    useEffect(() => {
+        if (quiz) {
+            setQuizDetails({
+                title: quiz.title ?? "",
+                description: quiz.description ?? "",
+                quizType: quiz.quizType ?? "Graded Quiz", // Default to "Graded Quiz"
+                assignmentGroup: quiz.assignmentGroup ?? "Quizzes",
+                shuffleAnswers: quiz.shuffleAnswers ?? "Yes",
+                isTimeLimit: quiz.isTimeLimit ?? "Yes",
+                timeLimit: quiz.timeLimit ?? 20,
+                multipleAttempts: quiz.multipleAttempts ?? "No",
+                oneQuestionAtATime: quiz.oneQuestionAtATime ?? "Yes",
+                showAnswers: quiz.showAnswers ?? "No",
+                webcam: quiz.webcam ?? "No",
+                lockQuestions: quiz.lockQuestions ?? "No",
+                assignTo: quiz.assignTo ?? "Everyone",
+                accessCode: quiz.accessCode ?? "",
+                dueDate: quiz.due ?? "",
+                availableFrom: quiz.availableFrom ?? "",
+                until: quiz.until ?? "",
+                points: quiz.points ?? 0,
+                visibility: quiz.visibility ?? "Not published",
+                viewResponses: quiz.viewResponses ?? "Always",
+                respondusLockDown: quiz.respondusLockDown ?? "No",
+                requiredViewResults: quiz.requiredViewResults ?? "No",
+                questionData: quiz.questionData ?? [],
+            });
+        }
+    }, [quiz]);
 
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
-                <button
-                    id="wd-preview-quiz"
-                    className="btn btn-md btn-secondary me-0"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
-                >
-                    Preview
-                </button>
+    if (userRole === "FACULTY") {
+        return (
+            <div id="wd-quiz wd-container-margins">
 
-                <button
-                    id="wd-edit-quiz"
-                    className="btn btn-md btn-secondary me-2"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
-                >
-                    <TiPencil className="position-relative me-2 wd-bottom-padding" />
-                    Edit
-                </button>
-            </div>
+                {/* TWO BUTTONS AT THE TOP */}
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
+                    <button
+                        id="wd-preview-quiz"
+                        className="btn btn-md btn-secondary me-0"
+                        onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
+                    >
+                        Preview
+                    </button>
 
-            {/* SELECTIONS */}
-            <div>
-                <div id="wd-css-responsive-forms-1">
-                    <div className="row wd-between-elements-margins mt-4 text-center">
-                        <h5> Q1 - HTML</h5>
-                        <label htmlFor="wd-points"
-                            className="col-sm-2 col-form-label text-end">
-                            Quiz Type
-                        </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-quiz-type-as" className="form-select">
-                                <option selected>Graded Quiz</option>
-                                <option value="PRACTICE QUIZE">Practice quiz</option>
-                                <option value="GRADED SURVEY">Graded Survey</option>
-                                <option value="UNGRADED SURVEY">Ungraded Survey</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="assignmentgroup"
-                            className="col-sm-2 col-form-label text-end">
-                            Points </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="wd-points"
-                                placeholder="100" />
-                        </div></div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Assignment Group </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Quizzes</option>
-                                <option value="EXAMS">Exams</option>
-                                <option value="ASSIGNMENTS">Assignments</option>
-                                <option value="PROJECT">Project</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Shuffle Answers </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Yes</option>
-                                <option value="NO">No</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Time Limit </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="number"
-                                id="timeLimit"
-                                className="form-control"
-                                min={20}
-                                max={100}
-                                value={timeLimit}
-                                onChange={(e) => setTimeLimit(Number(e.target.value))} /><br />
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Multiple Attempts </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-attempts-as" className="form-select">
-                                <option selected>No</option>
-                                <option value="YES">Yes</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            How Many Attempts </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-attempts" className="form-select">
-                                <option selected>1</option>
-                                <option value="YES">Yes</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            View Responses </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Show Correct Answers </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            One Question at a Time </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Require Respondus Lockdown </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Browser </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Required to View Quiz Results </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Webcam Required </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row wd-between-elements-margins">
-                        <label htmlFor="grade"
-                            className="col-sm-2 col-form-label text-end">
-                            Lock Questions After Answering </label>
-                        <div className="col-sm-10">
-                            <select id="wd-display-grade-as" className="form-select">
-                                <option selected>Select type</option>
-                                <option value="NUMBER">Number</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-
-
+                    <button
+                        id="wd-edit-quiz"
+                        className="btn btn-md btn-secondary me-2"
+                        onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
+                    >
+                        <TiPencil className="position-relative me-2 wd-bottom-padding" />
+                        Edit
+                    </button>
                 </div>
-            </div>
-            <div id="wd-css-responsive-tables">
-                <div className="table-responsive">
-                    <table className="table">
-                        <thead>
-                            <tr><th>Due</th><th>For</th><th>Available From</th><th>of</th><th>Until</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Date</td><td>Everyone</td><td>Date</td><td>of</td><td>Date</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
-        </div>
-    )
+                {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
+                <br></br>
+                <hr></hr>
+
+                {/* INFORMATION ABOUT THE QUIZ */}
+                <div className="mb-4">
+                    <div id="wd-css-responsive-forms-1">
+                        <div className="row mt-4">
+                            <h5><b> {quizDetails.title} </b></h5>
+                            <label htmlFor="wd-points"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Quiz Type</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.quizType}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="assignmentgroup"
+                                className="col-sm-5 text-end">
+                                <b>Points</b>
+                            </label>
+                            <div className="col-sm-7 text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.points}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Assignment Group</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.assignmentGroup}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row ">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Shuffle Answers</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.shuffleAnswers}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Time Limit</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.timeLimit}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Multiple Attempts</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.multipleAttempts}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>View Responses</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.viewResponses}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Show Correct Answers</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.showAnswers}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>One Question at a Time</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.oneQuestionAtATime}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Require Respondus Lockdown Browser</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.respondusLockDown}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Required to View Quiz Results</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.requiredViewResults}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Webcam Required</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.webcam}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Lock Questions After Answering</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.lockQuestions}
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {/* THE BOTTOM TABLE */}
+                <div id="wd-css-responsive-tables"
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '10vh',
+                    }}
+                >
+                    <div className="table-responsive col-sm-8">
+                        <table className="table">
+                            <thead>
+                                <tr><th>Due</th><th>For</th><th>Available From</th><th>Until</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{quizDetails.dueDate}</td><td>{quizDetails.assignTo}</td><td>{quizDetails.until}</td><td>{quizDetails.dueDate}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
+
+    else {
+        return (
+            <div id="wd-quiz wd-container-margins">
+
+                {/* TWO BUTTONS AT THE TOP */}
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
+                    <button
+                        id="wd-preview-quiz"
+                        className="btn btn-md btn-secondary me-0"
+                        onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
+                    >
+                        Take a Quiz
+                    </button>
+                </div>
+
+                {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
+                <br></br>
+                <hr></hr>
+
+                {/* INFORMATION ABOUT THE QUIZ */}
+                <div className="mb-4">
+                    <div id="wd-css-responsive-forms-1">
+                        <div className="row mt-4">
+                            <h5><b> {quizDetails.title} </b></h5>
+                            <label htmlFor="wd-points"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Quiz Type</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.quizType}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="assignmentgroup"
+                                className="col-sm-5 text-end">
+                                <b>Points</b>
+                            </label>
+                            <div className="col-sm-7 text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.points}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Assignment Group</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.assignmentGroup}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row ">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Shuffle Answers</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.shuffleAnswers}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Time Limit</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.timeLimit}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Multiple Attempts</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.multipleAttempts}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>View Responses</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.viewResponses}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Show Correct Answers</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.showAnswers}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>One Question at a Time</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.oneQuestionAtATime}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Require Respondus Lockdown Browser</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.respondusLockDown}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Required to View Quiz Results</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.requiredViewResults}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Webcam Required</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.webcam}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-5 col-form-label text-end">
+                                <b>Lock Questions After Answering</b>
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.lockQuestions}
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {/* THE BOTTOM TABLE */}
+                <div id="wd-css-responsive-tables"
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '10vh',
+                    }}
+                >
+                    <div className="table-responsive col-sm-8">
+                        <table className="table">
+                            <thead>
+                                <tr><th>Due</th><th>For</th><th>Available From</th><th>Until</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{quizDetails.dueDate}</td><td>{quizDetails.assignTo}</td><td>{quizDetails.until}</td><td>{quizDetails.dueDate}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
 }

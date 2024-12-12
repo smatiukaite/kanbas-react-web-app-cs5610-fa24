@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,11 +6,18 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 export default function QuizEditor() {
     const { cid, qid } = useParams<{ cid: string, qid: string }>();
     const navigate = useNavigate();
+
+    // Access quizzes from the Redux store
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
-    const quiz = { ...quizzes.find((it: any) => it._id === cid) };
+    // const quiz = { ...quizzes.find((it: any) => it._id === cid) };
+
+    // Find the specific quiz using the `qid`
+    const quiz = quizzes.find((q: any) => q._id === qid);
+
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState('Details'); // State to track the active tab
 
+    // DEFAULT VALUES IF REDUX DOESN'T HAVE IT
     const [quizDetails, setQuizDetails] = useState({
         title: "",
         description: "",
@@ -28,18 +35,54 @@ export default function QuizEditor() {
         accessCode: "",
         dueDate: "",
         availableFrom: "",
-        untilDate: "",
+        until: "",
         points: 0,
         visibility: "Not published",
+        viewResponses: "Always",
+        respondusLockDown: false,
+        requiredViewResults: false,
         questionData: [],
     });
+
+    // Populate quiz details from Redux when the component mounts or `quiz` changes
+    useEffect(() => {
+        if (quiz) {
+            setQuizDetails({
+                title: quiz.title ?? "",
+                description: quiz.description ?? "",
+                quizType: quiz.quizType ?? "Graded Quiz",
+                assignmentGroup: quiz.assignmentGroup ?? "Quizzes",
+                shuffleAnswers: quiz.shuffleAnswers ?? true,
+                isTimeLimit: quiz.isTimeLimit ?? true,
+                timeLimit: quiz.timeLimit ?? 20,
+                multipleAttempts: quiz.multipleAttempts ?? false,
+                oneQuestionAtATime: quiz.oneQuestionAtATime ?? true,
+                showAnswers: quiz.showAnswers ?? false,
+                webcam: quiz.webcam ?? false,
+                lockQuestions: quiz.lockQuestions ?? false,
+                assignTo: quiz.assignTo ?? "Everyone",
+                accessCode: quiz.accessCode ?? "",
+                dueDate: quiz.due ?? "",
+                availableFrom: quiz.availableFrom ?? "",
+                until: quiz.until ?? "",
+                points: quiz.points ?? 0,
+                visibility: quiz.visibility ?? "Unpublished",
+                viewResponses: quiz.viewResponses ?? "Always",
+                respondusLockDown: quiz.respondusLockDown ?? false,
+                requiredViewResults: quiz.requiredViewResults ?? false,
+                questionData: quiz.questionData ?? [],
+            });
+        }
+    }, [quiz]);
 
     return (
         <div id="wd-quiz wd-container-margins">
 
             <div className='wd-top-panel float-end'>
                 <h3>Points {quizDetails.points}  &nbsp; &nbsp;
-                    <span style={{ color: 'gray' }}>{quizDetails.visibility}</span></h3>
+                    <span style={{ color: 'gray' }}>
+                        {quizDetails.visibility}
+                    </span></h3>
             </div>
 
             {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
@@ -96,10 +139,10 @@ export default function QuizEditor() {
                             <div id="wd-css-responsive-forms-1">
                                 <div className="row wd-between-elements-margins mt-3">
                                     <label htmlFor="wd-points"
-                                        className="col-sm-2 col-form-label text-end">
+                                        className="col-md-4 col-form-label text-end">
                                         Quiz Type
                                     </label>
-                                    <div className="col-sm-10">
+                                    <div className="col-sm-8">
                                         <select id="wd-display-quiz-type-as" className="form-select"
                                             value={quizDetails.quizType}
                                             onChange={(e) =>
@@ -115,9 +158,9 @@ export default function QuizEditor() {
 
                                 <div className="row wd-between-elements-margins">
                                     <label htmlFor="assignmentgroup"
-                                        className="col-sm-2 col-form-label text-end">
+                                        className="col-md-4 col-form-label text-end">
                                         Assignment Group </label>
-                                    <div className="col-sm-10">
+                                    <div className="col-sm-8">
                                         <select id="wd-display-grade-as" className="form-select"
                                             value={quizDetails.assignmentGroup}
                                             onChange={(e) =>
@@ -131,9 +174,9 @@ export default function QuizEditor() {
 
                                 <div className="row wd-between-elements-margins">
                                     <label htmlFor="submissiontype"
-                                        className="col-sm-2 col-form-label text-end">
+                                        className="col-sm-4 col-form-label text-end">
                                     </label>
-                                    <div className="col-sm-10 wd-quiz-custom-box">
+                                    <div className="col-sm-8 wd-quiz-custom-box">
                                         <div>
                                             <div className="col-sm-5 offset-sm-0">
                                                 <label htmlFor="wd-text-entry" className="wd-bold-text">
@@ -220,9 +263,9 @@ export default function QuizEditor() {
 
                                 <div className="row wd-between-elements-margins">
                                     <label htmlFor="submissiontype"
-                                        className="col-sm-2 col-form-label text-end">
+                                        className="col-sm-4 col-form-label text-end">
                                     </label>
-                                    <div className="col-sm-10 wd-quiz-custom-box">
+                                    <div className="col-sm-8 wd-quiz-custom-box">
                                         <div>
                                             <div className="col-sm-5 offset-sm-0">
                                                 <label htmlFor="wd-text-entry" className="wd-bold-text">
@@ -275,7 +318,9 @@ export default function QuizEditor() {
 
                                                 <div className="row wd-between-elements-margins">
                                                     <div className="col-sm-10">
-                                                        <input className="form-control" type="text"
+                                                        <input
+                                                            className="form-control"
+                                                            type="text"
                                                             placeholder="Access Code"
                                                             value={quizDetails.accessCode}
                                                             onChange={(e) =>
@@ -290,10 +335,13 @@ export default function QuizEditor() {
 
                                 <div className="mb-3 row">
                                     <label htmlFor="assign"
-                                        className="col-sm-2 col-form-label text-end">
-                                        Assign</label>
-                                    <div className="col-sm-10 wd-custom-box wd-between-elements-margins">
-                                        <label htmlFor="wd-assign-to" className="wd-bold-text">Assign to</label>
+                                        className="col-sm-4 col-form-label text-end">
+                                        Assign
+                                    </label>
+                                    <div className="col-sm-8 wd-custom-box wd-between-elements-margins">
+                                        <label htmlFor="wd-assign-to" className="wd-bold-text">
+                                            Assign to
+                                        </label>
                                         <div className="wd-between-elements-margins">
                                             <select id="wd-assign-to" className="form-select">
                                                 <option selected>Everyone</option>
@@ -309,11 +357,13 @@ export default function QuizEditor() {
                                         <div className="wd-between-elements-margins">
                                             <label htmlFor="wd-due-date" className="wd-regular-text-padding wd-bold-text ">Due</label>
                                             <input
-                                                id="wd-due-date"
-                                                type="date"
-                                                placeholder="date"
-                                                defaultValue={quiz.due}
-                                                className="form-control mb-2" />
+                                                className="form-control mb-2"
+                                                type="text"
+                                                placeholder="Example: May 13, 2024 at 11:59 pm"
+                                                value={quizDetails.dueDate}
+                                                onChange={(e) =>
+                                                    setQuizDetails({ ...quizDetails, dueDate: e.target.value })
+                                                } />
                                         </div>
 
                                         <div className="wd-custom-date-container">
@@ -321,16 +371,25 @@ export default function QuizEditor() {
                                                 <label htmlFor="wd-available-from" className="wd-regular-text-padding wd-bold-text">Available from</label>
                                                 <input
                                                     id="wd-available-from"
-                                                    type='date'
-                                                    placeholder="date"
-                                                    defaultValue={quiz.until}
+                                                    type='text'
+                                                    placeholder="Example: May 13, 2024 at 11:59 pm"
+                                                    value={quizDetails.availableFrom}
+                                                    onChange={(e) =>
+                                                        setQuizDetails({ ...quizDetails, availableFrom: e.target.value })
+                                                    }
                                                     className="form-control mb-2" />
                                             </div>
                                             <div className="wd-two-custom-date-containers">
                                                 <label htmlFor="wd-available-until" className="wd-regular-text-padding wd-bold-text">Until</label>
                                                 <input id="wd-available-until"
-                                                    type="date"
-                                                    className="form-control mb-2" />
+                                                    type="text"
+                                                    className="form-control mb-2"
+                                                    placeholder="Example: May 13, 2024 at 11:59 pm"
+                                                    value={quizDetails.until}
+                                                    onChange={(e) =>
+                                                        setQuizDetails({ ...quizDetails, until: e.target.value })
+                                                    }
+                                                />
                                             </div>
                                         </div>
 
@@ -342,17 +401,68 @@ export default function QuizEditor() {
                     </div>
                 )}
                 {activeTab === 'Questions' && (
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px" }}>
-
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+                        {/* {quizDetails.questionData.length === 0 ? (
+                            <> */}
                         <button
-                            id="wd-cancel-new-quiz"
+                            id="wd-add-question"
                             className="btn btn-md btn-secondary m-5"
-                            onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}>
+                        // onClick={() => {
+                        //     const newQuestion = {
+                        //         id: quizDetails.questionData.length + 1,
+                        //         text: 'New Question',
+                        //         options: [],
+                        //     };
+                        //     setQuizDetails({
+                        //         ...quizDetails,
+                        //         questionData: [...quizDetails.questionData, newQuestion],
+                        //     })
+                        //     ;
+                        // }}
+                        >
                             <FaPlus className="position-relative me-2 wd-bottom-padding" />
-                            New Question
+                            Add Question
                         </button>
+                        {/* </>
+                        ) : (
+                            <div>
+                                <h3>Questions:</h3>
+                                <ul>
+                                    {quizDetails.questionData.map((question, index) => (
+                                        <li key={index}>{question.text}</li>
+                                    ))}
+                                </ul>
+                                <button
+                                    id="wd-add-another-question"
+                                    className="btn btn-md btn-secondary m-5"
+                                    onClick={() => {
+                                        const newQuestion = {
+                                            id: quizDetails.questionData.length + 1,
+                                            text: `Question ${quizDetails.questionData.length + 1}`,
+                                            options: [],
+                                        };
+                                        setQuizDetails({
+                                            ...quizDetails,
+                                            questionData: [...quizDetails.questionData, newQuestion],
+                                        });
+                                    }}
+                                >
+                                    <FaPlus className="position-relative me-2 wd-bottom-padding" />
+                                    Add Another Question
+                                </button>
+                            </div>
+                        )} */}
+
+                        <div>
+
+
+
+                        </div>
+
+
                     </div>
                 )}
+
             </div>
 
             {/* CREATE A GREY LINE BELOW THE TOP PANEL */}

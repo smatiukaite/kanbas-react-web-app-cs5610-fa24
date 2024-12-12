@@ -166,9 +166,15 @@ export default function ListScreen() {
                                                 onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the parent `li`
                                             />
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li><a className="dropdown-item" href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>Edit</a></li>
-                                                <li><a className="dropdown-item" onClick={() => dispatch(deleteQuiz(quiz._id))}
-                                                    id="wd-delete-click">Delete</a></li>
+                                                <li><a className="dropdown-item" href={`#/Kanbas/Courses/${cid}/Quizzes/Editor/${quiz._id}`}>Edit</a></li>
+                                                <li>
+                                                    <a className="dropdown-item"
+                                                        
+                                                        onClick={() => dispatch(deleteQuiz(quiz._id))}
+                                                        id="wd-delete-click">
+                                                        Delete
+                                                    </a>
+                                                </li>
                                                 <li><a className="dropdown-item" onClick={() => dispatch(deleteQuiz(quiz._id))}
                                                     id="wd-change-published-click">Publish</a></li>
                                                 <li><a className="dropdown-item" href="#Copy">Copy</a></li>
