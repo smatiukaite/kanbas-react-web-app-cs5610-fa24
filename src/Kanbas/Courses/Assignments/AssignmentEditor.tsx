@@ -2,7 +2,7 @@ import './index.css';
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { updateAssignment } from "./reducer";
+import { deleteAssignment, updateAssignment } from "./reducer";
 import { useNavigate } from "react-router-dom";
 
 export default function AssignmentEditor() {
@@ -24,6 +24,14 @@ export default function AssignmentEditor() {
     const handleSave = () => {
         dispatch(updateAssignment(assignment)); // Dispatch the updated assignment
         navigate(`/Kanbas/Courses/${cid}/Assignments/`); // Navigate to the Assignments page
+    };
+
+    const handleCancel = () => {
+        // Dispatch deleteAssignment if the assignment is newly created
+        if (aid) {
+            dispatch(deleteAssignment(aid)); // Delete the assignment by its ID
+        }
+        navigate(`/Kanbas/Courses/${cid}/Assignments/`); // Navigate back to assignments page
     };
 
     return (
@@ -221,7 +229,7 @@ export default function AssignmentEditor() {
             </div>
 
             <div className="modal-footer">
-                <button onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/`)}
+                <button onClick={handleCancel}
                     type="button"
                     className="btn btn-secondary">
                     Cancel
