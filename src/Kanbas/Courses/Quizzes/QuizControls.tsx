@@ -13,22 +13,43 @@ export default function QuizControls({ cid }: { cid: string }) {
 
     const getNextId = () => {
         if (quizzes.length === 0) return 1;
-        const maxId = Math.max(...quizzes.map((quiz: any) => Number(quiz._id || 0)));
+        const maxId = Math.max(...quizzes.map((quiz: any) => Number(quiz._id) || 0));
         return maxId + 1;
     };
 
     //CREATE A NEW QUIZ WITH THE DEFAULT VALUES AND NAVIGATES TO THE QUIZ EDITOR SCREEN
-    const createNewQuiz = () => {
-        const qid = getNextId();
+    const handleCreateQuiz = () => {
+        // const qid = getNextId();
         const newQuiz = {
-            _id: qid,
-            name: `New Quiz ${qid}`,
-            course: cid,
-            lesson: [],
+            _id: new Date().getTime().toString(),
+            title: "",
+            description: "",
+            quizType: "Graded Quiz",
+            assignmentGroup: "Quizzes",
+            shuffleAnswers: true,
+            isTimeLimit: true,
+            timeLimit: 20,
+            multipleAttempts: false,
+            oneQuestionAtATime: true,
+            showAnswers: false,
+            webcam: false,
+            lockQuestions: false,
+            assignTo: "Everyone",
+            accessCode: "",
+            dueDate: "",
+            availableFrom: "",
+            until: "",
+            points: 0,
+            visibility: "Unpublished",
+            viewResponses: "Always",
+            respondusLockDown: false,
+            requiredViewResults: false,
+            questionData: [],
         };
         dispatch(createQuiz(newQuiz)); // Dispatch Redux action to add a new quiz
-        navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizEditor/${qid}`); // Navigate to the editor
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${newQuiz._id}`); // Navigate to the editor
     };
+
     return (
         <div>
             <div id="wd-quiz-controls" className="text-nowrap float-end">
@@ -38,10 +59,13 @@ export default function QuizControls({ cid }: { cid: string }) {
                     <IoEllipsisVertical />
                 </button>
 
+                {/* BUTTON TO CREATE A NEW QUIZ */}
                 <button
                     className="btn btn-danger me-2"
-                    onClick={createNewQuiz}>
-                    <FaPlus /> Add Quiz
+                    onClick={handleCreateQuiz}
+                >
+                    <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+                    Add Quiz
                 </button>
             </div>
             <div>

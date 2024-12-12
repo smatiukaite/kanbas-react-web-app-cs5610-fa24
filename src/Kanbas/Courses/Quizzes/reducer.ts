@@ -59,15 +59,27 @@ const quizSlice = createSlice({
             ) as any;
         },
 
+        // updateQuiz: (state, { payload: updatedQuiz }) => {
+        //     state.quizzes = state.quizzes.map((quiz) =>
+        //         quiz._id === updatedQuiz._id ? { ...quiz, ...updatedQuiz } : quiz
+        //     );
+        // },
+
         editQuiz: (state, { payload: quizId }) => {
             state.quizzes = state.quizzes.map((a: any) =>
                 a._id === quizId ? { ...a, editing: true } : a
             ) as any;
         },
 
+        createQuestion: (state, { payload: quizId }) => {
+
+        },
+
         addQuestion: (state, { payload: quizId }) => {
 
         }
+
+
 
     },
 

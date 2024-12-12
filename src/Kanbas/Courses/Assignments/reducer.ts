@@ -6,12 +6,17 @@ const initialState = {
 };
 const assignmentSlice = createSlice({
     name: "assignments",
-    initialState,
+    initialState: {
+        assignments: [],
+        isInitialized: false,
+    },
     reducers: {
         setAssignments: (state, action) => {
             state.assignments = action.payload;
             state.isInitialized = true;
         },
+
+        // Create an assignment
         createAssignment: (state, { payload: assignment }) => {
             const newAssignment: any = {
                 _id: new Date().getTime().toString(),
@@ -23,18 +28,31 @@ const assignmentSlice = createSlice({
                 due: assignment.due,
                 available: assignment.available,
                 until: assignment.until,
+                textEntry: assignment.textEntry,
+                url: assignment.url,
+                media: assignment.media,
+                annotation: assignment.annotation,
+                fileUploads: assignment.fileUploads,
+                displayGrade: assignment.displayGrade,
+                assignmentGroup: assignment.assignmentGroup,
+                submitionType: assignment.submitionType,
             };
             state.assignments = [...state.assignments, newAssignment] as any;
         },
+
+        // Deletes an assignment
         deleteAssignment: (state, { payload: assignmentId }) => {
             state.assignments = state.assignments.filter((a: any) =>
                 a._id !== assignmentId);
         },
+
+        //Saves the updates
         updateAssignment: (state, { payload: assignment }) => {
             state.assignments = state.assignments.map((a: any) =>
                 a._id === assignment._id ? assignment : a
             ) as any;
         },
+
         editAssignment: (state, { payload: assignmentId }) => {
             state.assignments = state.assignments.map((a: any) =>
                 a._id === assignmentId ? { ...a, editing: true } : a
@@ -42,6 +60,7 @@ const assignmentSlice = createSlice({
         }
     },
 });
+
 export const { createAssignment, deleteAssignment, updateAssignment, editAssignment, setAssignments } =
     assignmentSlice.actions;
 export default assignmentSlice.reducer;

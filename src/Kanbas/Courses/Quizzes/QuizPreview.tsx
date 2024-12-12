@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AiOutlineExclamationCircle } from 'react-icons/ai';
 // import { BiBorderRadius } from 'react-icons/bi';
 import { CiCircleQuestion } from 'react-icons/ci';
 import { FaPlus } from 'react-icons/fa6';
@@ -98,6 +99,7 @@ export default function QuizPreview() {
                 {/* RED MESSAGE */}
                 <div id="wd-css-background-colors">
                     <p style={{ color: 'red', background: '#ffddd4', borderRadius: '5px', padding: '15px' }}>
+                        <AiOutlineExclamationCircle /> &nbsp;
                         This is a preview of the published version of the quiz</p>
                 </div>
 
@@ -126,7 +128,7 @@ export default function QuizPreview() {
                             height: '10vh',
                         }}
                     >
-                        <div className="table-responsive col-sm-10 mt-5">
+                        <div className="table-responsive col-sm-8 mt-5">
                             <table className="table" border={1} cellPadding={4}>
                                 <thead className='table-light'>
                                     <tr><th>Question 1</th><th></th><th></th><th></th><th></th><th>1 pts</th>
@@ -162,11 +164,12 @@ export default function QuizPreview() {
                     <br></br>
                     <br></br>
                     <br></br>
+
                     {/* BUTTON */}
-                    <div  >
+                    <div className='d-flex justify-content-center'>
                         <button
                             id="wd-add-quiz"
-                            className="btn btn-md btn-secondary me-3 float-end">
+                            className="btn btn-md btn-secondary mt-3">
                             {/* onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/`)}> */}
                             Next
                             &nbsp;
@@ -174,7 +177,6 @@ export default function QuizPreview() {
                         </button>
                     </div>
 
-                    <br></br>
                     <br></br>
                     <br></br>
 
@@ -202,15 +204,14 @@ export default function QuizPreview() {
                     <br></br>
                     {/* QESTIONS */}
                     <div className="mb-3 row">
-                        <p><b>
-                            Questions
-                            <ul>
-                                <CiCircleQuestion className="question-mark-icon me-1" />
-                                Question
-
-                            </ul>
-
-                        </b></p>
+                        <label className='ps-5'>
+                            <b>Questions:</b>
+                        </label>
+                        <ul className='ps-5'>
+                            &nbsp;
+                            <CiCircleQuestion className="question-mark-icon me-1" />
+                            Question
+                        </ul>
                     </div>
                 </div >
 

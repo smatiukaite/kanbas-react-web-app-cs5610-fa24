@@ -32,10 +32,10 @@ export default function Courses({ courses }: { courses: any[]; }) {
             <Route path="Home" element={<Home />} />
             <Route path="Modules" element={<Modules />} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/Detail/:aid" element={<AssignmentEditor />} />
+            <Route path="Assignments/Detail/:aid?" element={<AssignmentEditor />} />
             <Route path="Quizzes" element={<ListScreen />} />
             <Route path="Quizzes/Detail/:qid" element={<QuizDetails />} />
-            <Route path="Quizzes/Editor/:qid" element={<QuizEditor />} />
+            <Route path="Quizzes/Editor/:qid?" element={<QuizEditor />} />
             <Route path="Quizzes/Preview/:qid" element={<QuizPreview />} />
             <Route path="People" element={<PeopleTable />} />
           </Routes>

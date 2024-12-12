@@ -1,61 +1,118 @@
-import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import * as db from "../../Database";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import * as client from "./client";
+import { Link } from "react-router-dom";
+import PeopleDetails from "./Details";
+import { FaPlus, FaUserCircle } from "react-icons/fa";
 
 export default function PeopleTable() {
-    const { cid } = useParams();
-    const { users, enrollments } = db;
-    const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const userRole = currentUser?.role;
+    const [users, setUsers] = useState<any[]>([]);
+    const [role, setRole] = useState("");
+    const [, setName] = useState("");
 
-    if (userRole === "FACULTY") {
-        return (
-            <div id="wd-people-table">
-                <tbody>
-                    {users
-                        .filter((usr) =>
-                            enrollments.some((enrollment) => enrollment.user === usr._id && enrollment.course === cid)
-                        )
-                        .map((user: any) => (
-                            <tr key={user._id}>
-                                <td className="wd-full-name text-nowrap">
-                                    <FaUserCircle className="me-2 fs-1 text-secondary" />
-                                    <span className="wd-first-name">{user.firstName}</span>
-                                    <span className="wd-last-name">{user.lastName}</span>
-                                </td>
+    const createUser = async () => {
+        const user = await client.createUser({
+            username: `newuser${Date.now()}`,
+            password: "password1",
+            firstName: "New",
+            lastName: `User ${users.length + 1}`,
+            email: `newuser${Date.now()}@neu.edu`,
+            dob: "1999-01-01",
+            role: "STUDENT",
+            courseId: "CS123",
+            loginId: "01234561",
+            section: "S101",
+            lastActivity: new Date().toISOString(),
+            totalActivity: "00:00:00",
+        });
+        setUsers([...users, user]);
+    };
 
-                                <td className="wd-login-id">{user.loginId}</td>
-                                <td className="wd-section">{user.section}</td>
-                                <td className="wd-role">{user.role}</td>
-                                <td className="wd-last-activity">{user.lastActivity}</td>
-                                <td className="wd-total-activity">{user.totalActivity}</td>
-                            </tr>
-                        ))}
-                </tbody>
-            </div >);
-    }
-    else {
-        return (
-            <div id="wd-people-table">
+    const filterUsersByRole = async (role: string) => {
+        setRole(role);
+        if (role) {
+            const users = await client.findUsersByRole(role);
+            setUsers(users);
+        } else {
+            fetchUsers();
+        }
+    };
+
+    const filterUsersByName = async (name: string) => {
+        setName(name);
+        if (name) {
+            const users = await client.findUsersByPartialName(name);
+            setUsers(users);
+        } else {
+            fetchUsers();
+        }
+    };
+
+    const fetchUsers = async () => {
+        const users = await client.findAllUsers();
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    return (
+        <div id="wd-people-table">
+            <button
+                onClick={createUser}
+                className="float-end btn btn-danger wd-add-people">
+                <FaPlus className="me-2" />
+                People
+            </button>
+            <input
+                onChange={(e) => filterUsersByName(e.target.value)}
+                placeholder="Search people"
+                className="form-control float-start w-25 me-2 wd-filter-by-name"
+            />
+            <select
+                value={role}
+                onChange={(e) => filterUsersByRole(e.target.value)}
+                className="form-select wd-select-role"
+                style={{ width: "200px" }}
+            >
+                <option value="">All Roles</option>
+                <option value="STUDENT">Students</option>
+                <option value="FACULTY">Faculty</option>
+            </select>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Login ID</th>
+                        <th>Section</th>
+                        <th>Course</th>
+                        <th>Role</th>
+                        <th>Last Activity</th>
+                        <th>Total Activity</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    {users
-                        .filter((usr) =>
-                            enrollments.some((enrollment) => enrollment.user === usr._id && enrollment.course === cid)
-                        )
-                        .map((user: any) => (
-                            <tr key={user._id}>
-                                <td className="wd-full-name text-nowrap">
-                                    <FaUserCircle className="me-2 fs-1 text-secondary" />
-                                    <span className="wd-first-name">{user.firstName}</span>
+                    {users.map((user: any) => (
+                        <tr key={user._id}>
+                            <td className="wd-full-name text-nowrap">
+                                <FaUserCircle />
+                                <Link
+                                    to={`/Kanbas/Courses/${user.courseId}/People/${user._id}`}>
+                                    <span className="wd-first-name">{user.firstName}</span>{" "}
                                     <span className="wd-last-name">{user.lastName}</span>
-                                </td>
-                                
-                                <td className="wd-section">{user.section}</td>
-                                <td className="wd-role">{user.role}</td>
-                            </tr>
-                        ))}
+                                </Link>
+                            </td>
+                            <td className="wd-login-id">{user.loginId}</td>
+                            <td className="wd-section">{user.section}</td>
+                            <td className="wd-course">{user.courseId}</td>
+                            <td className="wd-role">{user.role}</td>
+                            <td className="wd-last-activity">{user.lastActivity}</td>
+                            <td className="wd-total-activity">{user.totalActivity}</td>
+                        </tr>
+                    ))}
                 </tbody>
-            </div >);
-    }
+            </table>
+            <PeopleDetails fetchUsers={fetchUsers} />
+        </div>
+    );
 }

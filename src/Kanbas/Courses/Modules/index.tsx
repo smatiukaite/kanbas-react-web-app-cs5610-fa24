@@ -66,7 +66,7 @@ export default function Modules() {
           <li className="wd-module-exams list-group-item p-0 mb-3 fs-5 m-3 border-gray">
             <div className="wd-title p-3 ps-2 bg-secondary">
               <BsGripVertical className="me-2 fs-3" />
-              MODULES123
+              MODULES
             </div>
 
             {/* Home module list */}

@@ -1,4 +1,3 @@
-// import ModuleControlButtons from "../Modules/ModuleControlButtons";
 import LessonControlButtons from "../Modules/LessonControlButton";
 import { BsGripVertical } from "react-icons/bs";
 import { GrNotes } from "react-icons/gr";
@@ -59,9 +58,9 @@ export default function Assignments() {
       <div id="wd-assignments wd-container-margins">
         {/* Two buttons */}
         <AssignmentControls cid={cid!} />
-
+       
         {/* ASSIGNMENTS */}
-        <ul id="wd-modules" className="list-group rounded-0 mt-2">
+        <ul id="wd-modules" className="list-group rounded-0 mt-3">
           <li className="wd-module list-group-item p-0 mb-3 fs-5 m-3 border-gray">
             <div className="wd-title p-2 ps-1 bg-secondary">
               <div>
@@ -125,7 +124,6 @@ export default function Assignments() {
                       </div>
                       <div className="wd-float-done"></div>
 
-                      
                     </div>
                   </div>
                 </li>
