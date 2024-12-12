@@ -6,6 +6,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { createQuiz } from "./reducer";
 
 export default function QuizControls({ cid }: { cid: string }) {
+    // const { qid } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
@@ -26,22 +27,20 @@ export default function QuizControls({ cid }: { cid: string }) {
             lesson: [],
         };
         dispatch(createQuiz(newQuiz)); // Dispatch Redux action to add a new quiz
-        navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`); // Navigate to the editor
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/QuizEditor/${qid}`); // Navigate to the editor
     };
     return (
         <div>
             <div id="wd-quiz-controls" className="text-nowrap float-end">
-                <button id="wd-add-assignment-group" className="btn btn-md btn-secondary me-2 float-end">
+                <button
+                    id="wd-add-assignment-group"
+                    className="btn btn-md btn-secondary me-2 float-end">
                     <IoEllipsisVertical />
                 </button>
 
-                {/* <Link id="wd-add-quiz-btn" to={`/Kanbas/Courses/${cid}/Quizzes/QuizEditor/${qid}`}
-                className="btn btn-md btn-danger me-2 float-end">
-                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-                Quiz
-            </Link> */}
-
-                <button className="btn btn-danger me-2" onClick={createNewQuiz}>
+                <button
+                    className="btn btn-danger me-2"
+                    onClick={createNewQuiz}>
                     <FaPlus /> Add Quiz
                 </button>
             </div>

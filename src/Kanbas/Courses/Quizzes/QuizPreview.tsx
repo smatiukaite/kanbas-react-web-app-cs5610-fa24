@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BiBorderRadius } from 'react-icons/bi';
+// import { BiBorderRadius } from 'react-icons/bi';
 import { CiCircleQuestion } from 'react-icons/ci';
 import { FaPlus } from 'react-icons/fa6';
 import { IoMdArrowDropright } from 'react-icons/io';
@@ -102,11 +102,11 @@ export default function QuizPreview() {
                 </div>
 
                 {/* QUIZ START TIME */}
-                <div>
+                {/* <div>
                     <p>
                         Started:
                     </p>
-                </div>
+                </div> */}
 
                 <h3>Quiz Instructions</h3>
 
@@ -139,16 +139,21 @@ export default function QuizPreview() {
                                     <br>
                                     </br>
                                     <tbody>
-                                        <input type="radio" name="radio-genre" id="wd-radio-comedy" />
-                                        <label htmlFor="wd-radio-comedy">True</label><br />
+                                        <tr>
+                                            <td colSpan={6} style={{ padding: "16px" }}>
+                                                <input type="radio" name="radio-genre" id="wd-radio-comedy" />
+                                                <label htmlFor="wd-radio-comedy">True</label><br />
 
-                                        <input type="radio" name="radio-genre" id="wd-radio-drama" />
-                                        <label htmlFor="wd-radio-drama">False</label><br />
-
+                                                <input type="radio" name="radio-genre" id="wd-radio-drama" />
+                                                <label htmlFor="wd-radio-drama">False</label><br />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </tbody>
                                 <tfoot>
-                                    <td></td>
+                                    <tr>
+                                        <td colSpan={6} style={{ padding: "16px" }}></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -181,12 +186,6 @@ export default function QuizPreview() {
                                 className="btn btn-md btn-secondary m-3 float-end">
                                 Submit Quiz
                             </button>
-
-                            <label className="form-check-label wd-regular-text-padding float-end" htmlFor="wd-time-limit">
-                                Quiz saved at:
-                            </label>
-
-
                         </table>
                     </div>
 

@@ -1,11 +1,22 @@
 import { useEffect, useState } from 'react';
-import { FaPlus } from 'react-icons/fa6';
+import { FaPlus, FaTrash } from 'react-icons/fa6';
+import { TiPencil } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function QuizEditor() {
     const { cid, qid } = useParams<{ cid: string, qid: string }>();
     const navigate = useNavigate();
+
+    // State to track the visibility for the New Question templates
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isNewQuestionVisible, setIsNewQuestionVisible] = useState(true); // Track button visibility
+    const [isQuestionFormVisible, setIsQuestionFormVisible] = useState(false); // Track form visibility
+
+    const handleAddQuestionClick = () => {
+        setIsNewQuestionVisible(false); // Hide the button
+        setIsQuestionFormVisible(true); // Show the form
+    };
 
     // Access quizzes from the Redux store
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
@@ -92,6 +103,9 @@ export default function QuizEditor() {
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <button
+                        style={{
+                            color: activeTab === 'Details' ? 'black' : 'red', // Active tab is blue, inactive is black
+                        }}
                         className={`nav-link ${activeTab === 'Details' ? 'active' : ''}`}
                         onClick={() => setActiveTab('Details')}
                     >
@@ -100,10 +114,13 @@ export default function QuizEditor() {
                 </li>
                 <li className="nav-item">
                     <button
+                        style={{
+                            color: activeTab === 'Questions' ? 'black' : 'red', // Active tab is blue, inactive is black
+                        }}
                         className={`nav-link ${activeTab === 'Questions' ? 'active' : ''}`}
                         onClick={() => setActiveTab('Questions')}
                     >
-                        <span className="wd-fg-color-red">Questions</span>
+                        <span className="wd-fg">Questions</span>
                     </button>
                 </li>
             </ul>
@@ -397,104 +414,216 @@ export default function QuizEditor() {
                                 </div>
                             </div>
                         </div>
+                        {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
+                        <br></br>
+                        <hr></hr>
 
+                        {/* Three buttons */}
+                        <div style={{ display: "flex", justifyContent: "right", alignItems: "center", gap: "10px" }}>
+                            <button
+                                id="wd-cancel-new-quiz"
+                                className="btn btn-md btn-secondary me-0"
+                                onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes`)}>
+                                Cancel
+                            </button>
+
+                            <button
+                                id="wd-save-quiz"
+                                className="btn btn-md btn-danger me-0"
+                            // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
+                            >
+                                Save
+                            </button>
+
+                            <button
+                                id="wd-save-and-publish-quiz"
+                                className="btn btn-md btn-success me-0"
+                                onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
+                            >
+                                Save & Publish
+                            </button>
+                        </div>
                     </div>
                 )}
-                {activeTab === 'Questions' && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-                        {/* {quizDetails.questionData.length === 0 ? (
-                            <> */}
-                        <button
-                            id="wd-add-question"
-                            className="btn btn-md btn-secondary m-5"
-                        // onClick={() => {
-                        //     const newQuestion = {
-                        //         id: quizDetails.questionData.length + 1,
-                        //         text: 'New Question',
-                        //         options: [],
-                        //     };
-                        //     setQuizDetails({
-                        //         ...quizDetails,
-                        //         questionData: [...quizDetails.questionData, newQuestion],
-                        //     })
-                        //     ;
-                        // }}
-                        >
-                            <FaPlus className="position-relative me-2 wd-bottom-padding" />
-                            Add Question
-                        </button>
-                        {/* </>
-                        ) : (
-                            <div>
-                                <h3>Questions:</h3>
-                                <ul>
-                                    {quizDetails.questionData.map((question, index) => (
-                                        <li key={index}>{question.text}</li>
-                                    ))}
-                                </ul>
-                                <button
-                                    id="wd-add-another-question"
-                                    className="btn btn-md btn-secondary m-5"
-                                    onClick={() => {
-                                        const newQuestion = {
-                                            id: quizDetails.questionData.length + 1,
-                                            text: `Question ${quizDetails.questionData.length + 1}`,
-                                            options: [],
-                                        };
-                                        setQuizDetails({
-                                            ...quizDetails,
-                                            questionData: [...quizDetails.questionData, newQuestion],
-                                        });
-                                    }}
-                                >
-                                    <FaPlus className="position-relative me-2 wd-bottom-padding" />
-                                    Add Another Question
-                                </button>
-                            </div>
-                        )} */}
 
-                        <div>
+
+
+                {/* QUESTION TAB */}
+                {activeTab === 'Questions' &&
+                    (
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+                            {/* {quizDetails.questionData.length === 0 ? (
+                            <> */}
+                            {isNewQuestionVisible && (
+                                <div>
+                                    <button
+                                        id="wd-add-question"
+                                        className="btn btn-md btn-secondary m-5"
+                                        onClick={handleAddQuestionClick} // Call the toggle function
+                                    >
+                                        <FaPlus className="position-relative me-2 wd-bottom-padding" />
+                                        Add Question
+                                    </button>
+
+                                    <div>
+                                        <button
+                                            id="wd-cancel-new-quiz"
+                                            className="btn btn-md btn-secondary me-0"
+                                            onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes`)}>
+                                            Cancel
+                                        </button>
+                                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                        <button
+                                            id="wd-save-quiz"
+                                            className="btn btn-md btn-danger me-0"
+                                        // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            {/* Two buttons */}
+
+                            <br></br>
+
+                            {/* QUESTION TEMPLATE */}
+                            {isQuestionFormVisible && ( // Conditionally render the form
+                                <div className="tab-content">
+                                    <div id="question-tab">
+                                        <div className="wd-between-elements-margins" key={quiz._id}>
+
+                                            <div className="row align-items-center">
+                                                {/* Question Title */}
+                                                <div className="col-md-6">
+                                                    <input className="form-control"
+                                                        type="text"
+                                                        placeholder='Question title'
+                                                        typeof="text"
+                                                    // onChange={(e) =>
+                                                    //     setQuizDetails({ ...quizDetails, title: e.target.value })
+                                                    // } 
+
+                                                    />
+                                                </div>
+
+                                                {/* Select Dropdown */}
+                                                <div className="col-md-6">
+                                                    <select id="wd-display-quiz-type-as" className="form-select"
+                                                        value={quizDetails.quizType}
+                                                        onChange={(e) =>
+                                                            setQuizDetails({ ...quizDetails, quizType: e.target.value })
+                                                        }>
+                                                        <option value="MULTIPLE CHOICE">Multiple Choice</option>
+                                                        <option value="TRUE FALSE">True/False</option>
+                                                        <option value="FILL IN THE BLANK">Fill in the Blank</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Points Input */}
+                                        <div className="col-md-3">
+                                            <div className="d-flex align-items-center">
+                                                <span className="me-2">pts:</span>
+                                                <input
+                                                    className="form-control"
+                                                    type="number"
+                                                    id="wd-number-input"
+                                                    onChange={(e) =>
+                                                        setQuizDetails({ ...quizDetails, timeLimit: Number(e.target.value) })}
+                                                    min="0"
+                                                    max="100"
+                                                    size={3}
+                                                    disabled={!quizDetails.isTimeLimit}
+                                                />
+                                            </div>
+                                        </div>
+                                        <hr></hr>
+
+                                        <div>
+                                            Enter your question and multiple answers, then select the one correct answer.
+                                        </div>
+                                        {/* {quiz.map((quiz: any) => ( */}
+                                        <div className="wd-between-elements-margins">
+                                            <label htmlFor="wd-quiz-instructions" className="form-label">
+                                                <b>Question:</b>
+                                            </label>
+                                            <textarea
+                                                value={quizDetails.description}
+                                                className="form-control"
+                                                id="wd-quiz-instructions"
+                                                onChange={(e) => setQuizDetails({ ...quizDetails, description: e.target.value })
+                                                }>
+                                            </textarea>
+
+                                            <br></br>
+                                            <label>
+                                                <b>Answers:</b>
+                                            </label>
+
+                                            {/* POSSIBLE ANSWERS */}
+                                            <div id="wd-css-responsive-forms-1">
+                                                <div className="mt-3 d-flex align-items-center">
+                                                    <input type="radio" name="radio-genre" id="wd-radio-answer" />
+                                                    <label htmlFor="wd-radio-answer" className="ms-2 me-3">Correct Answer</label>
+                                                    <textarea
+                                                        placeholder="Answer Text"
+                                                        typeof="text"
+                                                        className="form-control"
+                                                        id="wd-quiz-instructions"
+                                                        onChange={(e) => setQuizDetails({ ...quizDetails, description: e.target.value })
+                                                        }>
+                                                    </textarea>
+                                                    &nbsp;&nbsp;
+                                                    <TiPencil className="text-success me-3 mb-1" size={29} />
+                                                    <FaTrash className="text-danger me-3 mb-1" size={24} />
+                                                </div>
+                                            </div>
+
+                                            <br></br>
+
+                                            {/* ADD MORE ANSWERS */}
+                                            <div className="text-add-another-answer float-end">
+                                                <FaPlus className="text-plus" style={{ color: "red" }} />
+                                                &nbsp;
+                                                <span style={{ color: 'red' }}>Add Another Answer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
+                                    <br></br>
+                                    <hr></hr>
+
+                                    {/* Two buttons */}
+                                    <div style={{ display: "flex", justifyContent: "right", alignItems: "center", gap: "10px" }}>
+                                        <button
+                                            id="wd-cancel-new-quiz"
+                                            className="btn btn-md btn-secondary me-0"
+                                            onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes`)}>
+                                            Cancel
+                                        </button>
+
+                                        <button
+                                            id="wd-save-quiz"
+                                            className="btn btn-md btn-danger me-0"
+                                        // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
+                                        >
+                                            Update Question
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
 
 
 
                         </div>
-
-
-                    </div>
-                )}
+                    )
+                }
 
             </div>
 
-            {/* CREATE A GREY LINE BELOW THE TOP PANEL */}
-            <br></br>
-            <hr></hr>
-
-            {/* Three buttons */}
-            <div style={{ display: "flex", justifyContent: "right", alignItems: "center", gap: "10px" }}>
-                <button
-                    id="wd-cancel-new-quiz"
-                    className="btn btn-md btn-secondary me-0"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes`)}>
-                    Cancel
-                </button>
-
-                <button
-                    id="wd-save-quiz"
-                    className="btn btn-md btn-danger me-0"
-                // onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`)}
-                >
-                    Save
-                </button>
-
-                <button
-                    id="wd-save-and-publish-quiz"
-                    className="btn btn-md btn-success me-0"
-                    onClick={() => navigate(`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`)}
-                >
-                    Save & Publish
-                </button>
-            </div>
-
-        </div>
+        </div >
     )
 }
