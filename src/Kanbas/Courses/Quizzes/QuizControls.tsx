@@ -6,23 +6,15 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { createQuiz } from "./reducer";
 
 export default function QuizControls({ cid }: { cid: string }) {
-    // const { qid } = useParams();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
-
-    const getNextId = () => {
-        if (quizzes.length === 0) return 1;
-        const maxId = Math.max(...quizzes.map((quiz: any) => Number(quiz._id) || 0));
-        return maxId + 1;
-    };
 
     //CREATE A NEW QUIZ WITH THE DEFAULT VALUES AND NAVIGATES TO THE QUIZ EDITOR SCREEN
     const handleCreateQuiz = () => {
-        // const qid = getNextId();
         const newQuiz = {
             _id: new Date().getTime().toString(),
-            title: "",
+            title: "New Quiz",
             description: "",
             quizType: "Graded Quiz",
             assignmentGroup: "Quizzes",
@@ -61,6 +53,7 @@ export default function QuizControls({ cid }: { cid: string }) {
 
                 {/* BUTTON TO CREATE A NEW QUIZ */}
                 <button
+                    id="wd-add-quiz-btn"
                     className="btn btn-danger me-2"
                     onClick={handleCreateQuiz}
                 >

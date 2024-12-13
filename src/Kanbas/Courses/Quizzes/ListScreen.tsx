@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { RxRocket } from "react-icons/rx";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { RiProhibited2Line } from "react-icons/ri";
-import { setQuizzes, deleteQuiz } from "./reducer";
+import { setQuizzes, deleteQuiz, updateQuiz } from "./reducer";
 import { useEffect, useState } from "react";
 import * as db from "../../Database"
 import QuizControls from "./QuizControls";
@@ -36,6 +36,11 @@ export default function ListScreen() {
         if (quizzes.length === 0) return 1; // Default to 1 if no assignments
         const maxId = Math.max(...quizzes.map((quiz: any) => Number(quiz._id || 0)));
         return maxId + 1;
+    };
+
+    const handleSaveAndPublish = () => {
+        dispatch(updateQuiz({ ...quiz, visibility: "Published" })); // Update and set visibility to "Published"
+        navigate(`/Kanbas/Courses/${cid}/Quizzes`); // Redirect to the quizzes list after saving
     };
 
     const fetchQuizzes = async () => {
@@ -180,8 +185,18 @@ export default function ListScreen() {
                                                             Delete
                                                         </a>
                                                     </li>
-                                                    <li><a className="dropdown-item"
-                                                        id="wd-change-published-click">Publish</a></li>
+                                                    <li>
+                                                        <a
+                                                            className="dropdown-item"
+                                                            onClick={() => {
+                                                                const newVisibility = quiz.visibility === "Published" ? "Unpublished" : "Published";
+                                                                dispatch(updateQuiz({ ...quiz, visibility: newVisibility }));
+                                                            }}
+                                                            id="wd-change-published-click"
+                                                        >
+                                                            {quiz.visibility === "Published" ? "Unpublish" : "Publish"}
+                                                        </a>
+                                                    </li>
                                                     <li><a className="dropdown-item" href="#Copy">Copy</a></li>
                                                     <li><a className="dropdown-item" href="#Sort">Sort</a></li>
                                                 </ul>

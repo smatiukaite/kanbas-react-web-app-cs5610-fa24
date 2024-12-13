@@ -7,12 +7,6 @@ import { createAssignment } from "./reducer";
 
 export default function AssignmentControls({ cid }: { cid: string }) {
     const navigate = useNavigate();
-    const getNextId = () => {
-        if (assignments.length === 0) return 1; // Default to 1 if no assignments
-        const maxId = Math.max(...assignments.map((assignment: any) => Number(assignment._id || 0)));
-        return maxId + 1;
-    };
-
     const dispatch = useDispatch();
 
     const handleCreateAssignment = () => {

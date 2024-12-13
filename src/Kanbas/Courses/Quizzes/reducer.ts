@@ -29,6 +29,7 @@ const quizSlice = createSlice({
                 isTimeLimit: quiz.isTimeLimit,
                 timeLimit: quiz.timeLimit,
                 multipleAttempts: quiz.multipleAttempts,
+                attempts: quiz.attempts,
                 oneQuestionAtATime: quiz.oneQuestionAtATime,
                 showAnswers: quiz.showAnswers,
                 webcam: quiz.webcam,
