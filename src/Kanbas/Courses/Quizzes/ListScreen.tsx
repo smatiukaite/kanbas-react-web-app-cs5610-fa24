@@ -107,48 +107,14 @@ export default function ListScreen() {
 
                                             {/* CREATING DIFFERENT QUIZ INFORMATION BASED ON AVAILABILITY */}
                                             <div className=" wd-padding">
-                                                {quiz.availability === "Closed" ? (
-                                                    <>
-                                                        <a className="wd-assignment-link wd-title-texts"
-                                                            href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
-                                                            {quiz.title}
-                                                        </a>
-                                                        <p>
-                                                            <b>{quiz.availability}</b> &nbsp; | &nbsp;<b>Due</b> {quiz.due}
-                                                            &nbsp; | &nbsp; {quiz.points} &nbsp; | &nbsp;  Questions
-                                                        </p>
-                                                    </>
-                                                ) : quiz.availability === "Not available until" ? (
-                                                    <>
-                                                        <a className="wd-assignment-link wd-title-texts"
-                                                            href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
-                                                            {quiz.title}
-                                                        </a>
-
-                                                        <p>
-                                                            <b>{quiz.availability}</b> {quiz.until} &nbsp; | &nbsp;
-                                                            <b> Due</b> {quiz.due} &nbsp; | &nbsp; {quiz.points} &nbsp; | &nbsp; Questions
-                                                        </p>
-                                                    </>
-                                                ) : quiz.availability === "Available" ? (
-                                                    <>
-                                                        <a className="wd-assignment-link wd-title-texts"
-                                                            href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
-                                                            {quiz.title}
-                                                        </a>
-
-                                                        <p>
-                                                            <b>{quiz.availability}</b>
-                                                            <span className="wd-fg-color-red"> &nbsp;Multiple dates</span> &nbsp; | &nbsp;
-                                                            <b> Due</b> <span className="wd-fg-color-red"> Multiple dates</span>
-                                                            &nbsp;  | &nbsp; {quiz.points}&nbsp; | &nbsp; Questions
-                                                        </p>
-                                                    </>
-                                                ) : (
-                                                    <p className="wd-title-texts text-red">
-                                                        No status
-                                                    </p>
-                                                )}
+                                                <a className="wd-assignment-link wd-title-texts"
+                                                    href={`#/Kanbas/Courses/${cid}/Quizzes/Detail/${quiz._id}`}>
+                                                    {quiz.title}
+                                                </a>
+                                                <p>
+                                                    <b>Available from</b> {quiz.availableFrom} &nbsp; | &nbsp;<b>Due</b> {quiz.dueDate}
+                                                    &nbsp; | &nbsp; {quiz.points} &nbsp; | &nbsp;  Questions
+                                                </p>
                                             </div>
                                         </div>
 

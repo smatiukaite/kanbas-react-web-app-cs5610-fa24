@@ -5,7 +5,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import FillInTheBlank from './FillInTheBlank';
 import MultipleChoices from './MultipleChoices';
 import TrueFalse from './TrueFalse';
-import { addQuestion, createQuiz, deleteQuiz, setQuizzes, updateQuiz } from './reducer';
+import { createQuiz, deleteQuiz, setQuizzes, updateQuiz } from './reducer';
+import QuizQuestionEditor from './QuizQuestionEditor';
 
 export default function QuizEditor() {
     const { cid, qid } = useParams<{ cid: string, qid: string }>();
@@ -43,7 +44,7 @@ export default function QuizEditor() {
             }
         }
     });
-
+    const [newQuestionsCounter, setNewQuestionsCounter] = useState(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -88,34 +89,11 @@ export default function QuizEditor() {
     const [questionType, setQuestionType] = useState("MULTIPLE CHOICE");
 
     const handleAddQuestionClick = () => {
-        // const newQuestion = {
-        //     _id: new Date().getTime().toString(), // Generate a unique ID
-        //     type: questionType,
-        //     title: "", 
-        //     options: [], // For multiple-choice or other questions
-        //     correctAnswer: null,
-        // };
-
-        // // Dispatch the action to save the new question to the store
-        // dispatch(addQuestion({ quizId: qid, question: newQuestion }));
-
+        setNewQuestionsCounter(newQuestionsCounter + 1);
         setIsNewQuestionVisible(false); // Hide the button
         setIsQuestionFormVisible(true); // Show the form
     };
 
-    // SWITCH FOR THE QUESTIONS
-    const renderQuestionTemplate = () => {
-        switch (questionType) {
-            case "MULTIPLE CHOICE":
-                return <MultipleChoices />;
-            case "TRUE FALSE":
-                return <TrueFalse />;
-            case "FILL IN THE BLANK":
-                return <FillInTheBlank />;
-            default:
-                return null;
-        }
-    };
 
     // const [todos, setTodos] = useState([
     //     { id: "1", title: "Learn React" },
@@ -318,8 +296,10 @@ export default function QuizEditor() {
                                                             checked={quiz.multipleAttempts}
                                                             onChange={(e) => {
                                                                 const updatedQuiz = { ...quiz, multipleAttempts: e.target.checked };
+                                                                console.log("Allow Multiple Attempts:", updatedQuiz.multipleAttempts);
                                                                 setQuiz(updatedQuiz);
-                                                            }} />
+                                                            }}
+                                                        />
                                                         <label className="form-check-label wd-regular-text-padding" htmlFor="wd-file-upload">
                                                             Allow Multiple Attempts
                                                         </label>
@@ -329,14 +309,15 @@ export default function QuizEditor() {
                                                             className="form-control"
                                                             type="number"
                                                             id="wd-number-input"
-                                                            value={quiz.attempts}
+                                                            value={quiz.attempts || ""}
                                                             onChange={(e) => {
                                                                 const updatedQuiz = { ...quiz, attempts: e.target.value };
+                                                                console.log("Attempts:", updatedQuiz.attempts);
                                                                 setQuiz(updatedQuiz);
                                                             }}
                                                             min="1"
                                                             max="10"
-                                                            disabled={!quiz.attempts}
+                                                            disabled={!quiz.multipleAttempts}
                                                         />
                                                     </div>
                                                 </div>
@@ -588,66 +569,20 @@ export default function QuizEditor() {
                                         <div className="wd-between-elements-margins" key={quiz._id}>
 
                                             <div className="row align-items-center">
-                                                {/* Question Title */}
-                                                <div className="col-md-6">
-                                                    <input className="form-control"
-                                                        type="text"
-                                                        placeholder='Question title'
-                                                        typeof="text"
-                                                    // onChange={(e) =>
-                                                    //     setQuizDetails({ ...quizDetails, title: e.target.value })
-                                                    // } 
-
-                                                    />
-                                                </div>
-
-                                                {/* Select Dropdown */}
-                                                <div className="col-md-6">
-                                                    {/* <select id="wd-display-quiz-type-as" className="form-select"
-                                                        value={quizDetails.quizType}
-                                                        onChange={(e) =>
-                                                            setQuizDetails({ ...quizDetails, quizType: e.target.value })
-                                                        }>
-                                                        <option value="MULTIPLE CHOICE">Multiple Choice</option>
-                                                        <option value="TRUE FALSE">True/False</option>
-                                                        <option value="FILL IN THE BLANK">Fill in the Blank</option>
-                                                    </select> */}
-
-                                                    <select
-                                                        value={questionType}
-                                                        onChange={(e) => setQuestionType(e.target.value)}
-                                                        className="form-select ms-3"
-                                                    >
-                                                        <option value="MULTIPLE CHOICE">Multiple Choice</option>
-                                                        <option value="TRUE FALSE">True/False</option>
-                                                        <option value="FILL IN THE BLANK">Fill in the Blank</option>
-                                                    </select>
-                                                </div>
-
-                                                {renderQuestionTemplate()}
+                                                {quiz.questionData.map((question: any) => (
+                                                    <QuizQuestionEditor question={question} />
+                                                ))}
+                                                {Array.from({ length: newQuestionsCounter }).map(() => (
+                                                    <QuizQuestionEditor question={null} />
+                                                ))}
                                             </div>
                                         </div>
 
 
-                                        <hr></hr>
 
                                     </div>
 
-                                    {/* Two buttons */}
                                     <div style={{ display: "flex", justifyContent: "right", alignItems: "center", gap: "10px" }}>
-                                        <button onClick={handleCancel}
-                                            type="button"
-                                            className="btn btn-secondary">
-                                            Cancel
-                                        </button>
-
-                                        <button
-                                            id="wd-save-quiz"
-                                            className="btn btn-md btn-success me-0"
-                                        // onClick={() => updateTodo(todo)}
-                                        >
-                                            Update Question
-                                        </button>
 
                                         <button
                                             id="wd-add-question"

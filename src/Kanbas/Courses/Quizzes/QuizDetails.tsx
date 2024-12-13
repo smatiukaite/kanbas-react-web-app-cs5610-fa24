@@ -50,27 +50,27 @@ export default function QuizDetails() {
             setQuizDetails({
                 title: quiz.title ?? "",
                 description: quiz.description ?? "",
-                quizType: quiz.quizType ?? "Graded Quiz", // Default to "Graded Quiz"
+                quizType: quiz.quizType ?? "Graded Quiz",
                 assignmentGroup: quiz.assignmentGroup ?? "Quizzes",
-                shuffleAnswers: quiz.shuffleAnswers ?? "Yes",
-                isTimeLimit: quiz.isTimeLimit ?? "Yes",
+                shuffleAnswers: quiz.shuffleAnswers ?? true, // Keep true/false
+                isTimeLimit: quiz.isTimeLimit ?? true,
                 timeLimit: quiz.timeLimit ?? 20,
-                multipleAttempts: quiz.multipleAttempts ?? "No",
+                multipleAttempts: quiz.multipleAttempts ?? false, // Keep true/false
                 attempts: quiz.attempts ?? 1,
-                oneQuestionAtATime: quiz.oneQuestionAtATime ?? "Yes",
-                showAnswers: quiz.showAnswers ?? "No",
-                webcam: quiz.webcam ?? "No",
-                lockQuestions: quiz.lockQuestions ?? "No",
+                oneQuestionAtATime: quiz.oneQuestionAtATime ?? true,
+                showAnswers: quiz.showAnswers ?? false,
+                webcam: quiz.webcam ?? false,
+                lockQuestions: quiz.lockQuestions ?? false,
                 assignTo: quiz.assignTo ?? "Everyone",
                 accessCode: quiz.accessCode ?? "",
-                dueDate: quiz.due ?? "",
+                dueDate: quiz.dueDate ?? "",
                 availableFrom: quiz.availableFrom ?? "",
                 until: quiz.until ?? "",
                 points: quiz.points ?? 0,
-                visibility: quiz.visibility ?? "Not published",
+                visibility: quiz.visibility ?? "Unpublished",
                 viewResponses: quiz.viewResponses ?? "Always",
-                respondusLockDown: quiz.respondusLockDown ?? "No",
-                requiredViewResults: quiz.requiredViewResults ?? "No",
+                respondusLockDown: quiz.respondusLockDown ?? false,
+                requiredViewResults: quiz.requiredViewResults ?? false,
                 questionData: quiz.questionData ?? [],
             });
         }
@@ -155,7 +155,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.shuffleAnswers}
+                                    {quizDetails.shuffleAnswers ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.multipleAttempts}
+                                    {quizDetails.multipleAttempts ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -207,7 +207,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.showAnswers}
+                                   {quizDetails.showAnswers ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -220,7 +220,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.oneQuestionAtATime}
+                                   {quizDetails.oneQuestionAtATime ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -233,7 +233,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.respondusLockDown}
+                                    {quizDetails.respondusLockDown ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -246,7 +246,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.requiredViewResults}
+                                    {quizDetails.requiredViewResults ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -259,7 +259,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.webcam}
+                                    {quizDetails.webcam ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -272,7 +272,20 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.lockQuestions}
+                                    {quizDetails.lockQuestions ? "Yes" : "No"}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <label htmlFor="grade"
+                                className="col-sm-2 col-form-label text-end">
+                           
+                            </label>
+                            <div className="col-sm-7 col-form-label text-start">
+                                <label htmlFor="wd-points"
+                                    className="wd-type">
+                                    {quizDetails.description}
                                 </label>
                             </div>
                         </div>
@@ -457,7 +470,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.respondusLockDown}
+                                   {quizDetails.respondusLockDown ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
@@ -470,7 +483,7 @@ export default function QuizDetails() {
                             <div className="col-sm-7 col-form-label text-start">
                                 <label htmlFor="wd-points"
                                     className="wd-type">
-                                    {quizDetails.requiredViewResults}
+                                    {quizDetails.requiredViewResults ? "Yes" : "No"}
                                 </label>
                             </div>
                         </div>
