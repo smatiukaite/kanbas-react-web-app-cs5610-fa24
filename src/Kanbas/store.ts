@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import modulesReducer from "./Courses/Modules/reducer";
 import accountReducer from "./Account/reducer";
 import assignmentReducer from "./Courses/Assignments/reducer";
+import quizReducer from "./Courses/Quizzes/reducer";
 // import enrollmentReducer from "./enrollmentReducer"
 
 const store = configureStore({
@@ -9,7 +10,7 @@ const store = configureStore({
         modulesReducer,
         accountReducer,
         assignmentReducer,
-        // enrollmentReducer
+        quizReducer,
     },
 });
 export default store;

@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 // import { useState } from "react";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 
-export default function AssignmentControlButtons({
-    assignmentId,
-    deleteAssignment
+export default function QuizControlButtons({
+    quizId,
+    deleteQuiz
 }: {
-    assignmentId: string;
-    deleteAssignment: (assignmentId: string) => void;
+    quizId: string;
+    deleteQuiz: (QuizId: string) => void;
 }) {
 
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -19,7 +19,7 @@ export default function AssignmentControlButtons({
     if (userRole === "FACULTY") {
         return (
             <div className="float-end">
-                <FaTrash className="text-danger me-3 mb-1" onClick={() => deleteAssignment(assignmentId)} />
+                <FaTrash className="text-danger me-3 mb-1" onClick={() => deleteQuiz(quizId)} />
             </div>
         );
     } else {

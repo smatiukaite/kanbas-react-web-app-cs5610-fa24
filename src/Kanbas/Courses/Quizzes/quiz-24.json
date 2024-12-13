@@ -1,0 +1,329 @@
+[
+    {
+      "title": "Propulsion Assignment",
+      "course": "RS101",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Complete the propulsion theory assignment covering chapters 3-5."
+    },
+    {
+      "title": "Combustion Analysis",
+      "course": "RS101",
+      "until": "May 13, 2024 at 12:00 am",
+      "due": "May 20, 2024 at 11:59 pm",
+      "points": "80 pts",
+      "description": "Analyze combustion processes and submit the report."
+    },
+    {
+      "title": "Nozzle Design Project",
+      "course": "RS101",
+      "until": "May 20, 2024 at 12:00 am",
+      "due": "May 27, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Design a nozzle and submit both design files and a report."
+    },
+    {
+      "title": "Propulsion Quiz",
+      "course": "RS101",
+      "until": "May 27, 2024 at 12:00 am",
+      "due": "May 30, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Take the quiz covering the propulsion concepts studied this semester."
+    },
+    {
+      "title": "Aerodynamics Quiz",
+      "course": "RS102",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. <p>The landing page should include the following:</p><ul><li>Your full name and section</li><li>Links to each of the lab assignments</li><li>Link to the Kanbas application</li><li>Links to all relevant source code repositories</li></ul><p>The Kanbas application should include a link to navigate back to the landing page."
+    },
+    {
+      "title": "Flow Analysis",
+      "course": "RS102",
+      "until": "May 13, 2024 at 13:00 am",
+      "due": "May 20, 2024 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Heating Analysis",
+      "course": "RS102",
+      "until": "May 20, 2024 at 12:00 am",
+      "due": "May 23, 2024 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Structural Design Quiz",
+      "course": "RS103",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "availability": "Available",
+      "visibility": "Unpublished",
+      "accessCode": "123"
+    },
+    {
+      "title": "Orbital Calculations Quiz",
+      "course": "RS103",
+      "until": "May 13, 2024 at 12:00 am",
+      "due": "May 23, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "availability": "Closed",
+      "visibility": "Unpublished"
+    },
+    {
+      "title": "Systems Engineering Exam",
+      "course": "RS103",
+      "until": "May, 2024 26 at 12:00 am",
+      "due": "May 29, 2024 at 11:59 pm",
+      "points": "90 pts",
+      "availability": "Not available until",
+      "visibility": "Published"
+    },
+    {
+      "title": "Fluid Dynamics Quiz",
+      "course": "RS104",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Boundary Layer Quiz",
+      "course": "RS104",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Turbulence Exam",
+      "course": "RS104",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Flow Simulation Quiz",
+      "course": "RS104",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Thermodynamics Quiz",
+      "course": "RS105",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Energy Analysis",
+      "course": "RS105",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Heat Transfer Project",
+      "course": "RS105",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Thermal Efficiency Quiz",
+      "course": "RS105",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Control Systems Assignment",
+      "course": "RS106",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Feedback Control Quiz",
+      "course": "RS106",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "System Stability Project",
+      "course": "RS106",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "PID Control Exam",
+      "course": "RS106",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Electrical Circuits Assignment",
+      "course": "RS107",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "AC/DC Analysis",
+      "course": "RS107",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Circuit Design Project",
+      "course": "RS107",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Electrical Networks Quiz",
+      "course": "RS107",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Mechanics Assignment",
+      "course": "RS108",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Force and Motion Quiz",
+      "course": "RS108",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Statics and Dynamics Project",
+      "course": "RS108",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Kinematics Exam",
+      "course": "RS108",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Programming Assignment",
+      "course": "RS109",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Data Structures Quiz",
+      "course": "RS109",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Algorithm Design Project",
+      "course": "RS109",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Software Engineering Exam",
+      "course": "RS109",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Material Science Assignment",
+      "course": "RS110",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Metallurgy Quiz",
+      "course": "RS110",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Composite Materials Project",
+      "course": "RS110",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Crystallography Exam",
+      "course": "RS110",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Liberation Philosophy Paper",
+      "course": "RS111",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Simón Bolívar Debate",
+      "course": "RS111",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Independence Movements Presentation",
+      "course": "RS111",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Final Exam",
+      "course": "RS111",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "19th Century Education Reforms Paper",
+      "course": "RS112",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Final Exam",
+      "course": "RS121",
+      "until": "May 27 at 12:00 am",
+      "due": "May 30 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "",
+      "course": "one",
+      "until": "",
+      "due": "",
+      "points": "100 pts"
+    }
+  ]
