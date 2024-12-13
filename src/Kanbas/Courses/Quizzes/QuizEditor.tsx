@@ -5,21 +5,51 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import FillInTheBlank from './FillInTheBlank';
 import MultipleChoices from './MultipleChoices';
 import TrueFalse from './TrueFalse';
-import { addQuestion, deleteQuiz, setQuizzes, updateQuiz } from './reducer';
+import { addQuestion, createQuiz, deleteQuiz, setQuizzes, updateQuiz } from './reducer';
 
 export default function QuizEditor() {
     const { cid, qid } = useParams<{ cid: string, qid: string }>();
-    // Access quizzes from the Redux store
-    const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
-    // Find the specific quiz using the `qid`
-    const quiz = { ...quizzes.find((it: any) => it._id === qid) };
-    // const quiz = { ...quizzes.find((q: any) => q._id === qid) };
+    const reducer = useSelector((state: any) => state.quizReducer);
+    const [quiz, setQuiz] = useState(() => {
+        if (qid) {
+            return { ...reducer.quizzes.find((it: any) => it._id === qid) };
+        }
+        else {
+            return {
+                title: "New Quiz",
+                description: "",
+                quizType: "Graded Quiz",
+                assignmentGroup: "Quizzes",
+                shuffleAnswers: true,
+                isTimeLimit: true,
+                timeLimit: 20,
+                multipleAttempts: false,
+                oneQuestionAtATime: true,
+                showAnswers: false,
+                webcam: false,
+                lockQuestions: false,
+                assignTo: "Everyone",
+                accessCode: "",
+                availability: "Available",
+                dueDate: "",
+                availableFrom: "",
+                until: "",
+                points: 0,
+                visibility: "Unpublished",
+                viewResponses: "Always",
+                respondusLockDown: false,
+                requiredViewResults: false,
+                questionData: [],
+            }
+        }
+    });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSave = () => {
-        dispatch(updateQuiz(quiz)); // Dispatch the updated quiz details to Redux
+        dispatch(qid ? updateQuiz(quiz) : createQuiz(quiz)); // Dispatch the updated quiz details to Redux
+
         navigate(`/Kanbas/Courses/${cid}/Quizzes/`); // Redirect to the quizzes list after saving
     };
 
@@ -65,7 +95,7 @@ export default function QuizEditor() {
         //     options: [], // For multiple-choice or other questions
         //     correctAnswer: null,
         // };
-    
+
         // // Dispatch the action to save the new question to the store
         // dispatch(addQuestion({ quizId: qid, question: newQuestion }));
 
@@ -158,8 +188,8 @@ export default function QuizEditor() {
                                 placeholder="Enter Quiz Title"
                                 value={quiz.title}
                                 onChange={(e) => {
-                                    quiz.title = e.target.value;
-                                    // dispatch(updateQuiz(quiz));
+                                    const updatedQuiz = { ...quiz, title: e.target.value };
+                                    setQuiz(updatedQuiz);
                                 }}
                             />
                         </div>
@@ -174,8 +204,8 @@ export default function QuizEditor() {
                                 className="form-control"
                                 id="wd-quiz-instructions"
                                 onChange={(e) => {
-                                    quiz.instructions = e.target.value;
-                                    // dispatch(updateQuiz(quiz));
+                                    const updatedQuiz = { ...quiz, description: e.target.value };
+                                    setQuiz(updatedQuiz);
                                 }}>
                             </textarea>
 
@@ -190,10 +220,8 @@ export default function QuizEditor() {
                                         <select id="wd-display-quiz-type-as" className="form-select"
                                             value={quiz.quizType}
                                             onChange={(e) => {
-                                                // quiz.quizType = e.target.value;
-                                                // dispatch(updateQuiz(quiz));
                                                 const updatedQuiz = { ...quiz, quizType: e.target.value };
-                                                dispatch(updateQuiz(updatedQuiz))
+                                                setQuiz(updatedQuiz);
                                             }}>
                                             <option value="GRADED QUIZE">Graded Quiz</option>
                                             <option value="PRACTICE QUIZE">Practice Quiz</option>
@@ -211,11 +239,8 @@ export default function QuizEditor() {
                                         <select id="wd-display-grade-as" className="form-select"
                                             value={quiz.assignmentGroup}
                                             onChange={(e) => {
-                                                // quiz.assignmentGroup = e.target.value;
-                                                // dispatch(updateQuiz(quiz));
-
                                                 const updatedQuiz = { ...quiz, assignmentGroup: e.target.value };
-                                                dispatch(updateQuiz(updatedQuiz))
+                                                setQuiz(updatedQuiz);
                                             }}>
                                             <option value="QUIZZES">Quizes</option>
                                             <option value="EXAMS">Exams</option>
@@ -241,8 +266,8 @@ export default function QuizEditor() {
                                                         id="wd-text-entry"
                                                         checked={quiz.shuffleAnswers}
                                                         onChange={(e) => {
-                                                            quiz.shuffleAnswers = e.target.checked
-                                                            // dispatch(updateQuiz(quiz));
+                                                            const updatedQuiz = { ...quiz, shuffleAnswers: e.target.checked };
+                                                            setQuiz(updatedQuiz);
                                                         }}
                                                     />
                                                     <label className="form-check-label wd-regular-text-padding" htmlFor="wd-shuffle-answers">
@@ -257,9 +282,8 @@ export default function QuizEditor() {
                                                             id="wd-time-limit-checkbox"
                                                             checked={quiz.isTimeLimit}
                                                             onChange={(e) => {
-                                                                // const updatedQuiz = { ...quiz, isTimeLimit: e.target.checked };
-                                                                // dispatch(updateQuiz(updatedQuiz));
-                                                                handleCheckboxChange("isTimeLimit", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, isTimeLimit: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }}
                                                         />
                                                         <label className="form-check-label wd-regular-text-padding" htmlFor="wd-time-limit-checkbox">
@@ -274,8 +298,8 @@ export default function QuizEditor() {
                                                             id="wd-time-limit-minutes"
                                                             value={quiz.timeLimit}
                                                             onChange={(e) => {
-                                                                const updatedQuiz = { ...quiz, timeLimit: Number(e.target.value) };
-                                                                dispatch(updateQuiz(updatedQuiz));
+                                                                const updatedQuiz = { ...quiz, timeLimit: e.target.value };
+                                                                setQuiz(updatedQuiz);
                                                             }}
                                                             min="5"
                                                             max="180"
@@ -293,9 +317,8 @@ export default function QuizEditor() {
                                                             id="wd-file-upload"
                                                             checked={quiz.multipleAttempts}
                                                             onChange={(e) => {
-                                                                // quiz.multipleAttempts = e.target.checked;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("multipleAttempts", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, multipleAttempts: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }} />
                                                         <label className="form-check-label wd-regular-text-padding" htmlFor="wd-file-upload">
                                                             Allow Multiple Attempts
@@ -308,9 +331,8 @@ export default function QuizEditor() {
                                                             id="wd-number-input"
                                                             value={quiz.attempts}
                                                             onChange={(e) => {
-                                                                // quiz.attempts = e.target.value;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("attempts", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, attempts: e.target.value };
+                                                                setQuiz(updatedQuiz);
                                                             }}
                                                             min="1"
                                                             max="10"
@@ -327,9 +349,8 @@ export default function QuizEditor() {
                                                             id="wd-website-url"
                                                             checked={quiz.showAnswers}
                                                             onChange={(e) => {
-                                                                // quiz.showAnswers = e.target.checked;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("showAnswers", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, showAnswers: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }}
                                                         />&nbsp;
                                                         <span> Show Correct Answers </span>
@@ -359,9 +380,8 @@ export default function QuizEditor() {
                                                             id="wd-website-url"
                                                             checked={quiz.oneQuestionAtATime}
                                                             onChange={(e) => {
-                                                                // quiz.oneQuestionAtATime = e.target.checked;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("oneQuestionAtATime", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, oneQuestionAtATime: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }}
                                                         />&nbsp;&nbsp;
                                                         <label htmlFor="grade">
@@ -377,9 +397,8 @@ export default function QuizEditor() {
                                                             id="wd-website-url"
                                                             checked={quiz.webcam}
                                                             onChange={(e) => {
-                                                                // quiz.webcam = e.target.checked;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("webcam", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, webcam: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }} />
                                                         &nbsp;&nbsp;
                                                         <label htmlFor="grade">
@@ -395,9 +414,8 @@ export default function QuizEditor() {
                                                             id="wd-website-url"
                                                             checked={quiz.lockQuestions}
                                                             onChange={(e) => {
-                                                                // quiz.lockQuestions = e.target.checked;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("lockQuestions", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, lockQuestions: e.target.checked };
+                                                                setQuiz(updatedQuiz);
                                                             }} />
                                                         &nbsp;&nbsp;
                                                         <label htmlFor="grade">
@@ -413,9 +431,8 @@ export default function QuizEditor() {
                                                             placeholder="Access Code"
                                                             value={quiz.accessCode}
                                                             onChange={(e) => {
-                                                                // quiz.accessCode = e.target.value;
-                                                                // dispatch(updateQuiz(quiz));
-                                                                handleCheckboxChange("accessCode", e.target.checked)
+                                                                const updatedQuiz = { ...quiz, accessCode: e.target.value };
+                                                                setQuiz(updatedQuiz);
                                                             }} />
                                                     </div>
                                                 </div>
@@ -453,8 +470,8 @@ export default function QuizEditor() {
                                                 placeholder="Example: May 13, 2024 at 11:59 pm"
                                                 value={quiz.dueDate}
                                                 onChange={(e) => {
-                                                    quiz.dueDate = e.target.value;
-                                                    dispatch(updateQuiz(quiz));
+                                                    const updatedQuiz = { ...quiz, dueDate: e.target.value };
+                                                    setQuiz(updatedQuiz);
                                                 }} />
                                         </div>
 
@@ -467,8 +484,8 @@ export default function QuizEditor() {
                                                     placeholder="Example: May 13, 2024 at 11:59 pm"
                                                     value={quiz.availableFrom}
                                                     onChange={(e) => {
-                                                        quiz.availableFrom = e.target.value;
-                                                        dispatch(updateQuiz(quiz));
+                                                        const updatedQuiz = { ...quiz, availableFrom: e.target.value };
+                                                        setQuiz(updatedQuiz);
                                                     }}
                                                     className="form-control mb-2" />
                                             </div>
@@ -480,8 +497,8 @@ export default function QuizEditor() {
                                                     placeholder="Example: May 13, 2024 at 11:59 pm"
                                                     value={quiz.until}
                                                     onChange={(e) => {
-                                                        quiz.until = e.target.value;
-                                                        dispatch(updateQuiz(quiz));
+                                                        const updatedQuiz = { ...quiz, until: e.target.value };
+                                                        setQuiz(updatedQuiz);
                                                     }}
                                                 />
                                             </div>

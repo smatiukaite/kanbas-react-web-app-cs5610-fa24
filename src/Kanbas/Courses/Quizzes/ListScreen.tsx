@@ -105,7 +105,6 @@ export default function ListScreen() {
                                             <RxRocket color="green" className="me-2" />
 
 
-
                                             {/* CREATING DIFFERENT QUIZ INFORMATION BASED ON AVAILABILITY */}
                                             <div className=" wd-padding">
                                                 {quiz.availability === "Closed" ? (

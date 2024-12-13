@@ -17,34 +17,8 @@ const quizSlice = createSlice({
 
         createQuiz: (state, { payload: quiz }) => {
             const newQuiz: any = {
-                _id: new Date().getTime().toString(),
-                title: quiz.title,
-                description: quiz.description,
-                quizType: quiz.type,
-                course: quiz.course,
-                courseId: quiz.courseId,
-                assignmentGroup: quiz.assignmentGroup,
-                points: quiz.points,
-                shuffleAnswers: quiz.shuffleAnswers,
-                isTimeLimit: quiz.isTimeLimit,
-                timeLimit: quiz.timeLimit,
-                multipleAttempts: quiz.multipleAttempts,
-                attempts: quiz.attempts,
-                oneQuestionAtATime: quiz.oneQuestionAtATime,
-                showAnswers: quiz.showAnswers,
-                webcam: quiz.webcam,
-                lockQuestions: quiz.lockQuestions,
-                assignTo: quiz.assignTo,
-                accessCode: quiz.accessCode,
-                viewResponses: quiz.viewResponses,
-                respondusLockDown: quiz.respondusLockDown,
-                requiredViewResults: quiz.requiredViewResults,
-                dueDate: quiz.due,
-                availableFrom: quiz.availableFrom,
-                availablility: quiz.available,
-                until: quiz.until,
-                visibility: quiz.visibility,
-                questionData: [],
+                ...quiz,
+                _id: new Date().getTime().toString()
             };
             state.quizzes = [...state.quizzes, newQuiz] as any;
         },

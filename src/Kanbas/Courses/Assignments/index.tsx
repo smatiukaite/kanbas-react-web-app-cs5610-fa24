@@ -40,6 +40,18 @@ export default function Assignments() {
     const maxId = Math.max(...assignments.map((assignment: any) => Number(assignment._id || 0)));
     return maxId + 1;
   };
+  
+  const fetchAssignments = async () => {
+    const dbAssignments = db.assignments.filter((assignment: any) => assignment.course === cid)
+    dispatch(setAssignments(dbAssignments));
+  };
+
+  useEffect(() => {
+    if (!isInitialized) {
+      fetchAssignments();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (userRole === "FACULTY") {
     return (

@@ -12,34 +12,7 @@ export default function QuizControls({ cid }: { cid: string }) {
 
     //CREATE A NEW QUIZ WITH THE DEFAULT VALUES AND NAVIGATES TO THE QUIZ EDITOR SCREEN
     const handleCreateQuiz = () => {
-        const newQuiz = {
-            _id: new Date().getTime().toString(),
-            title: "New Quiz",
-            description: "",
-            quizType: "Graded Quiz",
-            assignmentGroup: "Quizzes",
-            shuffleAnswers: true,
-            isTimeLimit: true,
-            timeLimit: 20,
-            multipleAttempts: false,
-            oneQuestionAtATime: true,
-            showAnswers: false,
-            webcam: false,
-            lockQuestions: false,
-            assignTo: "Everyone",
-            accessCode: "",
-            dueDate: "",
-            availableFrom: "",
-            until: "",
-            points: 0,
-            visibility: "Unpublished",
-            viewResponses: "Always",
-            respondusLockDown: false,
-            requiredViewResults: false,
-            questionData: [],
-        };
-        dispatch(createQuiz(newQuiz)); // Dispatch Redux action to add a new quiz
-        navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/${newQuiz._id}`); // Navigate to the editor
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/Editor/`); // Navigate to the editor
     };
 
     return (

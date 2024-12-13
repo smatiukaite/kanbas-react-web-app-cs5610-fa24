@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import PeopleDetails from "./Details";
 import { FaPlus, FaUserCircle } from "react-icons/fa";
 
-export default function PeopleTable() {
-    const [users, setUsers] = useState<any[]>([]);
+export default function PeopleTable({ users = [] }: { users?: any[] }) {
+    const [, setUsers] = useState<any[]>([]);
     const [role, setRole] = useState("");
     const [, setName] = useState("");
 

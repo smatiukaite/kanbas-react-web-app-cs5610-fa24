@@ -51,29 +51,29 @@ export default function QuizPreview() {
     useEffect(() => {
         if (quiz) {
             setQuizDetails({
-                title: quiz.title ?? "",
-                description: quiz.description ?? "",
-                quizType: quiz.quizType ?? "Graded Quiz",
-                assignmentGroup: quiz.assignmentGroup ?? "Quizzes",
-                shuffleAnswers: quiz.shuffleAnswers ?? true,
+                title: quiz.title || "",
+                description: quiz.description || "",
+                quizType: quiz.quizType || "Graded Quiz",
+                assignmentGroup: quiz.assignmentGroup || "Quizzes",
+                shuffleAnswers: quiz.shuffleAnswers ?? true, // Keep `false` as valid
                 isTimeLimit: quiz.isTimeLimit ?? true,
-                timeLimit: quiz.timeLimit ?? 20,
-                multipleAttempts: quiz.multipleAttempts ?? false,
+                timeLimit: quiz.timeLimit || 20,
+                multipleAttempts: quiz.multipleAttempts ?? false, // Keep `false` as valid
                 oneQuestionAtATime: quiz.oneQuestionAtATime ?? true,
                 showAnswers: quiz.showAnswers ?? false,
                 webcam: quiz.webcam ?? false,
                 lockQuestions: quiz.lockQuestions ?? false,
-                assignTo: quiz.assignTo ?? "Everyone",
-                accessCode: quiz.accessCode ?? "",
-                dueDate: quiz.due ?? "",
-                availableFrom: quiz.availableFrom ?? "",
-                until: quiz.until ?? "",
-                points: quiz.points ?? 0,
-                visibility: quiz.visibility ?? "Unpublished",
-                viewResponses: quiz.viewResponses ?? "Always",
+                assignTo: quiz.assignTo || "Everyone",
+                accessCode: quiz.accessCode || "",
+                dueDate: quiz.dueDate || "",
+                availableFrom: quiz.availableFrom || "",
+                until: quiz.until || "",
+                points: quiz.points || 0,
+                visibility: quiz.visibility || "Not published",
+                viewResponses: quiz.viewResponses || "Always",
                 respondusLockDown: quiz.respondusLockDown ?? false,
                 requiredViewResults: quiz.requiredViewResults ?? false,
-                questionData: quiz.questionData ?? [],
+                questionData: quiz.questionData || [],
             });
         }
     }, [quiz]);

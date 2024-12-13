@@ -1,0 +1,98 @@
+[
+    {
+      "title": "Propulsion Assignment",
+      "course": "RS101",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Complete the propulsion theory assignment covering chapters 3-5."
+    },
+    {
+      "title": "Combustion Analysis",
+      "course": "RS101",
+      "until": "May 13, 2024 at 12:00 am",
+      "due": "May 20, 2024 at 11:59 pm",
+      "points": "80 pts",
+      "description": "Analyze combustion processes and submit the report."
+    },
+    {
+      "title": "Nozzle Design Project",
+      "course": "RS101",
+      "until": "May 20, 2024 at 12:00 am",
+      "due": "May 27, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Design a nozzle and submit both design files and a report."
+    },
+    {
+      "title": "Propulsion Quiz",
+      "course": "RS101",
+      "until": "May 27, 2024 at 12:00 am",
+      "due": "May 30, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "Take the quiz covering the propulsion concepts studied this semester."
+    },
+    {
+      "title": "Aerodynamics Quiz",
+      "course": "RS102",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts",
+      "description": "The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. <p>The landing page should include the following:</p><ul><li>Your full name and section</li><li>Links to each of the lab assignments</li><li>Link to the Kanbas application</li><li>Links to all relevant source code repositories</li></ul><p>The Kanbas application should include a link to navigate back to the landing page."
+    },
+    {
+      "title": "Flow Analysis",
+      "course": "RS102",
+      "until": "May 13, 2024 at 13:00 am",
+      "due": "May 20, 2024 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Heating Analysis",
+      "course": "RS102",
+      "until": "May 20, 2024 at 12:00 am",
+      "due": "May 23, 2024 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Structural Design Task",
+      "course": "RS103",
+      "until": "May 6, 2024 at 12:00 am",
+      "due": "May 13, 2024 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Orbital Calculations",
+      "course": "RS103",
+      "until": "May 13, 2024 at 12:00 am",
+      "due": "May 23, 2024 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Systems Engineering Exam",
+      "course": "RS103",
+      "until": "May, 2024 26 at 12:00 am",
+      "due": "May 29, 2024 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Fluid Dynamics Assignment",
+      "course": "RS104",
+      "until": "May 6 at 12:00 am",
+      "due": "May 13 at 11:59 pm",
+      "points": "100 pts"
+    },
+    {
+      "title": "Boundary Layer Quiz",
+      "course": "RS104",
+      "until": "May 13 at 12:00 am",
+      "due": "May 20 at 11:59 pm",
+      "points": "80 pts"
+    },
+    {
+      "title": "Turbulence Project",
+      "course": "RS104",
+      "until": "May 20 at 12:00 am",
+      "due": "May 27 at 11:59 pm",
+      "points": "100 pts"
+    }
+  ]
