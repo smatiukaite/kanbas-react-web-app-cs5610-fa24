@@ -1,44 +1,67 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "./reducer";
+import * as client from "./client";
 
 export default function Profile() {
-    return (
-        <div id="wd-profile-screen">
-            <h2>Profile</h2>
-            <input id="wd-username"
-                placeholder="username"
-                className="form-control mb-2" />
-            <input id="wd-password"
-                placeholder="password" 
-                type="password"
-                className="form-control mb-2" />
-            <input id="wd-firstname"
-                placeholder="firstname"
-                className="form-control mb-2" />
-            <input id="wd-lastname"
-                placeholder="lastname"
-                className="form-control mb-2" />
-            <input id="wd-dob"
-                type="date"
-                placeholder="date"
-                className="form-control mb-2" />
-            <input id="wd-email"
-                type="email"
-                placeholder="email@example.com"
-                className="form-control mb-2" />
+    const [profile, setProfile] = useState<any>({});
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const fetchProfile = () => {
+        if (!currentUser) return navigate("/Kanbas/Account/Signin");
+        setProfile(currentUser);
+    };
 
-            <div id="wd-css-styling-dropdowns">
-                <select id="wd-role" className="form-select">
-                    <option selected>Select title</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="FACULTY">Faculty</option>
-                    <option value="STUDENT">Student</option>
-                    <option value="USER">User</option>
-                </select>
-            </div>
-            <Link id="wd-signout-btn"
-                to="/Kanbas/Account/SignOut"
-                className="btn btn-danger w-100 mt-2">
-                Sign out </Link>
+    const updateProfile = async () => {
+        const updatedProfile = await client.updateUser(profile);
+        dispatch(setCurrentUser(updatedProfile));
+    };
+
+    const signout = async () => {
+        await client.signout();
+        dispatch(setCurrentUser(null));
+        navigate("/Kanbas/Account/Signin");
+    };
+
+    //Get information from the database about the user (in the Profile)
+    useEffect(() => {
+        fetchProfile();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <div className="wd-profile-screen">
+            <h3>Profile</h3>
+            {profile && (
+                <div>
+                    <input defaultValue={profile.username} id="wd-username" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, username: e.target.value })} />
+                    <input defaultValue={profile.password} id="wd-password" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, password: e.target.value })} />
+                    <input defaultValue={profile.firstName} id="wd-firstname" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
+                    <input defaultValue={profile.lastName} id="wd-lastname" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
+                    <input defaultValue={profile.dob} id="wd-dob" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date" />
+                    <input defaultValue={profile.email} id="wd-email" className="form-control mb-2"
+                        onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+                    <select onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                        className="form-control mb-2" id="wd-role">
+                        <option value="USER">User</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="FACULTY">Faculty</option>
+                        <option value="STUDENT">Student</option>
+                    </select>
+                    <button onClick={updateProfile} className="btn btn-primary w-100 mb-2">
+                        Update </button>
+                    <button onClick={signout} className="btn btn-danger w-100 mb-2" id="wd-signout-btn">
+                        Sign out
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
